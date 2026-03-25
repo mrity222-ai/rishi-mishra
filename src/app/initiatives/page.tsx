@@ -7,7 +7,8 @@ import { Badge } from '@/components/ui/badge';
 import { ArrowUpRight, Globe, Zap, Target, BarChart3, Fingerprint, Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 
-const API_BASE_URL = 'http://localhost:5000';
+// 1. UPDATE: Hardcoded localhost ko hatakar environment variable lagaya
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 
 export default function InitiativesPage() {
     const { language } = useTranslation();
@@ -19,11 +20,16 @@ export default function InitiativesPage() {
     useEffect(() => {
         const fetchInitiatives = async () => {
             try {
+                setIsLoading(true);
+                // 2. Dynamic API call based on environment
                 const res = await fetch(`${API_BASE_URL}/api/initiatives`);
+                if (!res.ok) throw new Error("Failed to fetch");
                 const data = await res.json();
                 setInitiatives(data);
                 setFilteredData(data);
-            } catch (err) { console.error(err); } 
+            } catch (err) { 
+                console.error("Initiatives Fetch Error:", err); 
+            } 
             finally { setIsLoading(false); }
         };
         fetchInitiatives();
@@ -31,8 +37,8 @@ export default function InitiativesPage() {
 
     useEffect(() => {
         const results = initiatives.filter(item => {
-            const title = language === 'hi' ? item.titleHi : item.titleEn;
-            return title.toLowerCase().includes(search.toLowerCase());
+            const title = language === 'hi' ? (item.titleHi || item.titleEn) : item.titleEn;
+            return title?.toLowerCase().includes(search.toLowerCase());
         });
         setFilteredData(results);
     }, [search, initiatives, language]);
@@ -42,16 +48,14 @@ export default function InitiativesPage() {
     return (
         <div className="bg-[#f8fafc] dark:bg-[#020617] min-h-screen font-sans">
             
-            {/* 1. SaaS Hero Section with Background Image */}
+            {/* 1. Hero Section */}
             <section className="relative pt-32 pb-20 overflow-hidden">
-                {/* Hero Background Image & Overlay */}
                 <div className="absolute inset-0 z-0">
                     <img 
                         src="/h.jpeg" 
                         alt="Hero Background"
                         className="w-full h-full object-cover"
                     />
-                    {/* Multi-layered Overlay for SaaS Look */}
                     <div className="absolute inset-0 bg-slate-950/80 backdrop-blur-[2px]" />
                     <div className="absolute inset-0 bg-gradient-to-b from-transparent via-slate-950/50 to-[#f8fafc] dark:to-[#020617]" />
                 </div>
@@ -71,7 +75,7 @@ export default function InitiativesPage() {
                 </div>
             </section>
 
-            {/* 2. Search & Metrics Bar */}
+            {/* 2. Search & Metrics */}
             <section className="container mx-auto px-6 -mt-8 relative z-20">
                 <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-200 dark:border-slate-800 shadow-2xl p-4 flex flex-col md:flex-row items-center gap-6">
                     <div className="flex items-center gap-4 bg-slate-50 dark:bg-slate-800/50 px-6 py-3 rounded-2xl border border-slate-100 dark:border-slate-800 w-full md:max-w-md">
@@ -98,7 +102,7 @@ export default function InitiativesPage() {
                 </div>
             </section>
 
-            {/* 3. 3-Card Grid with Background Images */}
+            {/* 3. Grid Section */}
             <section className="pt-20 pb-32">
                 <div className="container mx-auto px-6">
                     {isLoading ? (
@@ -112,7 +116,7 @@ export default function InitiativesPage() {
                                     key={item.id} 
                                     className="group relative h-[550px] flex flex-col rounded-[3rem] overflow-hidden border border-slate-200 dark:border-slate-800 transition-all duration-700 hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.2)] hover:-translate-y-3"
                                 >
-                                    {/* Card Background Image */}
+                                    {/* Background Image Logic */}
                                     <div className="absolute inset-0 z-0">
                                         {item.image ? (
                                             <img 
@@ -122,29 +126,26 @@ export default function InitiativesPage() {
                                             />
                                         ) : (
                                             <div className="w-full h-full bg-slate-900 flex items-center justify-center">
-                                                <Globe className="h-20 w-20 text-slate-700 animate-spin-slow" />
+                                                <Globe className="h-20 w-20 text-slate-700 animate-pulse" />
                                             </div>
                                         )}
-                                        {/* Dynamic Gradient Overlay */}
                                         <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent opacity-90 group-hover:opacity-80 transition-opacity duration-500" />
                                     </div>
 
-                                    {/* Card Content */}
+                                    {/* Content */}
                                     <div className="relative z-10 flex flex-col h-full p-10 text-white">
                                         <div className="flex justify-between items-start mb-auto">
-                                            <div className="h-14 w-14 rounded-2xl bg-white/10 backdrop-blur-2xl border border-white/20 flex items-center justify-center transition-transform duration-500 group-hover:rotate-12">
-                                                <span className="text-primary-foreground">
-                                                    {icons[index % icons.length]}
-                                                </span>
+                                            <div className="h-14 w-14 rounded-2xl bg-white/10 backdrop-blur-2xl border border-white/20 flex items-center justify-center transition-transform duration-500 group-hover:rotate-12 text-primary-foreground">
+                                                {icons[index % icons.length]}
                                             </div>
                                             <Badge className="bg-white/10 backdrop-blur-md text-white border-white/20 font-mono text-[10px] tracking-widest uppercase py-1">
-                                                ID: {item.id}00
+                                                NODE-{item.id}
                                             </Badge>
                                         </div>
 
                                         <div className="mt-auto space-y-5">
                                             <div className="flex items-center gap-3">
-                                                <div className="h-[2px] w-12 bg-primary rounded-full shadow-[0_0_10px_rgba(var(--primary),0.8)]" />
+                                                <div className="h-[2px] w-12 bg-primary rounded-full" />
                                                 <span className="text-[10px] font-black uppercase tracking-[0.3em] text-primary">System Online</span>
                                             </div>
 

@@ -20,9 +20,9 @@ import {
 import { format, isValid, parseISO } from 'date-fns';
 import { enUS, hi } from 'date-fns/locale';
 import { useTranslation } from '@/hooks/use-translation';
-import { Edit2, Trash2, PlusCircle, RefreshCw, ImageIcon, FileText, Newspaper, AlertCircle, Loader2 } from 'lucide-react';
+import { Edit2, Trash2, PlusCircle, RefreshCw, ImageIcon, Newspaper, AlertCircle, Loader2, Layers } from 'lucide-react';
 
-const API_BASE_URL = 'http://localhost:5000';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 
 interface NewsItem {
   id: number;
@@ -30,9 +30,9 @@ interface NewsItem {
   titleHi: string;
   contentEn: string;
   contentHi: string;
-  image?: string;
+  images?: string | string[]; // Updated for Multiple Images
   category?: string;
-  created_at: string; 
+  publishDate: string; // Updated from created_at to use our new column
 }
 
 interface NewsManagerProps {
@@ -65,7 +65,7 @@ export function NewsManager({
       if (res.ok) {
         toast({
           title: language === 'hi' ? 'सफलतापूर्वक हटाया गया' : 'Deleted Successfully',
-          description: language === 'hi' ? 'लेख डेटाबेस से हटा दिया गया है।' : 'The article has been removed from the database.',
+          description: language === 'hi' ? 'लेख हटा दिया गया है।' : 'The article was removed.',
         });
         onRefresh();
       } else {
@@ -74,7 +74,7 @@ export function NewsManager({
     } catch (err) {
       toast({
         title: 'Error',
-        description: 'Backend connection failed.',
+        description: 'Connection failed.',
         variant: 'destructive'
       });
     }
@@ -86,23 +86,37 @@ export function NewsManager({
     return isValid(date) ? format(date, 'PPP', { locale }) : '---';
   };
 
+  // Multiple Image Parser Utility
+  const getMediaInfo = (images: any) => {
+    try {
+      if (!images) return { count: 0, exists: false };
+      const parsed = typeof images === 'string' ? JSON.parse(images) : images;
+      return { 
+        count: Array.isArray(parsed) ? parsed.length : 0, 
+        exists: Array.isArray(parsed) && parsed.length > 0 
+      };
+    } catch (e) {
+      return { count: 0, exists: false };
+    }
+  };
+
   if (isLoading) {
     return (
-      <div className="flex flex-col items-center justify-center p-20 bg-white rounded-[2rem]">
-        <Loader2 className="h-10 w-10 animate-spin text-primary mb-4" />
-        <p className="text-xs font-black uppercase italic tracking-widest text-slate-400">Loading News Articles...</p>
+      <div className="flex flex-col items-center justify-center p-20 bg-white rounded-[3rem] border border-dashed border-slate-200 shadow-inner">
+        <Loader2 className="h-12 w-12 animate-spin text-primary mb-4" />
+        <p className="text-[10px] font-black uppercase italic tracking-[0.2em] text-slate-400">Syncing Multiple Assets...</p>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="p-10 text-center bg-red-50 border-2 border-dashed border-red-200 rounded-[2rem]">
-        <AlertCircle className="h-12 w-12 text-red-500 mx-auto mb-4" />
-        <h3 className="text-xl font-black text-red-600 uppercase italic">Database Sync Error</h3>
-        <p className="text-slate-500 font-medium mb-6">Node.js server might be offline.</p>
-        <Button onClick={onRefresh} variant="outline" className="rounded-xl border-red-200 text-red-600 hover:bg-red-500 hover:text-white transition-all">
-          <RefreshCw className="h-4 w-4 mr-2" /> Try Reconnecting
+      <div className="p-12 text-center bg-red-50/50 border-2 border-dashed border-red-200 rounded-[3rem]">
+        <AlertCircle className="h-16 w-16 text-red-400 mx-auto mb-4" />
+        <h3 className="text-2xl font-black text-red-600 uppercase italic tracking-tighter">Database Link Broken</h3>
+        <p className="text-slate-500 font-bold text-sm mb-8">Could not fetch news feed from rs_db.</p>
+        <Button onClick={onRefresh} variant="destructive" className="rounded-2xl px-10 h-14 font-black uppercase italic tracking-widest shadow-xl shadow-red-500/20">
+          <RefreshCw className="h-5 w-5 mr-3" /> Retry Connection
         </Button>
       </div>
     );
@@ -110,132 +124,141 @@ export function NewsManager({
 
   return (
     <Card className="border-none shadow-none bg-transparent">
-      <CardHeader className="flex flex-col md:flex-row items-start md:items-center justify-between px-0 pb-8 gap-4">
-        <div className="flex items-center gap-4">
-          <div className="p-3 bg-primary/10 rounded-2xl">
-            <Newspaper className="h-7 w-7 text-primary" />
+      <CardHeader className="flex flex-col md:flex-row items-start md:items-center justify-between px-0 pb-10 gap-4">
+        <div className="flex items-center gap-5">
+          <div className="p-4 bg-primary rounded-[1.8rem] shadow-xl shadow-primary/20">
+            <Newspaper className="h-8 w-8 text-white" />
           </div>
           <div>
-            <CardTitle className="text-3xl font-black uppercase italic tracking-tighter">News Control Panel</CardTitle>
-            <CardDescription className="font-bold text-slate-400 uppercase tracking-widest text-[10px]">
-              Managing {news?.length || 0} Published Articles
+            <CardTitle className="text-4xl font-black uppercase italic tracking-tighter text-slate-900 leading-none">
+              News <span className="text-primary">Engine</span>
+            </CardTitle>
+            <CardDescription className="font-black text-slate-400 uppercase tracking-[0.2em] text-[9px] mt-2 block">
+              Managing {news?.length || 0} Dynamic Records with Multi-Asset Support
             </CardDescription>
           </div>
         </div>
-        <div className="flex gap-2">
-          <Button variant="outline" size="icon" onClick={onRefresh} className="rounded-2xl h-12 w-12 bg-white hover:rotate-180 transition-all duration-500 border-slate-200">
-            <RefreshCw className="h-5 w-5" />
+        <div className="flex gap-3">
+          <Button variant="outline" size="icon" onClick={onRefresh} className="rounded-2xl h-14 w-14 bg-white hover:bg-slate-50 border-slate-200 shadow-sm transition-all active:scale-90">
+            <RefreshCw className="h-5 w-5 text-slate-500" />
           </Button>
-          <Button onClick={onAddNew} className="rounded-2xl h-12 px-6 font-bold shadow-lg shadow-primary/20 hover:scale-105 transition-all">
-            <PlusCircle className="mr-2 h-5 w-5" /> Create Post
+          <Button onClick={onAddNew} className="rounded-2xl h-14 px-8 font-black uppercase italic tracking-widest shadow-2xl shadow-primary/30 hover:translate-y-[-2px] transition-all bg-primary">
+            <PlusCircle className="mr-3 h-5 w-5 stroke-[3px]" /> New Article
           </Button>
         </div>
       </CardHeader>
       
       <CardContent className="px-0">
-        <div className="rounded-[2.5rem] border bg-white overflow-hidden shadow-sm">
+        <div className="rounded-[3rem] border border-slate-100 bg-white overflow-hidden shadow-2xl shadow-slate-200/40">
           <Table>
-            <TableHeader className="bg-slate-50">
-              <TableRow className="hover:bg-transparent border-none">
-                <TableHead className="w-[45%] font-black uppercase text-[10px] tracking-widest py-6 pl-8">Article Details</TableHead>
-                <TableHead className="font-black uppercase text-[10px] tracking-widest text-center">Category</TableHead>
-                <TableHead className="font-black uppercase text-[10px] tracking-widest text-center">Media Status</TableHead>
-                <TableHead className="font-black uppercase text-[10px] tracking-widest text-center">Publish Date</TableHead>
-                <TableHead className="text-right font-black uppercase text-[10px] tracking-widest pr-8">Actions</TableHead>
+            <TableHeader className="bg-slate-50/50">
+              <TableRow className="border-none">
+                <TableHead className="w-[45%] font-black uppercase text-[10px] tracking-widest py-8 pl-10 text-slate-400">Headline & Content</TableHead>
+                <TableHead className="font-black uppercase text-[10px] tracking-widest text-center text-slate-400">Section</TableHead>
+                <TableHead className="font-black uppercase text-[10px] tracking-widest text-center text-slate-400">Assets</TableHead>
+                <TableHead className="font-black uppercase text-[10px] tracking-widest text-center text-slate-400">Schedule</TableHead>
+                <TableHead className="text-right font-black uppercase text-[10px] tracking-widest pr-10 text-slate-400">Control</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {news && news.length > 0 ? (
-                news.map((article) => (
-                  <TableRow key={article.id} className="group hover:bg-slate-50/50 transition-colors border-b border-slate-50">
-                    <TableCell className="py-5 pl-8">
-                      <div className="flex flex-col gap-1">
-                        <span className="font-black text-sm text-slate-800 uppercase italic tracking-tight line-clamp-1 group-hover:text-primary transition-colors">
-                          {article.titleEn}
-                        </span>
-                        <span className="text-[11px] font-bold text-slate-400 line-clamp-1 opacity-80">
-                          {article.titleHi}
-                        </span>
-                      </div>
-                    </TableCell>
-                    <TableCell className="text-center">
-                      <Badge className="rounded-lg font-black text-[9px] uppercase tracking-[0.1em] bg-slate-100 text-slate-500 border-none px-3">
-                        {article.category || 'General'}
-                      </Badge>
-                    </TableCell>
-                    <TableCell>
-                      <div className="flex justify-center">
-                        {article.image ? (
-                          <div className="flex items-center gap-2 text-emerald-600 bg-emerald-50 px-3 py-1.5 rounded-xl border border-emerald-100">
-                            <ImageIcon className="h-3 w-3" />
-                            <span className="text-[9px] font-black uppercase">Cover Image</span>
-                          </div>
-                        ) : (
-                          <div className="flex items-center gap-2 text-slate-300 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-100 italic">
-                            <FileText className="h-3 w-3" />
-                            <span className="text-[9px] font-black uppercase">Text Only</span>
-                          </div>
-                        )}
-                      </div>
-                    </TableCell>
-                    <TableCell className="text-center">
-                      <span className="text-[10px] font-bold text-slate-500 bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200">
-                        {formatDate(article.created_at)}
-                      </span>
-                    </TableCell>
-                    <TableCell className="text-right pr-8">
-                      <div className="flex justify-end gap-2">
-                        <Button 
-                          variant="outline" 
-                          size="icon" 
-                          className="h-10 w-10 rounded-xl hover:bg-primary hover:text-white transition-all shadow-sm border-slate-200"
-                          onClick={() => onEdit(article)}
-                        >
-                          <Edit2 className="h-4 w-4" />
-                        </Button>
-                        
-                        <AlertDialog>
-                          <AlertDialogTrigger asChild>
-                            <Button 
-                              variant="outline" 
-                              size="icon" 
-                              className="h-10 w-10 rounded-xl hover:bg-red-500 hover:text-white transition-all text-red-500 shadow-sm border-slate-200"
-                            >
-                              <Trash2 className="h-4 w-4" />
-                            </Button>
-                          </AlertDialogTrigger>
-                          <AlertDialogContent className="rounded-[2rem] border-2">
-                            <AlertDialogHeader>
-                              <AlertDialogTitle className="text-2xl font-black italic uppercase tracking-tighter">Confirm Erase</AlertDialogTitle>
-                              <AlertDialogDescription className="font-medium">
-                                Are you sure? This will permanently remove this article from the MySQL database and public news feed.
-                                <span className="block font-black text-red-500 mt-4 p-4 bg-red-50 rounded-[1.5rem] border-2 border-dashed border-red-100 italic text-sm">
-                                  "{article.titleEn}"
-                                </span>
-                              </AlertDialogDescription>
-                            </AlertDialogHeader>
-                            <AlertDialogFooter className="mt-6">
-                              <AlertDialogCancel className="rounded-xl font-bold uppercase text-[10px]">Keep Article</AlertDialogCancel>
-                              <AlertDialogAction 
-                                onClick={() => handleDelete(article.id)} 
-                                className="bg-red-500 hover:bg-red-600 text-white rounded-xl font-bold uppercase text-[10px] px-8"
+                news.map((article) => {
+                  const media = getMediaInfo(article.images);
+                  return (
+                    <TableRow key={article.id} className="group hover:bg-slate-50/60 transition-colors border-slate-50">
+                      <TableCell className="py-7 pl-10">
+                        <div className="flex flex-col space-y-1.5">
+                          <span className="font-black text-lg text-slate-800 uppercase italic tracking-tight line-clamp-1 group-hover:text-primary transition-colors">
+                            {article.titleEn}
+                          </span>
+                          <span className="text-[11px] font-bold text-slate-400 line-clamp-1 font-hindi opacity-80">
+                            {article.titleHi}
+                          </span>
+                        </div>
+                      </TableCell>
+                      <TableCell className="text-center">
+                        <Badge className="rounded-xl font-black text-[9px] uppercase tracking-widest bg-white border-slate-200 text-slate-600 px-4 py-2 shadow-sm border">
+                          {article.category || 'General'}
+                        </Badge>
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex justify-center">
+                          {media.exists ? (
+                            <div className="flex items-center gap-2 text-primary bg-primary/5 px-4 py-2 rounded-2xl border border-primary/10">
+                              <Layers className="h-4 w-4" />
+                              <span className="text-[10px] font-black tracking-tighter">{media.count} Files</span>
+                            </div>
+                          ) : (
+                            <div className="flex items-center gap-2 text-slate-300 bg-slate-50 px-4 py-2 rounded-2xl border border-slate-100 italic">
+                              <ImageIcon className="h-4 w-4" />
+                              <span className="text-[9px] font-black uppercase tracking-tighter">No Media</span>
+                            </div>
+                          )}
+                        </div>
+                      </TableCell>
+                      <TableCell className="text-center">
+                        <div className="inline-flex flex-col items-center bg-slate-50 px-4 py-2 rounded-2xl border border-slate-100">
+                           <span className="text-[10px] font-black text-slate-600 uppercase tracking-tighter">
+                             {formatDate(article.publishDate)}
+                           </span>
+                        </div>
+                      </TableCell>
+                      <TableCell className="text-right pr-10">
+                        <div className="flex justify-end gap-3">
+                          <Button 
+                            variant="secondary" 
+                            size="icon" 
+                            className="h-12 w-12 rounded-2xl bg-white border border-slate-100 hover:bg-slate-900 hover:text-white transition-all shadow-sm group/btn"
+                            onClick={() => onEdit(article)}
+                          >
+                            <Edit2 className="h-4 w-4 group-hover/btn:scale-110 transition-transform" />
+                          </Button>
+                          
+                          <AlertDialog>
+                            <AlertDialogTrigger asChild>
+                              <Button 
+                                variant="secondary" 
+                                size="icon" 
+                                className="h-12 w-12 rounded-2xl bg-white border border-slate-100 hover:bg-red-500 hover:text-white transition-all text-red-500 shadow-sm"
                               >
-                                Delete Forever
-                              </AlertDialogAction>
-                            </AlertDialogFooter>
-                          </AlertDialogContent>
-                        </AlertDialog>
-                      </div>
-                    </TableCell>
-                  </TableRow>
-                ))
+                                <Trash2 className="h-4 w-4" />
+                              </Button>
+                            </AlertDialogTrigger>
+                            <AlertDialogContent className="rounded-[3rem] border-none shadow-3xl p-8">
+                              <AlertDialogHeader>
+                                <div className="h-16 w-16 bg-red-50 rounded-2xl flex items-center justify-center mb-4">
+                                   <Trash2 className="h-8 w-8 text-red-500" />
+                                </div>
+                                <AlertDialogTitle className="text-3xl font-black italic uppercase tracking-tighter text-slate-900">Erase Content?</AlertDialogTitle>
+                                <AlertDialogDescription className="font-bold text-slate-500 mt-2 text-base">
+                                  This will permanently delete this article and its {media.count} associated images from the cloud.
+                                  <div className="block font-black text-red-500 mt-6 p-6 bg-red-50/50 rounded-[2rem] border-2 border-dashed border-red-100 italic text-sm">
+                                    "{article.titleEn}"
+                                  </div>
+                                </AlertDialogDescription>
+                              </AlertDialogHeader>
+                              <AlertDialogFooter className="mt-8 gap-3">
+                                <AlertDialogCancel className="rounded-2xl h-14 font-black uppercase text-[10px] tracking-widest border-slate-200">Cancel</AlertDialogCancel>
+                                <AlertDialogAction 
+                                  onClick={() => handleDelete(article.id)} 
+                                  className="bg-red-500 hover:bg-red-600 text-white rounded-2xl h-14 font-black uppercase text-[10px] px-10 tracking-widest shadow-xl shadow-red-500/20"
+                                >
+                                  Delete Permanently
+                                </AlertDialogAction>
+                              </AlertDialogFooter>
+                            </AlertDialogContent>
+                          </AlertDialog>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })
               ) : (
                 <TableRow>
-                  <TableCell colSpan={5} className="h-60 text-center">
-                    <div className="flex flex-col items-center justify-center opacity-20 grayscale">
-                      <Newspaper className="h-16 w-16 mb-4" />
-                      <h3 className="font-black text-2xl uppercase italic tracking-tighter">No Articles Found</h3>
-                      <p className="text-xs font-bold uppercase tracking-widest mt-2">Database is currently empty</p>
+                  <TableCell colSpan={5} className="h-96 text-center">
+                    <div className="flex flex-col items-center justify-center opacity-10">
+                      <Newspaper size={100} className="mb-4" />
+                      <h3 className="font-black text-3xl uppercase italic tracking-tighter">No Articles Synced</h3>
                     </div>
                   </TableCell>
                 </TableRow>

@@ -5,9 +5,10 @@ import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { useToast } from '@/hooks/use-toast';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
-import { Edit3, Trash2, PlusCircle, LayoutList, Loader2, ImageIcon } from 'lucide-react';
+import { Edit3, Trash2, PlusCircle, LayoutList, Loader2, ImageIcon, ExternalLink } from 'lucide-react';
 
-const API_BASE_URL = 'http://localhost:5000';
+// Environment variable connection
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 
 interface InitiativeItem {
   id: number;
@@ -20,7 +21,6 @@ interface InitiativeItem {
 
 interface InitiativesManagerProps {
   initiatives: InitiativeItem[] | null;
-  // Made optional for page.tsx compatibility
   isLoading?: boolean;
   error?: any;
   onAddNew?: () => void;
@@ -46,8 +46,8 @@ export function InitiativesManager({
 
       if (res.ok) {
         toast({
-          title: 'Deleted Successfully',
-          description: 'The initiative has been removed from MySQL.',
+          title: 'Success',
+          description: 'Initiative removed from server.',
         });
         onRefresh();
       } else {
@@ -55,17 +55,17 @@ export function InitiativesManager({
       }
     } catch (err) {
       toast({
-        title: 'Error',
-        description: 'Could not connect to the server.',
+        title: 'Network Error',
+        description: 'Check your database connection.',
         variant: 'destructive'
       });
     }
   };
 
   if (isLoading) return (
-    <div className="flex flex-col items-center justify-center p-20 bg-white rounded-[2rem]">
+    <div className="flex flex-col items-center justify-center p-20 bg-white rounded-[3rem] border border-dashed border-slate-200">
       <Loader2 className="h-10 w-10 animate-spin text-primary mb-4" />
-      <p className="text-xs font-black uppercase italic tracking-widest text-slate-400">Syncing Initiatives...</p>
+      <p className="text-[10px] font-black uppercase italic tracking-[0.2em] text-slate-400">Syncing Mission Assets...</p>
     </div>
   );
 
@@ -73,75 +73,80 @@ export function InitiativesManager({
     <Card className="border-none shadow-none bg-transparent">
       <CardHeader className="flex flex-col md:flex-row items-start md:items-center justify-between px-0 pb-8 gap-4">
         <div className="flex items-center gap-4">
-          <div className="p-3 bg-primary/10 rounded-2xl">
-            <LayoutList className="h-6 w-6 text-primary" />
+          <div className="p-4 bg-primary/10 rounded-[1.5rem] shadow-inner">
+            <LayoutList className="h-8 w-8 text-primary" />
           </div>
           <div>
-            <CardTitle className="text-3xl font-black uppercase italic tracking-tighter">Main Initiatives</CardTitle>
-            <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mt-1">
-              Manage content for your NGO's core missions
+            <CardTitle className="text-4xl font-black uppercase italic tracking-tighter text-slate-900">
+              Core <span className="text-primary">Initiatives</span>
+            </CardTitle>
+            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mt-2">
+              Bilingual Content Management System
             </p>
           </div>
         </div>
-        <Button onClick={onAddNew} className="rounded-2xl h-12 px-6 font-bold shadow-lg shadow-primary/20 hover:scale-105 transition-all">
-          <PlusCircle className="mr-2 h-5 w-5" /> Add New Initiative
+        <Button onClick={onAddNew} className="rounded-2xl h-14 px-8 font-black uppercase italic tracking-widest shadow-xl shadow-primary/20 hover:scale-105 transition-all">
+          <PlusCircle className="mr-2 h-5 w-5 stroke-[3px]" /> New Mission
         </Button>
       </CardHeader>
       
       <CardContent className="px-0">
-        <div className="rounded-[2.5rem] border bg-white overflow-hidden shadow-sm">
+        <div className="rounded-[3rem] border border-slate-100 bg-white overflow-hidden shadow-2xl shadow-slate-200/50">
           <Table>
-            <TableHeader className="bg-slate-50">
-              <TableRow className="hover:bg-transparent border-none">
-                <TableHead className="w-[80px] text-center font-black uppercase text-[10px] tracking-widest py-6 pl-8">Order</TableHead>
-                <TableHead className="w-[100px] font-black uppercase text-[10px] tracking-widest">Image</TableHead>
-                <TableHead className="font-black uppercase text-[10px] tracking-widest">Title (Hi/En)</TableHead>
-                <TableHead className="font-black uppercase text-[10px] tracking-widest">Slug</TableHead>
-                <TableHead className="text-right font-black uppercase text-[10px] tracking-widest pr-8">Actions</TableHead>
+            <TableHeader className="bg-slate-50/80">
+              <TableRow className="border-none">
+                <TableHead className="w-[100px] text-center font-black uppercase text-[10px] tracking-widest py-8 pl-10">Order</TableHead>
+                <TableHead className="w-[120px] font-black uppercase text-[10px] tracking-widest">Visual</TableHead>
+                <TableHead className="font-black uppercase text-[10px] tracking-widest">Identity (Hi / En)</TableHead>
+                <TableHead className="font-black uppercase text-[10px] tracking-widest">Routing</TableHead>
+                <TableHead className="text-right font-black uppercase text-[10px] tracking-widest pr-10">Manage</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {initiatives && initiatives.length > 0 ? (
                 [...initiatives].sort((a, b) => a.display_order - b.display_order).map((item) => (
-                  <TableRow key={item.id} className="group hover:bg-slate-50/50 transition-colors">
-                    <TableCell className="text-center pl-8">
-                      <div className="inline-flex items-center justify-center h-8 w-8 rounded-full bg-slate-100 text-slate-500 font-black text-xs">
+                  <TableRow key={item.id} className="group hover:bg-slate-50/40 transition-colors border-slate-50">
+                    <TableCell className="text-center pl-10">
+                      <div className="inline-flex items-center justify-center h-10 w-10 rounded-xl bg-slate-900 text-white font-black italic shadow-lg">
                         {item.display_order}
                       </div>
                     </TableCell>
                     <TableCell>
-                      <div className="h-14 w-14 rounded-2xl border-2 border-white shadow-md overflow-hidden bg-slate-100">
+                      <div className="h-16 w-16 rounded-[1.2rem] border-4 border-white shadow-xl overflow-hidden bg-slate-100 ring-1 ring-slate-100">
                         {item.image ? (
                           <img 
                             src={`${API_BASE_URL}/uploads/initiatives/${item.image}`} 
-                            className="h-full w-full object-cover group-hover:scale-110 transition-transform duration-500" 
-                            alt="thumb" 
-                            onError={(e) => {(e.target as HTMLImageElement).src = 'https://placehold.co/200x200?text=No+Img'}}
+                            className="h-full w-full object-cover group-hover:scale-125 transition-transform duration-700" 
+                            alt={item.titleEn} 
+                            onError={(e) => {(e.target as HTMLImageElement).src = 'https://placehold.co/200x200?text=?';}}
                           />
                         ) : (
-                          <div className="h-full w-full flex items-center justify-center opacity-20 text-slate-400">
+                          <div className="h-full w-full flex items-center justify-center opacity-10">
                             <ImageIcon className="h-6 w-6" />
                           </div>
                         )}
                       </div>
                     </TableCell>
                     <TableCell>
-                      <div className="flex flex-col">
-                        <span className="font-black text-slate-800 uppercase italic tracking-tight">{item.titleHi}</span>
-                        <span className="text-[11px] font-bold text-slate-400 uppercase tracking-tighter">{item.titleEn}</span>
+                      <div className="flex flex-col space-y-0.5">
+                        <span className="text-lg font-black text-slate-800 uppercase italic tracking-tight leading-none">{item.titleHi}</span>
+                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{item.titleEn}</span>
                       </div>
                     </TableCell>
                     <TableCell>
-                      <code className="text-[10px] bg-primary/5 text-primary font-bold px-2 py-1 rounded-lg border border-primary/10">
-                        /{item.slug}
-                      </code>
+                      <div className="flex items-center gap-2">
+                        <code className="text-[9px] bg-slate-100 text-slate-600 font-bold px-3 py-1.5 rounded-full border border-slate-200">
+                          /{item.slug}
+                        </code>
+                        <ExternalLink size={12} className="text-slate-300 group-hover:text-primary transition-colors" />
+                      </div>
                     </TableCell>
-                    <TableCell className="text-right pr-8">
-                      <div className="flex justify-end gap-2">
+                    <TableCell className="text-right pr-10">
+                      <div className="flex justify-end gap-3">
                         <Button 
-                          variant="outline" 
+                          variant="secondary" 
                           size="icon" 
-                          className="h-10 w-10 rounded-xl hover:bg-primary hover:text-white transition-all shadow-sm" 
+                          className="h-12 w-12 rounded-2xl bg-white border border-slate-200 hover:bg-primary hover:text-white transition-all shadow-sm" 
                           onClick={() => onEdit(item)}
                         >
                           <Edit3 className="h-4 w-4" />
@@ -150,27 +155,27 @@ export function InitiativesManager({
                         <AlertDialog>
                           <AlertDialogTrigger asChild>
                             <Button 
-                              variant="outline" 
+                              variant="secondary" 
                               size="icon" 
-                              className="h-10 w-10 rounded-xl hover:bg-red-500 hover:text-white transition-all text-red-500 shadow-sm"
+                              className="h-12 w-12 rounded-2xl bg-white border border-slate-200 hover:bg-red-500 hover:text-white transition-all text-red-500 shadow-sm"
                             >
                               <Trash2 className="h-4 w-4" />
                             </Button>
                           </AlertDialogTrigger>
-                          <AlertDialogContent className="rounded-[2rem]">
+                          <AlertDialogContent className="rounded-[2.5rem] border-none shadow-2xl">
                             <AlertDialogHeader>
-                              <AlertDialogTitle className="font-black uppercase italic tracking-tighter text-xl">Confirm Delete?</AlertDialogTitle>
-                              <AlertDialogDescription className="font-medium">
-                                Are you sure you want to delete <strong>{item.titleEn}</strong>? This will remove its section from the website.
+                              <AlertDialogTitle className="text-2xl font-black uppercase italic tracking-tighter text-red-600">Terminate initiative?</AlertDialogTitle>
+                              <AlertDialogDescription className="font-bold text-slate-500">
+                                This will remove the <strong>{item.titleEn}</strong> section from the live NGO portal and delete its assets from MySQL.
                               </AlertDialogDescription>
                             </AlertDialogHeader>
-                            <AlertDialogFooter>
-                              <AlertDialogCancel className="rounded-xl font-bold uppercase text-[10px]">Cancel</AlertDialogCancel>
+                            <AlertDialogFooter className="mt-4 gap-3">
+                              <AlertDialogCancel className="rounded-xl font-black uppercase text-[10px] tracking-widest">Abort</AlertDialogCancel>
                               <AlertDialogAction 
                                 onClick={() => handleDelete(item.id)} 
-                                className="bg-red-500 hover:bg-red-600 rounded-xl font-bold uppercase text-[10px]"
+                                className="bg-red-500 hover:bg-red-600 rounded-xl font-black uppercase text-[10px] tracking-widest px-6"
                               >
-                                Delete Initiative
+                                Delete Mission
                               </AlertDialogAction>
                             </AlertDialogFooter>
                           </AlertDialogContent>
@@ -181,10 +186,10 @@ export function InitiativesManager({
                 ))
               ) : (
                 <TableRow>
-                  <TableCell colSpan={5} className="h-40 text-center">
-                    <div className="flex flex-col items-center justify-center opacity-20 grayscale">
-                      <LayoutList className="h-12 w-12 mb-2" />
-                      <p className="font-black uppercase italic tracking-widest text-xs">No Initiatives Found</p>
+                  <TableCell colSpan={5} className="h-80 text-center">
+                    <div className="flex flex-col items-center justify-center opacity-10">
+                      <LayoutList size={80} className="mb-4" />
+                      <p className="font-black text-2xl uppercase italic tracking-tighter">Mission List Empty</p>
                     </div>
                   </TableCell>
                 </TableRow>

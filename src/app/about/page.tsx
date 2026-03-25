@@ -27,15 +27,15 @@ export default function AboutPage() {
     { label: { en: "Mother's Name", hi: 'माता का नाम' }, value: 'श्रीमती मिथिलेश मिश्रा' },
     { label: { en: 'Religion & Caste', hi: 'धर्म एवं जाति' }, value: 'हिंदू (ब्राह्मण)' },
     { label: { en: 'Date of Birth', hi: 'जन्म तिथि' }, value: '07 जुलाई 1988', icon: <Calendar className="h-4 w-4 text-accent" /> },
-    { label: { en: 'Current Address', hi: 'वर्तमान पता' }, value: '7/317, रजनी खण्ड, शारदा नगर, तेलीबाग, लखनऊ', icon: <MapPin className="h-4 w-4 text-accent" /> },
-    { label: { en: 'Office Address', hi: 'कार्यालय पता' }, value: 'बन्थरा बाजार, सरोजनी नगर, लखनऊ' },
+    { label: { en: 'Current Address', hi: 'वर्तमान पता' }, value: '7/317, रजनी खण्ड, शारदा नगर, सरोजनी नगर, लखनऊ', icon: <MapPin className="h-4 w-4 text-accent" /> },
+    { label: { en: 'Office Address', hi: 'कार्यालय पता' }, value: 'कल्ली पश्चिम, नियर किसान पथ, रायबरेली रोड, सरोजनी नगर, लखनऊ' },
     { label: { en: 'Permanent Address', hi: 'स्थायी पता' }, value: 'ग्राम – गौरा, पोस्ट – मोहनलालगंज, जिला – लखनऊ' },
     { label: { en: 'Nationality', hi: 'राष्ट्रीयता' }, value: 'भारतीय' },
     { label: { en: 'Education', hi: 'शिक्षा' }, value: 'बी.ए., एल.एल.बी.', icon: <GraduationCap className="h-4 w-4 text-accent" /> },
-    { label: { en: 'Marital Status', hi: 'वैवाहिक जीवन' }, value: 'विवाहित, तीन बच्चों के पिता' },
+    { label: { en: 'Marital Status', hi: 'वैवाहिक जीवन' }, value: 'विवाहित, दो बच्चों के पिता' },
     { label: { en: 'Personality', hi: 'व्यक्तित्व' }, value: 'मृदुभाषी, मुखर वक्ता, सिद्धांतप्रिय एवं क्रांतिकारी व्यक्तित्व' },
     { label: { en: 'Occupation', hi: 'व्यवसाय' }, value: 'कृषि एवं व्यापार', icon: <Briefcase className="h-4 w-4 text-accent" /> },
-    { label: { en: 'Current Positions', hi: 'वर्तमान पदभार' }, value: 'प्रदेश प्रभारी, भारतीय किसान यूनियन (भानु) | राष्ट्रीय अध्यक्ष, सोन चिरैया संस्था' },
+    { label: { en: 'Current Positions', hi: 'वर्तमान पदभार' }, value: 'प्रदेश प्रभारी, भारतीय किसान यूनियन (भानु) | अध्यक्ष, सोन चिरैया संस्था' },
   ];
 
   const experienceData = [
@@ -158,7 +158,7 @@ export default function AboutPage() {
                         <div className="h-12 w-12 rounded-2xl bg-accent/10 flex items-center justify-center">
                             <Briefcase className="h-6 w-6 text-accent" />
                         </div>
-                        <AnimatedText el="h2" text={t('about_exp_title')} className="font-headline text-4xl font-extrabold text-primary" />
+                        <AnimatedText el="h2" text={t('about Us')} className="font-headline text-4xl font-extrabold text-primary" />
                     </div>
                     <div className="space-y-6">
                         {experienceData.map((item, idx) => (

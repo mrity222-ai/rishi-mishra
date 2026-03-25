@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { useTranslation } from '@/hooks/use-translation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -9,11 +10,14 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { Phone, Mail, MapPin } from 'lucide-react';
+import { Phone, Mail, MapPin, Loader2, Send } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { StaggerWrap, StaggerItem } from '@/components/animations';
 import AnimatedText from '@/components/animated-text';
+
+// Env Variable fallback ke saath
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 
 // Social Icons Components
 const FacebookIcon = (props: React.SVGProps<SVGSVGElement>) => (
@@ -36,12 +40,13 @@ const bannerImage = PlaceHolderImages.find(p => p.id === 'gallery-2');
 export default function ContactPage() {
   const { t } = useTranslation();
   const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const formSchema = z.object({
-    name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
-    email: z.string().email({ message: 'Please enter a valid email.' }),
+    name: z.string().min(2, { message: t('error_name_short') || 'Name must be at least 2 characters.' }),
+    email: z.string().email({ message: t('error_email_invalid') || 'Please enter a valid email.' }),
     phone: z.string().optional(),
-    message: z.string().min(10, { message: 'Message must be at least 10 characters.' }),
+    message: z.string().min(10, { message: t('error_message_short') || 'Message must be at least 10 characters.' }),
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -49,10 +54,10 @@ export default function ContactPage() {
     defaultValues: { name: '', email: '', phone: '', message: '' },
   });
 
-  // --- UPDATED ONSUBMIT FOR MYSQL BACKEND ---
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    setIsSubmitting(true);
     try {
-      const response = await fetch('http://localhost:5000/api/messages', {
+      const response = await fetch(`${API_URL}/api/messages`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -63,16 +68,18 @@ export default function ContactPage() {
       if (!response.ok) throw new Error('Failed to send message');
 
       toast({
-        title: t('contact_form_success'),
-        description: "We will get back to you shortly.",
+        title: t('contact_form_success') || "Success!",
+        description: "Aapka message mil gaya hai. Shukriya!",
       });
       form.reset();
     } catch (error) {
       toast({
-        title: "Error",
-        description: "Could not send message. Please try again.",
+        title: "Submission Error",
+        description: "Message nahi bheja ja saka. Kripya check karein ki backend chal raha hai ya nahi.",
         variant: "destructive",
       });
+    } finally {
+      setIsSubmitting(false);
     }
   }
 
@@ -84,7 +91,8 @@ export default function ContactPage() {
   ];
 
   return (
-    <div className="bg-background">
+    <div className="bg-background min-h-screen">
+      {/* Banner Section */}
       {bannerImage ? (
         <section
           className="relative bg-cover bg-center bg-no-repeat py-20 md:py-28"
@@ -125,13 +133,15 @@ export default function ContactPage() {
         </section>
       )}
 
+      {/* Main Content */}
       <section className="py-12">
         <div className="container mx-auto px-4 md:px-6">
           <StaggerWrap className="grid gap-12 lg:grid-cols-5">
+            {/* Contact Form Card */}
             <StaggerItem className="lg:col-span-3">
-              <Card className="bg-card backdrop-blur-lg border border-accent transition-all duration-300 hover:shadow-xl">
+              <Card className="bg-card backdrop-blur-lg border border-accent/20 transition-all duration-300 hover:shadow-xl">
                 <CardHeader>
-                  
+                    <CardTitle className="text-xl font-headline">{t('Contact') || "Hamse Sampark Karein"}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <Form {...form}>
@@ -182,37 +192,55 @@ export default function ContactPage() {
                           </FormItem>
                         )}
                       />
-                      <Button type="submit" size="lg" className="w-full sm:w-auto">{t('submit')}</Button>
+                      <Button 
+                        type="submit" 
+                        size="lg" 
+                        className="w-full sm:w-auto font-bold"
+                        disabled={isSubmitting}
+                      >
+                        {isSubmitting ? (
+                          <>
+                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                            Sending...
+                          </>
+                        ) : (
+                          <>
+                            <Send className="mr-2 h-4 w-4" />
+                            {t('submit')}
+                          </>
+                        )}
+                      </Button>
                     </form>
                   </Form>
                 </CardContent>
               </Card>
             </StaggerItem>
 
+            {/* Info Cards */}
             <StaggerItem className="space-y-8 lg:col-span-2">
-              <Card className="bg-card border border-accent">
+              <Card className="bg-card border border-accent/20">
                 <CardHeader>
                     <CardTitle className="font-headline text-accent text-xl">
                         {t('contact_info_title')}
                     </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <a href="mailto:contact@rishimishra.in" className="flex items-center gap-4 text-muted-foreground hover:text-primary transition-colors">
-                    <Mail className="h-6 w-6 text-accent" />
+                  <a href="mailto:contact@rishimishra.in" className="flex items-center gap-4 text-muted-foreground hover:text-primary transition-colors group">
+                    <Mail className="h-6 w-6 text-accent group-hover:scale-110 transition-transform" />
                     <span>contact@rishimishra.in</span>
                   </a>
-                  <a href="tel:+919876543210" className="flex items-center gap-4 text-muted-foreground hover:text-primary transition-colors">
-                    <Phone className="h-6 w-6 text-accent" />
+                  <a href="tel:+919876543210" className="flex items-center gap-4 text-muted-foreground hover:text-primary transition-colors group">
+                    <Phone className="h-6 w-6 text-accent group-hover:scale-110 transition-transform" />
                     <span>+91 9876543210</span>
                   </a>
-                  <div className="flex items-center gap-4 text-muted-foreground">
-                    <MapPin className="h-6 w-6 text-accent" />
+                  <div className="flex items-center gap-4 text-muted-foreground group">
+                    <MapPin className="h-6 w-6 text-accent group-hover:scale-110 transition-transform" />
                     <span>Sarojini Nagar, Lucknow, UP</span>
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="bg-card border border-accent">
+              <Card className="bg-card border border-accent/20">
                 <CardHeader>
                     <CardTitle className="font-headline text-accent text-xl">
                         {t('contact_social_title')}
@@ -220,7 +248,7 @@ export default function ContactPage() {
                 </CardHeader>
                 <CardContent className="flex space-x-4">
                     {socialLinks.map((social) => (
-                        <Button key={social.label} variant="outline" size="icon" asChild className="hover:bg-accent hover:text-white">
+                        <Button key={social.label} variant="outline" size="icon" asChild className="hover:bg-accent hover:text-white transition-all">
                             <a href={social.href} target="_blank" rel="noopener noreferrer" aria-label={social.label}>
                                 {social.icon}
                             </a>
@@ -229,7 +257,7 @@ export default function ContactPage() {
                 </CardContent>
               </Card>
 
-              <Card className="bg-card border border-accent overflow-hidden">
+              <Card className="bg-card border border-accent/20 overflow-hidden">
                 <CardHeader>
                     <CardTitle className="font-headline text-accent text-xl">
                         {t('contact_map_title')}
@@ -238,7 +266,7 @@ export default function ContactPage() {
                 <CardContent className="p-0">
                     <div className="relative h-64 w-full">
                         <iframe 
-                          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14248.243916982846!2d80.86438835!3d26.7742749!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399bf8f495555555%3A0x7d00000000000000!2sSarojini%20Nagar%2C%20Lucknow%2C%20Uttar%20Pradesh!5e0!3m2!1sen!2sin!4v1700000000000" 
+                          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14248.24326588722!2d80.8679624!3d26.7742617!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399bf0802c61099d%3A0x6336a7b744f4751a!2sSarojini%20Nagar%2C%20Lucknow%2C%20Uttar%20Pradesh!5e0!3m2!1sen!2sin!4v1700000000000" 
                           width="100%" 
                           height="100%" 
                           style={{ border: 0 }} 

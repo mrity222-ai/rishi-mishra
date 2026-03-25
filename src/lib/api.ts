@@ -1,13 +1,13 @@
-const API_URL = 'http://localhost:5000/api';
+const API_URL = process.env.NEXT_PUBLIC_API_URL + "/api";
 
 export const galleryService = {
-  // Saari images fetch karne ke liye
+  // Get all images
   getAll: async () => {
     const res = await fetch(`${API_URL}/gallery`);
     return res.json();
   },
 
-  // Nayi image upload karne ke liye
+  // Upload image
   upload: async (data: { imageUrl: string; captionEn: string; captionHi: string }) => {
     const res = await fetch(`${API_URL}/gallery`, {
       method: 'POST',
@@ -17,7 +17,7 @@ export const galleryService = {
     return res.json();
   },
 
-  // Image delete karne ke liye
+  // Delete image
   delete: async (id: number) => {
     await fetch(`${API_URL}/gallery/${id}`, { method: 'DELETE' });
   }
