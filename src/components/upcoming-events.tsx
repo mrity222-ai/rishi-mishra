@@ -1,123 +1,89 @@
 'use client';
 
 import * as React from 'react';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { useTranslation } from '@/hooks/use-translation';
-import { Calendar, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { format, startOfDay, isAfter, isSameDay } from 'date-fns';
-import { enUS, hi } from 'date-fns/locale';
 import { StaggerWrap, StaggerItem } from './animations';
 import AnimatedText from './animated-text';
-import { Skeleton } from './ui/skeleton';
 import Link from 'next/link';
+import { ArrowRight, Heart } from 'lucide-react';
 
-const API_BASE_URL = 'http://localhost:5000';
-
+/**
+ * NGO Mission Impact Section
+ * Replaces the previous Upcoming Events list with an impactful introductory section.
+ */
 export function UpcomingEvents() {
-    const { t, language } = useTranslation();
-    const [upcomingEvents, setUpcomingEvents] = React.useState<any[]>([]);
-    const [isLoading, setIsLoading] = React.useState(true);
-    const [error, setError] = React.useState<string | null>(null);
-
-    const locale = language === 'hi' ? hi : enUS;
-
-    React.useEffect(() => {
-        const fetchEvents = async () => {
-            try {
-                const res = await fetch(`${API_BASE_URL}/api/events`);
-                if (!res.ok) throw new Error("Could not fetch events");
-                
-                const data = await res.json();
-                
-                // --- FIXED FILTER LOGIC ---
-                const today = startOfDay(new Date());
-
-                const filtered = data
-                    .filter((event: any) => {
-                        const eventDate = new Date(event.date);
-                        // Aaj ka event ya future ka event dikhayein
-                        return isAfter(eventDate, today) || isSameDay(eventDate, today);
-                    })
-                    .sort((a: any, b: any) => new Date(a.date).getTime() - new Date(b.date).getTime())
-                    .slice(0, 3);
-
-                setUpcomingEvents(filtered);
-            } catch (err: any) {
-                setError(err.message);
-            } finally {
-                setIsLoading(false);
-            }
-        };
-
-        fetchEvents();
-    }, []);
-
-    if (isLoading) {
-        return (
-            <div className="container mx-auto grid gap-8 md:grid-cols-3 py-16">
-                {[1, 2, 3].map((i) => <Skeleton key={i} className="h-[400px] w-full rounded-xl" />)}
-            </div>
-        );
-    }
-
     return (
-        <section className="bg-background py-16">
+        <section className="bg-white py-24 md:py-32 overflow-hidden border-y border-slate-50 selection:bg-emerald-100">
             <div className="container mx-auto px-4 md:px-6">
-                <div className="text-center mb-12">
-                    <AnimatedText el="h2" text={t('events_section_title')} className="text-3xl font-bold text-accent sm:text-4xl" />
-                    <p className="text-muted-foreground mt-4">{t('events_section_desc')}</p>
-                </div>
+                <div className="grid gap-16 lg:grid-cols-2 items-center">
+                    
+                    {/* Left Column: Content */}
+                    <StaggerWrap className="space-y-8 order-2 lg:order-1">
+                        <StaggerItem>
+                            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-100 shadow-sm">
+                                <Heart className="h-4 w-4 fill-emerald-600" />
+                                <span className="text-[10px] font-black uppercase tracking-[0.2em]">Our Social Impact</span>
+                            </div>
+                        </StaggerItem>
+                        
+                        <StaggerItem>
+                            <AnimatedText 
+                                el="h2" 
+                                text="A small step for a better tomorrow in Uttar Pradesh." 
+                                className="text-4xl md:text-6xl lg:text-7xl font-black text-slate-900 leading-[1.05] tracking-tighter" 
+                            />
+                        </StaggerItem>
 
-                {upcomingEvents.length > 0 ? (
-                    <StaggerWrap className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-                        {upcomingEvents.map((event) => {
-                            const eventDate = new Date(event.date);
-                            // Path check: /uploads/events/filename
-                            const imageUrl = event.image ? `${API_BASE_URL}/uploads/events/${event.image}` : null;
+                        <StaggerItem>
+                            <p className="text-lg md:text-xl text-slate-500 leading-relaxed max-w-xl font-medium">
+                                Dedicated to uplifting lives through education, social justice, and rural empowerment. 
+                                Based in Sarojini Nagar, Lucknow, we strive to create a more equitable future for every citizen in Uttar Pradesh.
+                            </p>
+                        </StaggerItem>
 
-                            return (
-                                <StaggerItem key={event.id}>
-                                    <Card className="flex h-full flex-col overflow-hidden bg-black/20 backdrop-blur-lg border border-accent hover:bg-black/30 transition-all">
-                                        {imageUrl && (
-                                            <div className="relative h-48 w-full">
-                                                <img src={imageUrl} alt={event.eventName} className="w-full h-full object-cover" />
-                                                <div className="absolute top-2 right-2 bg-primary text-white text-xs font-bold px-2 py-1 rounded">
-                                                    {format(eventDate, 'MMM dd')}
-                                                </div>
-                                            </div>
-                                        )}
-                                        <CardHeader>
-                                            <CardTitle className="text-accent text-xl">{event.eventName}</CardTitle>
-                                            <div className="text-sm text-muted-foreground space-y-1 pt-2">
-                                                <div className="flex items-center gap-2"><Calendar className="h-4 w-4 text-primary" /> {format(eventDate, 'PPP', { locale })}</div>
-                                                <div className="flex items-center gap-2"><MapPin className="h-4 w-4 text-primary" /> {event.location}</div>
-                                            </div>
-                                        </CardHeader>
-                                        <CardContent className="flex-grow">
-                                            <p className="text-sm text-muted-foreground line-clamp-2">
-                                                {language === 'hi' ? event.descriptionHi : (event.descriptionEn || event.descriptionHi)}
-                                            </p>
-                                        </CardContent>
-                                        <CardFooter>
-                                            <Button variant="outline" className="w-full border-accent/50" asChild>
-                                                <Link href={`/events/${event.id}`}>{t('view_details')}</Link>
-                                            </Button>
-                                        </CardFooter>
-                                    </Card>
-                                </StaggerItem>
-                            );
-                        })}
+                        <StaggerItem className="flex flex-wrap gap-4 pt-4">
+                            <Button asChild size="lg" className="bg-emerald-600 hover:bg-emerald-700 text-white rounded-2xl h-16 px-10 text-lg font-bold shadow-green hover-shadow-green transition-all hover:scale-105 active:scale-95 group border-none">
+                                <Link href="/contact" className="flex items-center gap-3">
+                                    Become a Volunteer
+                                    <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+                                </Link>
+                            </Button>
+                            <Button asChild variant="ghost" size="lg" className="rounded-2xl h-16 px-8 text-slate-600 hover:bg-slate-50 font-bold border border-slate-100">
+                                <Link href="/initiatives">Explore Initiatives</Link>
+                            </Button>
+                        </StaggerItem>
                     </StaggerWrap>
-                ) : (
-                    <div className="text-center py-20 border-2 border-dashed border-accent/20 rounded-2xl">
-                        <Calendar className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-                        <h3 className="text-xl font-semibold text-accent">No Upcoming Events</h3>
-                        <p className="text-muted-foreground">Please check back later for new updates.</p>
-                        {/* Debug info - only for you to see */}
-                        <p className="text-[10px] text-gray-700 mt-4">API URL: {API_BASE_URL}/api/events</p>
-                    </div>
-                )}
+
+                    {/* Right Column: Visuals */}
+                    <StaggerItem className="relative lg:pl-10 order-1 lg:order-2">
+                        <div className="relative group">
+                            {/* Artistic Background blobs */}
+                            <div className="absolute -top-10 -right-10 w-64 h-64 bg-emerald-50 rounded-full blur-3xl opacity-60 -z-10 group-hover:scale-110 transition-transform duration-1000" />
+                            <div className="absolute -bottom-10 -left-10 w-48 h-48 bg-primary/10 rounded-full blur-2xl opacity-40 -z-10 group-hover:scale-110 transition-transform duration-1000 delay-150" />
+                            
+                            <div className="relative aspect-[4/5] md:aspect-[16/10] lg:aspect-square w-full rounded-[3.5rem] overflow-hidden shadow-2xl border-[8px] border-white ring-1 ring-slate-100 transition-all duration-700 group-hover:shadow-green">
+                                <img 
+                                    src="https://images.unsplash.com/photo-1686624386665-4cd01b96d0f6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080" 
+                                    alt="Volunteers teaching children in Uttar Pradesh" 
+                                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                                    data-ai-hint="volunteers children"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent opacity-60" />
+                            </div>
+
+                            {/* Impact Badge */}
+                            <div className="absolute top-10 right-10 bg-white/90 backdrop-blur-md p-4 rounded-3xl shadow-2xl border border-white/20 transition-all hover:scale-110">
+                                <div className="flex items-center gap-3">
+                                    <div className="h-10 w-10 rounded-2xl bg-emerald-100 flex items-center justify-center">
+                                        <Heart className="h-5 w-5 text-emerald-600 fill-emerald-600" />
+                                    </div>
+                                    <span className="font-black text-slate-900 uppercase text-[10px] tracking-widest">Active In UP</span>
+                                </div>
+                            </div>
+                        </div>
+                    </StaggerItem>
+                </div>
             </div>
         </section>
     );
