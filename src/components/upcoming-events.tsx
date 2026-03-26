@@ -19,33 +19,33 @@ export function UpcomingEvents() {
     const missionPoints = [
         {
             icon: <ShieldCheck className="h-6 w-6 md:h-7 md:w-7" />,
-            title: { hi: 'अधिकार और सम्मान', en: 'Rights & Dignity' },
-            desc: { hi: 'किसानों के अधिकार और सम्मान की रक्षा करना', en: 'Protecting the rights and dignity of every farmer.' }
+            title: '🌾 अधिकार और सम्मान',
+            desc: 'किसानों के अधिकार और सम्मान की रक्षा करना'
         },
         {
             icon: <Users className="h-6 w-6 md:h-7 md:w-7" />,
-            title: { hi: 'किसान एकता', en: 'Farmer Unity' },
-            desc: { hi: 'किसान एकता को मजबूत बनाना', en: 'Strengthening unity among farmers across the region.' }
+            title: '🤝 किसान एकता',
+            desc: 'किसान एकता को मजबूत बनाना'
         },
         {
             icon: <Megaphone className="h-6 w-6 md:h-7 md:w-7" />,
-            title: { hi: 'सरकार तक आवाज़', en: 'Government Outreach' },
-            desc: { hi: 'किसानों की समस्याओं को सरकार तक पहुँचाना', en: 'Voicing farmer concerns directly to government authorities.' }
+            title: '📢 सरकार तक आवाज़',
+            desc: 'किसानों की समस्याओं को सरकार तक पहुँचाना'
         },
         {
             icon: <Tractor className="h-6 w-6 md:h-7 md:w-7" />,
-            title: { hi: 'कृषि जागरूकता', en: 'Agri Awareness' },
-            desc: { hi: 'कृषि से जुड़े मुद्दों पर जागरूकता फैलाना', en: 'Spreading awareness on agricultural issues and innovations.' }
+            title: '🚜 कृषि जागरूकता',
+            desc: 'कृषि से जुड़े मुद्दों पर जागरूकता फैलाना'
         },
         {
             icon: <TrendingUp className="h-6 w-6 md:h-7 md:w-7" />,
-            title: { hi: 'संगठन का विस्तार', en: 'Organization Growth' },
-            desc: { hi: 'संगठन का विस्तार और नेतृत्व विकास', en: 'Expanding our reach and developing future grassroots leaders.' }
+            title: '📈 संगठन का विस्तार',
+            desc: 'संगठन का विस्तार और नेतृत्व विकास'
         },
         {
             icon: <HeartHandshake className="h-6 w-6 md:h-7 md:w-7" />,
-            title: { hi: 'किसान का साथ', en: 'Farmer Support' },
-            desc: { hi: 'हर किसान के साथ खड़े रहना (Support System)', en: 'Standing as a robust support system for every farmer in need.' }
+            title: '💪 किसान का साथ',
+            desc: 'हर किसान के साथ खड़े रहना'
         }
     ];
 
@@ -174,10 +174,10 @@ export function UpcomingEvents() {
                                     </div>
                                     <div className="space-y-1">
                                         <h4 className="font-bold text-slate-900 text-lg md:text-xl uppercase tracking-tight font-hindi">
-                                            {language === 'hi' ? point.title.hi : point.title.en}
+                                            {point.title}
                                         </h4>
                                         <p className="text-slate-500 text-sm md:text-base leading-relaxed max-w-md font-hindi">
-                                            {language === 'hi' ? point.desc.hi : point.desc.en}
+                                            {point.desc}
                                         </p>
                                     </div>
                                 </div>
