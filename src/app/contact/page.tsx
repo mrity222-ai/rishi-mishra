@@ -176,7 +176,7 @@ export default function ContactPage() {
                             render={({ field }) => (
                             <FormItem>
                                 <FormLabel>{t('contact_form_phone')}</FormLabel>
-                                <FormControl><Input className="h-12 rounded-xl" placeholder="+91 98765 43210" {...field} /></FormControl>
+                                <FormControl><Input className="h-12 rounded-xl" placeholder="+91 88746 20222" {...field} /></FormControl>
                                 <FormMessage />
                             </FormItem>
                             )}
@@ -230,9 +230,9 @@ export default function ContactPage() {
                     <Mail className="h-6 w-6 text-accent group-hover:scale-110 transition-transform shrink-0" />
                     <span className="break-all">contact@rishimishra.com</span>
                   </a>
-                  <a href="tel:+919876543210" className="flex items-center gap-4 text-muted-foreground hover:text-primary transition-colors group">
+                  <a href="tel:+918874620222" className="flex items-center gap-4 text-muted-foreground hover:text-primary transition-colors group">
                     <Phone className="h-6 w-6 text-accent group-hover:scale-110 transition-transform shrink-0" />
-                    <span>+91 9876543210</span>
+                    <span>Office Helpline +91 8874620222 ,+91 9453233400</span>
                   </a>
                   <div className="flex items-center gap-4 text-muted-foreground group">
                     <MapPin className="h-6 w-6 text-accent group-hover:scale-110 transition-transform shrink-0" />
