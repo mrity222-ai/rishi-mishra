@@ -160,10 +160,8 @@ export function UpcomingEvents() {
                         </StaggerItem>
 
                         <StaggerItem>
-                            <p className="text-base md:text-lg text-slate-500 leading-relaxed max-w-xl font-medium mx-auto lg:mx-0">
-                                {language === 'hi' 
-                                    ? 'हम सरोजनी नगर और लखनऊ में शिक्षा, सामाजिक न्याय और ग्रामीण सशक्तिकरण के माध्यम से जीवन को बेहतर बनाने के लिए समर्पित हैं।'
-                                    : 'Dedicated to uplifting lives through education, social justice, and rural empowerment. Based in Sarojini Nagar, Lucknow, we strive to create a more equitable future for every citizen.'}
+                            <p className="text-base md:text-lg text-slate-500 leading-relaxed max-w-xl font-medium mx-auto lg:mx-0 font-hindi">
+                                एकता में शक्ति – किसान ही देश की ताकत
                             </p>
                         </StaggerItem>
 
