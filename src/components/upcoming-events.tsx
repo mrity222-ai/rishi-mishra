@@ -6,7 +6,7 @@ import { useTranslation } from '@/hooks/use-translation';
 import { Button } from '@/components/ui/button';
 import { StaggerWrap, StaggerItem } from './animations';
 import Link from 'next/link';
-import { ArrowRight, Heart, Users, PawPrint, Trees, HeartHandshake } from 'lucide-react';
+import { ArrowRight, Heart, Users, ShieldCheck, Megaphone, Tractor, TrendingUp, HeartHandshake } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 /**
@@ -15,6 +15,39 @@ import { motion } from 'framer-motion';
  */
 export function UpcomingEvents() {
     const { language } = useTranslation();
+
+    const missionPoints = [
+        {
+            icon: <ShieldCheck className="h-6 w-6 md:h-7 md:w-7" />,
+            title: { hi: '🌾 अधिकार और सम्मान', en: '🌾 Rights & Dignity' },
+            desc: { hi: 'किसानों के अधिकार और सम्मान की रक्षा करना', en: 'Protecting the rights and dignity of every farmer.' }
+        },
+        {
+            icon: <Users className="h-6 w-6 md:h-7 md:w-7" />,
+            title: { hi: '🤝 किसान एकता', en: '🤝 Farmer Unity' },
+            desc: { hi: 'किसान एकता को मजबूत बनाना', en: 'Strengthening unity among farmers across the region.' }
+        },
+        {
+            icon: <Megaphone className="h-6 w-6 md:h-7 md:w-7" />,
+            title: { hi: '📢 सरकार तक आवाज़', en: '📢 Government Outreach' },
+            desc: { hi: 'किसानों की समस्याओं को सरकार तक पहुँचाना', en: 'Voicing farmer concerns directly to government authorities.' }
+        },
+        {
+            icon: <Tractor className="h-6 w-6 md:h-7 md:w-7" />,
+            title: { hi: '🚜 कृषि जागरूकता', en: '🚜 Agri Awareness' },
+            desc: { hi: 'कृषि से जुड़े मुद्दों पर जागरूकता फैलाना', en: 'Spreading awareness on agricultural issues and innovations.' }
+        },
+        {
+            icon: <TrendingUp className="h-6 w-6 md:h-7 md:w-7" />,
+            title: { hi: '📈 संगठन का विस्तार', en: '📈 Organization Growth' },
+            desc: { hi: 'संगठन का विस्तार और नेतृत्व विकास', en: 'Expanding our reach and developing future grassroots leaders.' }
+        },
+        {
+            icon: <HeartHandshake className="h-6 w-6 md:h-7 md:w-7" />,
+            title: { hi: '💪 किसान का साथ', en: '💪 Farmer Support' },
+            desc: { hi: 'हर किसान के साथ खड़े रहना (Support System)', en: 'Standing as a robust support system for every farmer in need.' }
+        }
+    ];
 
     return (
         <section className="bg-gradient-to-b from-white to-emerald-50/30 py-16 md:py-32 overflow-hidden border-y border-slate-50 selection:bg-emerald-100 font-sans">
@@ -136,53 +169,21 @@ export function UpcomingEvents() {
 
                         {/* Bullet Points with Icons */}
                         <StaggerItem className="space-y-6 md:space-y-8 pt-4">
-                            <div className="flex flex-col sm:flex-row items-center lg:items-start gap-4 md:gap-6 group text-center sm:text-left">
-                                <div className="h-12 w-12 md:h-14 md:w-14 shrink-0 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center transition-all group-hover:bg-emerald-600 group-hover:text-white shadow-sm">
-                                    <HeartHandshake className="h-6 w-6 md:h-7 md:w-7" />
+                            {missionPoints.map((point, idx) => (
+                                <div key={idx} className="flex flex-col sm:flex-row items-center lg:items-start gap-4 md:gap-6 group text-center sm:text-left">
+                                    <div className="h-12 w-12 md:h-14 md:w-14 shrink-0 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center transition-all group-hover:bg-emerald-600 group-hover:text-white shadow-sm">
+                                        {point.icon}
+                                    </div>
+                                    <div className="space-y-1">
+                                        <h4 className="font-bold text-slate-900 text-lg md:text-xl uppercase tracking-tight">
+                                            {language === 'hi' ? point.title.hi : point.title.en}
+                                        </h4>
+                                        <p className="text-slate-500 text-sm md:text-base leading-relaxed max-w-md">
+                                            {language === 'hi' ? point.desc.hi : point.desc.en}
+                                        </p>
+                                    </div>
                                 </div>
-                                <div className="space-y-1">
-                                    <h4 className="font-bold text-slate-900 text-lg md:text-xl uppercase tracking-tight">
-                                        {language === 'hi' ? 'सामाजिक कल्याण' : 'Social Welfare'}
-                                    </h4>
-                                    <p className="text-slate-500 text-sm md:text-base leading-relaxed max-w-md">
-                                        {language === 'hi'
-                                            ? 'सामुदायिक सशक्तिकरण, शिक्षा को बढ़ावा देना और जरूरतमंदों के लिए आवश्यक संसाधन प्रदान करना।'
-                                            : 'Fostering community empowerment, education, and providing essential resources for those in need.'}
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div className="flex flex-col sm:flex-row items-center lg:items-start gap-4 md:gap-6 group text-center sm:text-left">
-                                <div className="h-12 w-12 md:h-14 md:w-14 shrink-0 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center transition-all group-hover:bg-emerald-600 group-hover:text-white shadow-sm">
-                                    <PawPrint className="h-6 w-6 md:h-7 md:w-7" />
-                                </div>
-                                <div className="space-y-1">
-                                    <h4 className="font-bold text-slate-900 text-lg md:text-xl uppercase tracking-tight">
-                                        {language === 'hi' ? 'पशु देखभाल' : 'Animal Care'}
-                                    </h4>
-                                    <p className="text-slate-500 text-sm md:text-base leading-relaxed max-w-md">
-                                        {language === 'hi'
-                                            ? 'पशु अधिकारों, बचाव कार्यों और स्वास्थ्य सेवाओं का समर्थन करना और दयालु उपचार की वकालत करना।'
-                                            : 'Championing animal rights, rescue operations, healthcare services, and advocating for compassionate treatment.'}
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div className="flex flex-col sm:flex-row items-center lg:items-start gap-4 md:gap-6 group text-center sm:text-left">
-                                <div className="h-12 w-12 md:h-14 md:w-14 shrink-0 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center transition-all group-hover:bg-emerald-600 group-hover:text-white shadow-sm">
-                                    <Trees className="h-6 w-6 md:h-7 md:w-7" />
-                                </div>
-                                <div className="space-y-1">
-                                    <h4 className="font-bold text-slate-900 text-lg md:text-xl uppercase tracking-tight">
-                                        {language === 'hi' ? 'वृक्षारोपण' : 'Tree Plantation'}
-                                    </h4>
-                                    <p className="text-slate-500 text-sm md:text-base leading-relaxed max-w-md">
-                                        {language === 'hi'
-                                            ? 'पर्यावरण पुनर्वनीकरण परियोजनाओं का नेतृत्व करना और एक स्वस्थ ग्रह का निर्माण करना।'
-                                            : 'Leading environmental reforestation projects, promoting ecological balance, and building a greener, healthier planet.'}
-                                    </p>
-                                </div>
-                            </div>
+                            ))}
                         </StaggerItem>
 
                         {/* CTA Button */}
