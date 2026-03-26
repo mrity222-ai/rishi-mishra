@@ -24,6 +24,8 @@
     --input: 240 5.9% 90%;
     --ring: 142 76% 36%;
     --radius: 1.5rem;
+    --saffron: 27 100% 60%;
+    --saffron-foreground: 0 0% 100%;
   }
 }
 
@@ -66,5 +68,13 @@
 
   .font-hindi {
     font-family: var(--font-hind), sans-serif;
+  }
+
+  .text-saffron {
+    color: hsl(var(--saffron));
+  }
+  
+  .bg-saffron {
+    background-color: hsl(var(--saffron));
   }
 }

@@ -2,35 +2,9 @@
 
 import { useTranslation } from '@/hooks/use-translation';
 import Link from 'next/link';
-import Logo from '../logo';
 import { Button } from '../ui/button';
 import { useEffect, useState } from 'react';
-
-const FacebookIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-  </svg>
-);
-
-const TwitterIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M22 4s-.7 2.1-2 3.4c1.6 1.4 3.3 4.4 3.3 4.4s-1.4 1-3.3 1.2c-.3 1.2-1 4.2-4.3 5.3s-5.3 1.2-6.3-1.2c-1.2-2.4-1.2-6.3 0-8.7s3.3-3.7 6.3-3.3c.3.3 1.2 1.2 1.2 1.2s-2.1-.3-4.3 1.2c-2.4 1.5-3.3 4.2-3.3 5.3s.7 2.1 2.3 3.3c1.5 1.2 4.3 2.3 6.3 1.2s3.3-3.3 3.3-4.3c0-1.2-1.2-2.3-1.2-2.3s1.2-.3 2.3-1.2c1.2-1 2.3-2.3 2.3-2.3s-1.2.3-2.3 0c-1.2-.3-2.3-1.2-2.3-1.2s2.1 1.2 3.3 0c1.2-.3 2.3-1.2 2.3-1.2s-1.2 1.2-2.3 1.2z" />
-  </svg>
-);
-
-const InstagramIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
-  </svg>
-);
-
-const YouTubeIcon = (props: React.SVGProps<SVGSVGElement>) => (
-    <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M21.58 7.19c-.23-.86-.91-1.54-1.77-1.77C18.25 5 12 5 12 5s-6.25 0-7.81.42c-.86.23-1.54.91-1.77 1.77C2 8.75 2 12 2 12s0 3.25.42 4.81c.23.86.91 1.54 1.77 1.77C5.75 19 12 19 12 19s6.25 0 7.81-.42c.86-.23-1.54.91-1.77 1.77C22 15.25 22 12 22 12s0-3.25-.42-4.81zM9.5 15.5V8.5L16 12l-6.5 3.5z"/>
-    </svg>
-);
+import { Mail, Phone, MapPin, Send, Facebook, Twitter, Instagram, Youtube, Leaf } from 'lucide-react';
 
 export default function Footer() {
   const { t } = useTranslation();
@@ -50,83 +24,176 @@ export default function Footer() {
     { href: '/contact', label: t('nav_contact') },
   ];
 
-  const socialLinks = [
-    { href: '#', icon: <FacebookIcon className="h-5 w-5" />, label: 'Facebook' },
-    { href: '#', icon: <TwitterIcon className="h-5 w-5" />, label: 'Twitter' },
-    { href: '#', icon: <InstagramIcon className="h-5 w-5" />, label: 'Instagram' },
-    { href: '#', icon: <YouTubeIcon className="h-5 w-5" />, label: 'YouTube' },
-  ];
-
   return (
-    <footer className="w-full bg-primary text-primary-foreground">
-      <div className="container mx-auto px-4 py-16 md:px-6">
-        <div className="grid gap-12 md:grid-cols-3">
-          <div className="flex flex-col items-start gap-6">
-            <Link href="/" className="flex items-center gap-2">
-              <Logo className="text-white" />
-            </Link>
-            <p className="max-w-xs text-sm text-primary-foreground/80 leading-relaxed">
-              {t('footer_tagline')}
-            </p>
-            <div className="flex space-x-3">
-                {socialLinks.map((social) => (
-                   <Button key={social.label} variant="outline" size="icon" asChild className="rounded-full border-primary-foreground/20 text-white hover:bg-accent hover:text-white hover:border-accent transition-all">
-                     <a href={social.href} target="_blank" rel="noopener noreferrer" aria-label={social.label}>
-                       {social.icon}
-                     </a>
-                   </Button>
-                ))}
+    <footer className="relative w-full overflow-hidden bg-primary text-white mt-20 rounded-t-[4rem] lg:rounded-t-[6rem] shadow-2xl border-t-8 border-saffron/20">
+      {/* Agricultural Motifs Background */}
+      <div 
+        className="absolute inset-0 z-0 opacity-[0.07] mix-blend-overlay pointer-events-none"
+        style={{ 
+          backgroundImage: `url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=2000')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center'
+        }}
+        data-ai-hint="indian fields agriculture"
+      />
+      
+      {/* Decorative Gradient Glows */}
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-saffron/10 rounded-full blur-[120px] -translate-y-1/2" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-accent/10 rounded-full blur-[120px] translate-y-1/2" />
+
+      <div className="relative z-10 container mx-auto px-6 pt-24 pb-12">
+        <div className="grid gap-16 lg:grid-cols-12">
+          {/* Main Brand & Vision */}
+          <div className="lg:col-span-5 space-y-10">
+            <div className="space-y-6">
+              <Link href="/" className="inline-block group">
+                <h2 className="font-headline text-6xl font-black tracking-tighter text-white transition-all group-hover:text-saffron">
+                  {t('hero_name')}
+                </h2>
+                <div className="flex gap-1 mt-3">
+                  <div className="h-2 w-20 bg-saffron rounded-full" />
+                  <div className="h-2 w-4 bg-white/20 rounded-full" />
+                </div>
+              </Link>
+              <p className="text-2xl font-bold italic text-white/90 leading-[1.1] max-w-md">
+                "{t('footer_tagline')}"
+              </p>
+              <div className="flex items-center gap-3 text-white/40 font-black uppercase text-[10px] tracking-[0.3em]">
+                <Leaf className="h-4 w-4 text-saffron fill-saffron" />
+                <span>Serving Sarojini Nagar & Lucknow</span>
+              </div>
+            </div>
+
+            <div className="flex space-x-4">
+              <SocialIcon href="#" icon={<Facebook className="h-5 w-5" />} />
+              <SocialIcon href="#" icon={<Twitter className="h-5 w-5" />} />
+              <SocialIcon href="#" icon={<Instagram className="h-5 w-5" />} />
+              <SocialIcon href="#" icon={<Youtube className="h-5 w-5" />} />
             </div>
           </div>
 
-          <div className="grid gap-8 sm:grid-cols-2 md:col-span-2 md:grid-cols-3">
-            <div>
-              <h3 className="font-headline text-lg font-bold text-white mb-6">{t('footer_quick_links')}</h3>
-              <ul className="space-y-3">
+          {/* Links Grid */}
+          <div className="lg:col-span-7 grid gap-12 sm:grid-cols-3">
+            <div className="space-y-8">
+              <h3 className="font-headline text-xs font-black uppercase tracking-[0.3em] text-saffron/80">
+                Navigation
+              </h3>
+              <ul className="space-y-4">
                 {navLinks.map((link) => (
                   <li key={link.href}>
-                    <Link href={link.href} className="text-sm text-primary-foreground/70 hover:text-accent transition-colors">
-                        {link.label}
+                    <Link 
+                      href={link.href} 
+                      className="text-white/60 hover:text-white transition-all font-bold flex items-center gap-0 hover:gap-3 group"
+                    >
+                      <span className="h-1.5 w-0 bg-saffron group-hover:w-4 transition-all rounded-full" />
+                      {link.label}
                     </Link>
                   </li>
                 ))}
               </ul>
             </div>
-            <div>
-              <h3 className="font-headline text-lg font-bold text-white mb-6">{t('footer_contact')}</h3>
-              <ul className="space-y-4 text-sm text-primary-foreground/70">
-                <li className="flex flex-col gap-1">
-                    <span className="text-accent font-bold text-xs uppercase tracking-wider">Email</span>
-                    <a href="mailto:contact@rishimishra.in" className="hover:text-accent transition-colors">contact@rishimishra.in</a>
-                </li>
-                <li className="flex flex-col gap-1">
-                    <span className="text-accent font-bold text-xs uppercase tracking-wider">Phone</span>
-                    <a href="tel:+919876543210" className="hover:text-accent transition-colors">+91 8874620222 ,9453233400</a>
-                </li>
-                <li className="flex flex-col gap-1">
-                    <span className="text-accent font-bold text-xs uppercase tracking-wider">Location</span>
-                    <span>Sarojini Nagar, Lucknow, UP</span>
-                </li>
+
+            <div className="space-y-8">
+              <h3 className="font-headline text-xs font-black uppercase tracking-[0.3em] text-saffron/80">
+                Connect Directly
+              </h3>
+              <ul className="space-y-6">
+                <ContactItem 
+                  icon={<Mail className="h-5 w-5" />} 
+                  label="Email Support" 
+                  value="contact@rishimishra.in" 
+                  href="mailto:contact@rishimishra.in" 
+                />
+                <ContactItem 
+                  icon={<Phone className="h-5 w-5" />} 
+                  label="Office Helpline" 
+                  value="+91 8874620222" 
+                  href="tel:+918874620222" 
+                />
+                <ContactItem 
+                  icon={<MapPin className="h-5 w-5" />} 
+                  label="Constituency Office" 
+                  value="Sarojini Nagar, Lucknow" 
+                />
               </ul>
             </div>
-            <div className="bg-white/5 p-6 rounded-2xl border border-white/10 backdrop-blur-sm">
-              <h3 className="font-headline text-base font-bold text-white mb-4">Newsletter</h3>
-              <p className="text-xs text-primary-foreground/60 mb-4">Stay updated with our latest initiatives and events.</p>
-              <div className="flex gap-2">
-                <input type="email" placeholder="Email" className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-xs text-white placeholder:text-white/40 focus:outline-none focus:ring-1 focus:ring-accent" />
-                <Button size="sm" className="bg-accent text-white px-4 border-0">Join</Button>
+
+            <div className="space-y-8">
+              <div className="bg-white/[0.03] backdrop-blur-2xl p-8 rounded-[3rem] border border-white/10 shadow-2xl relative overflow-hidden group">
+                <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:scale-110 transition-transform duration-700">
+                  <Leaf className="h-24 w-24 text-white rotate-12" />
+                </div>
+                
+                <h3 className="font-headline text-xl font-black text-white mb-2 relative z-10">Stay Updated</h3>
+                <p className="text-[10px] font-bold text-white/40 mb-8 uppercase tracking-widest relative z-10">Kisan & Youth Welfare Updates</p>
+                
+                <div className="space-y-3 relative z-10">
+                  <input 
+                    type="email" 
+                    placeholder="your.email@domain.com" 
+                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-xs text-white placeholder:text-white/20 focus:outline-none focus:ring-2 focus:ring-saffron transition-all" 
+                  />
+                  <Button className="w-full bg-saffron hover:bg-white hover:text-primary text-white font-black uppercase text-[10px] tracking-[0.2em] rounded-2xl h-14 shadow-xl shadow-saffron/20 transition-all active:scale-95 group border-none">
+                    Join Now <Send className="ml-2 h-3 w-3 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="mt-16 pt-8 border-t border-white/10 text-center">
-           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-primary-foreground/50">
-                {year && <p>&copy; {year} {t('footer_copyright')}</p>}
-                <p>{t('footer_disclaimer')}</p>
-           </div>
+        {/* Footer Bottom */}
+        <div className="mt-32 pt-12 border-t border-white/5">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-10">
+            <div className="flex flex-col gap-2 text-center md:text-left">
+              <div className="flex items-center justify-center md:justify-start gap-3 mb-1">
+                <div className="h-1 w-12 bg-saffron rounded-full" />
+                <p className="text-[10px] font-black uppercase tracking-[0.4em] text-white/40">Official Portal</p>
+              </div>
+              <p className="text-[11px] font-bold text-white/20 uppercase tracking-widest">
+                &copy; {year} {t('footer_copyright')}
+              </p>
+            </div>
+            
+            <div className="bg-white/5 px-6 py-3 rounded-full border border-white/5 backdrop-blur-md">
+              <p className="text-[9px] font-bold text-white/30 uppercase tracking-[0.1em]">
+                {t('footer_disclaimer')}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </footer>
   );
+}
+
+function SocialIcon({ href, icon }: { href: string; icon: React.ReactNode }) {
+  return (
+    <Button 
+      variant="outline" 
+      size="icon" 
+      asChild 
+      className="h-12 w-12 rounded-2xl border-white/10 bg-white/5 text-white hover:bg-saffron hover:text-white hover:border-saffron transition-all hover:-translate-y-2 shadow-lg"
+    >
+      <a href={href} target="_blank" rel="noopener noreferrer">
+        {icon}
+      </a>
+    </Button>
+  );
+}
+
+function ContactItem({ icon, label, value, href }: { icon: React.ReactNode; label: string; value: string; href?: string }) {
+  const content = (
+    <div className="flex items-center gap-5 group cursor-pointer">
+      <div className="h-12 w-12 rounded-2xl bg-white/5 flex items-center justify-center text-saffron border border-white/10 group-hover:bg-saffron group-hover:text-white group-hover:scale-110 transition-all duration-500 shadow-xl">
+        {icon}
+      </div>
+      <div className="space-y-0.5">
+        <span className="block text-[9px] font-black uppercase tracking-[0.2em] text-white/30">{label}</span>
+        <span className="block text-sm font-bold text-white/70 group-hover:text-white transition-colors">{value}</span>
+      </div>
+    </div>
+  );
+
+  return href ? <a href={href} className="block">{content}</a> : content;
 }
