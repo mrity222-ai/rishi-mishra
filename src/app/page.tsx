@@ -29,7 +29,8 @@ import {
   BarChart3,
   PawPrint,
   Trees,
-  X
+  X,
+  Sparkles
 } from 'lucide-react';
 import AnimatedText from '@/components/animated-text';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -56,7 +57,7 @@ const NewsSkeleton = () => (
 const GallerySkeleton = () => (
     <div className="columns-1 sm:columns-2 lg:columns-3 gap-8 space-y-8">
         {[1, 2, 3, 4, 5, 6].map(i => (
-            <Skeleton key={i} className="w-full h-80 rounded-[2.5rem] bg-white/5" />
+            <Skeleton key={i} className="w-full h-80 rounded-[2.5rem] bg-slate-100" />
         ))}
     </div>
 );
@@ -475,62 +476,41 @@ export default function Home() {
         </div>
       </section>
 
-      {/* --- GALLERY + STORY SECTION --- */}
-      <section className="bg-slate-950 py-24 md:py-32 relative overflow-hidden font-sans">
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-emerald-600/10 rounded-full blur-[120px] -z-10 translate-x-1/2 -translate-y-1/2" />
-        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-blue-600/10 rounded-full blur-[120px] -z-10 -translate-x-1/2 translate-y-1/2" />
-
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 md:mb-24 gap-8">
-            <div className="space-y-6 max-w-2xl">
-              <motion.div 
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-              >
-                <Badge className="bg-emerald-600 text-white border-none px-4 py-1.5 rounded-full text-[10px] font-black tracking-[0.2em] uppercase">
-                  {language === 'hi' ? 'प्रभाव गैलरी' : 'Impact Gallery'}
-                </Badge>
-              </motion.div>
-              
-              <div className="space-y-2">
-                <motion.h2 
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.1 }}
-                  className="text-4xl md:text-7xl font-black text-white tracking-tighter leading-[0.95]"
-                >
-                  {language === 'hi' ? 'कार्यरत प्रभाव' : 'Our Impact in Action.'}
-                </motion.h2>
-              </div>
-              
-              <motion.p 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.2 }}
-                className="text-xl text-slate-400 font-medium leading-relaxed"
-              >
-                {language === 'hi' 
-                  ? 'जमीनी स्तर पर हमारे बदलाव की कहानियों और वास्तविक परिणामों को देखें।'
-                  : 'Witness the tangible results of our missions through raw, unfiltered storytelling from the field.'}
-              </motion.p>
-            </div>
-
+      {/* --- GALLERY SECTION (Moments That Matter) --- */}
+      <section className="bg-white py-24 md:py-32 relative overflow-hidden font-sans">
+        <div className="container mx-auto px-4 md:px-6 relative z-10">
+          
+          <div className="flex flex-col items-center text-center mb-16 md:mb-20 space-y-6">
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
+              className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-emerald-50 text-emerald-600 border border-emerald-100 text-[10px] font-black uppercase tracking-[0.2em]"
             >
-              <Button asChild className="rounded-2xl h-16 px-10 bg-white hover:bg-emerald-600 text-slate-950 hover:text-white transition-all duration-500 font-bold group">
-                <Link href="/gallery" className="flex items-center gap-3">
-                  {language === 'hi' ? 'पूरी गैलरी देखें' : 'View Full Archive'}
-                  <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
-                </Link>
-              </Button>
+              {language === 'hi' ? 'हमारी गैलरी' : 'OUR GALLERY'}
             </motion.div>
+            
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="text-5xl md:text-7xl font-black tracking-tight text-slate-900 leading-[0.95]"
+            >
+              {language === 'hi' ? 'महत्वपूर्ण क्षण' : 'Moments That Matter'}
+            </motion.h2>
+            
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="text-xl text-slate-500 font-medium leading-relaxed max-w-2xl"
+            >
+              {language === 'hi' 
+                ? 'वास्तविक प्रभाव, वास्तविक कहानियाँ और वास्तविक परिवर्तन को कैद करना।'
+                : 'Capturing real impact, real stories, real change through our lens.'}
+            </motion.p>
           </div>
 
           {isLoading ? <GallerySkeleton /> : (
@@ -546,26 +526,20 @@ export default function Home() {
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: i * 0.1 }}
                     onClick={() => setActiveImage(getImageUrl(displayImage, "gallery"))}
-                    className="group relative rounded-[2.5rem] overflow-hidden cursor-pointer break-inside-avoid border border-white/5 bg-white/5"
+                    className="group relative rounded-[2.5rem] overflow-hidden cursor-pointer break-inside-avoid border border-slate-100 bg-slate-50 shadow-sm hover:shadow-2xl transition-all duration-700"
                   >
                     <img 
                       src={getImageUrl(displayImage, "gallery")} 
                       alt={title}
-                      className="w-full h-auto object-cover transition-transform duration-[1.5s] group-hover:scale-110" 
+                      className="w-full h-auto object-cover transition-transform duration-1000 group-hover:scale-110" 
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 backdrop-blur-[2px] flex flex-col justify-end p-8 md:p-10">
+                    <div className="absolute inset-0 bg-emerald-600/20 opacity-0 group-hover:opacity-100 transition-all duration-500 backdrop-blur-[2px] flex flex-col justify-end p-8 md:p-10">
                       <div className="translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                        <Badge className="bg-emerald-600/20 text-emerald-400 border border-emerald-400/30 mb-4 px-3 py-1 text-[9px] font-black uppercase tracking-widest">
-                          {item.category || 'Mission Update'}
-                        </Badge>
-                        <h4 className="text-white text-2xl font-black mb-6 leading-tight uppercase italic tracking-tighter">
+                        <h4 className="text-white text-2xl font-black mb-4 leading-tight uppercase italic tracking-tighter">
                           {title}
                         </h4>
-                        <div className="flex items-center justify-between pt-6 border-t border-white/10">
-                           <span className="text-[10px] font-black text-emerald-400 uppercase tracking-[0.2em]">Read The Story</span>
-                           <div className="h-10 w-10 rounded-full bg-white text-slate-950 flex items-center justify-center">
-                              <ArrowRight className="h-5 w-5" />
-                           </div>
+                        <div className="flex items-center gap-2 text-white font-black uppercase text-[10px] tracking-widest">
+                           View Story <ArrowRight className="h-4 w-4" />
                         </div>
                       </div>
                     </div>
@@ -575,44 +549,19 @@ export default function Home() {
             </div>
           )}
 
-          {/* IMPACT STATS SECTION */}
-          <div className="mt-24 grid grid-cols-1 md:grid-cols-3 gap-12 pt-24 border-t border-white/5">
-             <div className="flex items-center gap-6 group">
-                <div className="h-20 w-20 rounded-[2rem] bg-white/5 border border-white/10 flex items-center justify-center text-emerald-500 transition-all duration-500 group-hover:bg-emerald-600 group-hover:text-white group-hover:scale-110 group-hover:rotate-6">
-                   <Users className="h-8 w-8" />
-                </div>
-                <div>
-                   <div className="text-5xl font-black text-white tracking-tighter">5000+</div>
-                   <div className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.3em] mt-1">
-                      {language === 'hi' ? 'लोगों की मदद की' : 'People Helped'}
-                   </div>
-                </div>
-             </div>
-
-             <div className="flex items-center gap-6 group">
-                <div className="h-20 w-20 rounded-[2rem] bg-white/5 border border-white/10 flex items-center justify-center text-emerald-500 transition-all duration-500 group-hover:bg-emerald-600 group-hover:text-white group-hover:scale-110 group-hover:rotate-6">
-                   <Trees className="h-8 w-8" />
-                </div>
-                <div>
-                   <div className="text-5xl font-black text-white tracking-tighter">2000+</div>
-                   <div className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.3em] mt-1">
-                      {language === 'hi' ? 'पेड़ लगाए' : 'Trees Planted'}
-                   </div>
-                </div>
-             </div>
-
-             <div className="flex items-center gap-6 group">
-                <div className="h-20 w-20 rounded-[2rem] bg-white/5 border border-white/10 flex items-center justify-center text-emerald-500 transition-all duration-500 group-hover:bg-emerald-600 group-hover:text-white group-hover:scale-110 group-hover:rotate-6">
-                   <PawPrint className="h-8 w-8" />
-                </div>
-                <div>
-                   <div className="text-5xl font-black text-white tracking-tighter">300+</div>
-                   <div className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.3em] mt-1">
-                      {language === 'hi' ? 'पशु बचाए' : 'Animals Rescued'}
-                   </div>
-                </div>
-             </div>
-          </div>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mt-20 flex justify-center"
+          >
+            <Button asChild className="rounded-full h-16 px-12 bg-emerald-600 hover:bg-emerald-700 text-white shadow-xl shadow-emerald-200 transition-all duration-500 font-bold text-lg group">
+              <Link href="/gallery" className="flex items-center gap-3">
+                {language === 'hi' ? 'पूरी गैलरी देखें' : 'View Full Gallery'}
+                <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+              </Link>
+            </Button>
+          </motion.div>
         </div>
 
         {/* LIGHTBOX MODAL */}
