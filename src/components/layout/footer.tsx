@@ -74,7 +74,7 @@ export default function Footer() {
           </div>
 
           {/* Links Grid */}
-          <div className="lg:col-span-7 grid gap-10 sm:grid-cols-2 lg:grid-cols-3 text-center sm:text-left">
+          <div className="lg:col-span-7 grid gap-10 sm:grid-cols-2 lg:grid-cols-2 text-center sm:text-left">
             <div className="space-y-6 md:space-y-8">
               <h3 className="font-headline text-xs font-black uppercase tracking-[0.3em] text-saffron/80">
                 Navigation
@@ -108,7 +108,7 @@ export default function Footer() {
                 <ContactItem 
                   icon={<Phone className="h-5 w-5" />} 
                   label="Office Helpline" 
-                  value="+91 8874620222 ,9453233400" 
+                  value="+91 8874620222 ,+91 9453233400" 
                   href="tel:+918874620222" 
                 />
                 <ContactItem 
@@ -117,28 +117,6 @@ export default function Footer() {
                   value="Sarojini Nagar, Lucknow" 
                 />
               </ul>
-            </div>
-
-            <div className="space-y-6 md:space-y-8 col-span-full lg:col-span-1">
-              <div className="bg-white/[0.03] backdrop-blur-2xl p-6 md:p-8 rounded-[2rem] md:rounded-[3rem] border border-white/10 shadow-2xl relative overflow-hidden group">
-                <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:scale-110 transition-transform duration-700">
-                  <Leaf className="h-16 w-16 md:h-24 md:w-24 text-white rotate-12" />
-                </div>
-                
-                <h3 className="font-headline text-lg md:text-xl font-black text-white mb-2 relative z-10">Stay Updated</h3>
-                <p className="text-[9px] md:text-[10px] font-bold text-white/40 mb-6 md:mb-8 uppercase tracking-widest relative z-10">Kisan & Youth Welfare Updates</p>
-                
-                <div className="space-y-3 relative z-10">
-                  <input 
-                    type="email" 
-                    placeholder="your.email@domain.com" 
-                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-xs text-white placeholder:text-white/20 focus:outline-none focus:ring-2 focus:ring-saffron transition-all" 
-                  />
-                  <Button className="w-full bg-saffron hover:bg-white hover:text-primary text-white font-black uppercase text-[10px] tracking-[0.2em] rounded-2xl h-14 shadow-xl shadow-saffron/20 transition-all active:scale-95 group border-none">
-                    Join Now <Send className="ml-2 h-3 w-3 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                  </Button>
-                </div>
-              </div>
             </div>
           </div>
         </div>
