@@ -101,8 +101,8 @@ export default function Footer() {
                 <ContactItem 
                   icon={<Mail className="h-5 w-5" />} 
                   label="Email Support" 
-                  value="contact@rishimishra.in" 
-                  href="mailto:contact@rishimishra.in" 
+                  value="contact@rishimishra.com" 
+                  href="mailto:contact@rishimishra.com" 
                 />
                 <ContactItem 
                   icon={<Phone className="h-5 w-5" />} 

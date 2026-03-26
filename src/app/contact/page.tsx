@@ -225,9 +225,9 @@ export default function ContactPage() {
                     </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <a href="mailto:contact@rishimishra.in" className="flex items-center gap-4 text-muted-foreground hover:text-primary transition-colors group">
+                  <a href="mailto:contact@rishimishra.com" className="flex items-center gap-4 text-muted-foreground hover:text-primary transition-colors group">
                     <Mail className="h-6 w-6 text-accent group-hover:scale-110 transition-transform" />
-                    <span>contact@rishimishra.in</span>
+                    <span>contact@rishimishra.com</span>
                   </a>
                   <a href="tel:+919876543210" className="flex items-center gap-4 text-muted-foreground hover:text-primary transition-colors group">
                     <Phone className="h-6 w-6 text-accent group-hover:scale-110 transition-transform" />
