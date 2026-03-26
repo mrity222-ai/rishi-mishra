@@ -1,11 +1,11 @@
 'use client';
 
 import Link from 'next/link';
-import React, { useEffect, useState, useCallback, useMemo } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { StaggerWrap, StaggerItem } from '@/components/animations';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from '@/components/ui/carousel';
+import { Card, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
+import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from '@/components/ui/carousel';
 import { UpcomingEvents } from '@/components/upcoming-events';
 import { useTranslation } from '@/hooks/use-translation';
 import Autoplay from 'embla-carousel-autoplay';
@@ -13,6 +13,7 @@ import { BookOpen, HeartHandshake, Users, ArrowRight, Plus, Newspaper } from 'lu
 import AnimatedText from '@/components/animated-text';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Badge } from '@/components/ui/badge';
+import { cn } from '@/lib/utils';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 
@@ -130,7 +131,6 @@ export default function Home() {
       
       {/* --- INITIATIVES SECTION --- */}
       <section className="bg-slate-50/50 py-24 md:py-32 relative overflow-hidden">
-        {/* Decorative background element */}
         <div className="absolute -top-24 -right-24 w-96 h-96 bg-emerald-50 rounded-full blur-3xl opacity-50" />
         <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-primary/5 rounded-full blur-3xl opacity-50" />
 
@@ -168,7 +168,6 @@ export default function Home() {
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                         
-                        {/* Glass Icon */}
                         <div className="absolute top-6 right-6 w-14 h-14 rounded-2xl bg-white/20 backdrop-blur-xl border border-white/30 flex items-center justify-center text-white shadow-2xl transition-transform duration-500 group-hover:rotate-6 group-hover:scale-110">
                           {initiativeIcons[item.slug] || <HeartHandshake className="h-7 w-7" />}
                         </div>
@@ -205,26 +204,46 @@ export default function Home() {
         </div>
       </section>
 
-      {/* --- NEWS SECTION --- */}
-      <section className="bg-slate-50 py-24 md:py-32">
+      {/* --- INSIGHTS SECTION (Latest Updates) --- */}
+      <section className="bg-[#F8FAFC] py-24 md:py-32 overflow-hidden">
         <div className="container mx-auto px-4">
-          <div className="text-center max-w-3xl mx-auto mb-20">
-            <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter text-emerald-600">
-              Latest <span className="text-slate-900">Updates</span>
-            </h2>
-            <p className="text-slate-500 font-medium tracking-wide italic mt-4">Insights & stories from our journey</p>
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 md:mb-20 gap-6">
+            <div className="space-y-4 max-w-2xl">
+              <Badge className="bg-emerald-50 text-emerald-700 hover:bg-emerald-50 border-none px-4 py-1.5 rounded-full text-[10px] font-black tracking-widest uppercase mb-2">
+                Field Reports & Updates
+              </Badge>
+              <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-slate-900 leading-none">
+                Latest <span className="text-emerald-600 italic">Insights</span>
+              </h2>
+              <p className="text-lg text-slate-500 font-medium leading-relaxed">
+                Exploring the voices and stories behind our social missions.
+              </p>
+            </div>
+            <Button variant="ghost" asChild className="rounded-2xl h-14 px-8 text-slate-600 hover:bg-white shadow-sm font-bold border border-slate-100">
+              <Link href="/news">
+                Explore Full Archive <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
           </div>
 
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-10 md:grid-cols-2">
             {isLoading ? Array.from({ length: 3 }).map((_, i) => <NewsSkeleton key={i} />)
-              : data.articles.slice(0, 3).map((article: any) => {
+              : data.articles.slice(0, 3).map((article: any, index: number) => {
                   const displayImage = parseImageField(article.images || article.image || article.imageUrl);
+                  const isHero = index === 0;
 
                   return (
-                    <StaggerItem key={article.id}>
+                    <StaggerItem key={article.id} className={isHero ? "md:col-span-2" : ""}>
                       <Link href={`/news/${article.id}`} className="group block h-full">
-                        <Card className="h-full bg-white border-none rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500">
-                          <div className="relative h-64 md:h-72 overflow-hidden bg-slate-100 flex items-center justify-center">
+                        <div className={cn(
+                          "relative bg-white rounded-[3rem] overflow-hidden border border-slate-100 shadow-premium transition-all duration-700 hover:-translate-y-3 hover:shadow-2xl flex flex-col",
+                          isHero ? "md:flex-row md:h-[450px]" : "h-full"
+                        )}>
+                          {/* Image Container */}
+                          <div className={cn(
+                            "relative overflow-hidden bg-slate-100 flex items-center justify-center",
+                            isHero ? "md:w-1/2 h-64 md:h-full" : "aspect-video"
+                          )}>
                             {displayImage ? (
                               <img 
                                 src={getImageUrl(displayImage, 'news')} 
@@ -234,27 +253,41 @@ export default function Home() {
                             ) : (
                               <Newspaper className="h-16 w-16 text-slate-200" />
                             )}
-                            <div className="absolute top-6 left-6 bg-emerald-600 text-white px-5 py-2 rounded-full text-[10px] font-black tracking-widest uppercase shadow-lg">
+                            
+                            {/* Modern Floating Date Badge */}
+                            <div className="absolute top-6 left-6 bg-white/20 backdrop-blur-md border border-white/30 text-white px-4 py-1.5 rounded-full text-[9px] font-black tracking-widest uppercase shadow-lg">
                               {article.publishDate || article.created_at 
                                 ? new Date(article.publishDate || article.created_at).toLocaleDateString() 
                                 : 'NEW'}
                             </div>
                           </div>
 
-                          <CardHeader className="p-8 text-center">
-                            <CardTitle className="text-xl font-black text-slate-900 group-hover:text-emerald-600 transition-colors line-clamp-2">
+                          {/* Content Container */}
+                          <div className={cn(
+                            "p-8 md:p-12 flex flex-col justify-center",
+                            isHero ? "md:w-1/2" : "flex-1"
+                          )}>
+                            <div className="flex items-center gap-3 mb-4">
+                              <div className="h-[2px] w-8 bg-emerald-500 rounded-full" />
+                              <span className="text-[10px] font-black uppercase tracking-widest text-emerald-600">Field Story</span>
+                            </div>
+                            
+                            <h3 className={cn(
+                              "font-black text-slate-900 mb-4 tracking-tight leading-tight group-hover:text-emerald-600 transition-colors line-clamp-2",
+                              isHero ? "text-3xl md:text-4xl" : "text-2xl"
+                            )}>
                               {language === 'hi' ? (article.titleHi || article.titleEn) : article.titleEn}
-                            </CardTitle>
-                            <p className="text-slate-400 text-sm italic mt-4 line-clamp-2">
+                            </h3>
+                            
+                            <p className="text-slate-500 text-sm leading-relaxed mb-8 line-clamp-3 font-medium italic">
                               {language === 'hi' ? (article.contentHi || article.contentEn) : article.contentEn}
                             </p>
-                          </CardHeader>
-                          <CardFooter className="justify-center pb-8 mt-auto">
-                             <span className="flex items-center gap-2 text-[11px] font-black text-emerald-600 uppercase tracking-widest group-hover:gap-4 transition-all">
-                               Read Full Report <Plus size={14} strokeWidth={3} />
-                             </span>
-                          </CardFooter>
-                        </Card>
+
+                            <div className="mt-auto flex items-center gap-2 text-emerald-600 font-black uppercase text-[10px] tracking-widest group-hover:gap-4 transition-all">
+                              Read Detailed Report <Plus size={14} strokeWidth={3} />
+                            </div>
+                          </div>
+                        </div>
                       </Link>
                     </StaggerItem>
                   );
