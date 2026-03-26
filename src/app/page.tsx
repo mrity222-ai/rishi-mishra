@@ -12,6 +12,7 @@ import Autoplay from 'embla-carousel-autoplay';
 import { BookOpen, HeartHandshake, Users, ArrowRight, Plus, Newspaper } from 'lucide-react';
 import AnimatedText from '@/components/animated-text';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Badge } from '@/components/ui/badge';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 
@@ -79,9 +80,9 @@ export default function Home() {
   }, []);
 
   const initiativeIcons: Record<string, React.ReactNode> = {
-    ngo: <HeartHandshake className="h-8 w-8 text-emerald-600" />,
-    kisan: <Users className="h-8 w-8 text-emerald-600" />,
-    youth: <BookOpen className="h-8 w-8 text-emerald-600" />,
+    ngo: <HeartHandshake className="h-8 w-8" />,
+    kisan: <Users className="h-8 w-8" />,
+    youth: <BookOpen className="h-8 w-8" />,
   };
 
   return (
@@ -128,32 +129,73 @@ export default function Home() {
       <UpcomingEvents />
       
       {/* --- INITIATIVES SECTION --- */}
-      <section className="bg-white py-24 md:py-32">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16 md:mb-20 space-y-4">
-            <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter text-emerald-600">
-              Our <span className="text-slate-900 italic" style={{ WebkitTextStroke: '1px #059669', color: 'transparent' }}>Work</span>
-            </h2>
-            <div className="w-24 h-1 bg-emerald-600 mx-auto rounded-full" />
+      <section className="bg-slate-50/50 py-24 md:py-32 relative overflow-hidden">
+        {/* Decorative background element */}
+        <div className="absolute -top-24 -right-24 w-96 h-96 bg-emerald-50 rounded-full blur-3xl opacity-50" />
+        <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-primary/5 rounded-full blur-3xl opacity-50" />
+
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 md:mb-20 gap-6">
+            <div className="space-y-4 max-w-2xl">
+              <Badge className="bg-emerald-100 text-emerald-700 hover:bg-emerald-100 border-none px-4 py-1.5 rounded-full text-[10px] font-black tracking-widest uppercase mb-2">
+                Our Strategic Pillars
+              </Badge>
+              <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-slate-900 leading-none">
+                Transforming Lives <br />
+                <span className="text-emerald-600 italic">Through Action</span>
+              </h2>
+              <p className="text-lg text-slate-500 font-medium leading-relaxed">
+                We deploy targeted initiatives designed to address the most pressing social, educational, and economic challenges in our community.
+              </p>
+            </div>
+            <Button variant="outline" asChild className="rounded-2xl h-14 px-8 border-slate-200 hover:bg-white shadow-sm font-bold text-slate-600">
+              <Link href="/initiatives">
+                Explore All Missions <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
           </div>
 
-          <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {isLoading ? Array.from({ length: 3 }).map((_, i) => <NewsSkeleton key={i} />)
-              : data.initiatives.slice(0, 6).map((item: any) => (
+              : data.initiatives.slice(0, 6).map((item: any, index: number) => (
                   <StaggerItem key={item.id}>
-                    <div className="group rounded-[3rem] overflow-hidden bg-slate-50 border border-slate-100 transition-all duration-500 hover:shadow-[0_40px_80px_-15px_rgba(16,185,129,0.15)]">
-                      <div className="p-4">
-                        <div className="relative rounded-[2.5rem] overflow-hidden h-72 md:h-80">
-                          <img src={getImageUrl(item.image, 'initiatives')} alt={item.titleEn} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                          <div className="absolute top-6 right-6 bg-white/90 backdrop-blur-md p-4 rounded-3xl shadow-xl">
-                            {initiativeIcons[item.slug] || <HeartHandshake className="h-6 w-6 text-emerald-600" />}
-                          </div>
+                    <div className="group relative bg-white rounded-[3rem] p-4 border border-slate-100 shadow-xl shadow-slate-200/40 transition-all duration-700 hover:-translate-y-3 hover:shadow-emerald-500/10">
+                      <div className="relative aspect-[4/3] rounded-[2.5rem] overflow-hidden mb-8">
+                        <img 
+                          src={getImageUrl(item.image, 'initiatives')} 
+                          alt={item.titleEn} 
+                          className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" 
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                        
+                        {/* Glass Icon */}
+                        <div className="absolute top-6 right-6 w-14 h-14 rounded-2xl bg-white/20 backdrop-blur-xl border border-white/30 flex items-center justify-center text-white shadow-2xl transition-transform duration-500 group-hover:rotate-6 group-hover:scale-110">
+                          {initiativeIcons[item.slug] || <HeartHandshake className="h-7 w-7" />}
                         </div>
                       </div>
-                      <div className="p-8 pt-2 text-center">
-                        <h3 className="text-2xl font-black text-slate-900 mb-4">{language === 'hi' ? item.titleHi : item.titleEn}</h3>
-                        <Link href={`/initiatives/${item.slug}`} className="inline-flex items-center gap-2 text-emerald-600 font-black uppercase text-xs tracking-[0.2em] group-hover:gap-4 transition-all">
-                          View Details <ArrowRight className="h-4 w-4" />
+
+                      <div className="px-4 pb-6">
+                        <div className="flex items-center gap-3 mb-4">
+                          <div className="h-[2px] w-8 bg-emerald-500 rounded-full" />
+                          <span className="text-[10px] font-black uppercase tracking-widest text-emerald-600">Active Node</span>
+                        </div>
+                        
+                        <h3 className="text-2xl md:text-3xl font-black text-slate-900 mb-4 tracking-tight leading-tight">
+                          {language === 'hi' ? item.titleHi : item.titleEn}
+                        </h3>
+                        
+                        <p className="text-slate-500 text-sm leading-relaxed mb-8 line-clamp-3 font-medium">
+                          {language === 'hi' ? (item.descriptionHi || item.descriptionEn) : item.descriptionEn}
+                        </p>
+
+                        <Link 
+                          href={`/initiatives/${item.slug}`} 
+                          className="inline-flex items-center gap-2 text-emerald-600 font-black uppercase text-xs tracking-widest group/link"
+                        >
+                          Discover Impact
+                          <div className="w-8 h-8 rounded-full bg-emerald-50 flex items-center justify-center transition-all duration-300 group-hover/link:bg-emerald-600 group-hover/link:text-white">
+                            <ArrowRight className="h-4 w-4" />
+                          </div>
                         </Link>
                       </div>
                     </div>
