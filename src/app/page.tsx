@@ -359,120 +359,135 @@ export default function Home() {
         </div>
       </section>
 
-      {/* --- INSIGHTS SECTION (Latest Updates) --- */}
-      <section className="bg-[#F8FAFC] py-24 md:py-32 overflow-hidden">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 md:mb-20 gap-6">
-            <div className="space-y-4 max-w-2xl">
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-              >
-                <Badge className="bg-emerald-50 text-emerald-700 hover:bg-emerald-50 border-none px-4 py-1.5 rounded-full text-[10px] font-black tracking-widest uppercase mb-2">
-                  Field Reports & Updates
-                </Badge>
-              </motion.div>
-              <motion.h2 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.1 }}
-                className="text-4xl md:text-6xl font-black tracking-tighter text-slate-900 leading-none"
-              >
-                Latest <span className="text-emerald-600 italic">Insights</span>
-              </motion.h2>
-              <motion.p 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.2 }}
-                className="text-lg text-slate-500 font-medium leading-relaxed"
-              >
-                Exploring the voices and stories behind our social missions.
-              </motion.p>
-            </div>
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+      {/* --- INSIGHTS SECTION (Our Insides) --- */}
+      <section className="bg-[#f0fdf4] py-24 md:py-32 overflow-hidden selection:bg-emerald-100 font-sans">
+        <div className="container mx-auto px-4 md:px-6">
+          
+          {/* Header */}
+          <div className="flex flex-col items-center text-center mb-16 space-y-4">
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
+              className="text-5xl md:text-6xl font-black tracking-tight text-slate-900"
             >
-              <Button variant="ghost" asChild className="rounded-2xl h-14 px-8 text-slate-600 hover:bg-white shadow-sm font-bold border border-slate-100">
-                <Link href="/news">
-                  Explore Full Archive <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-            </motion.div>
+              Our Insides
+            </motion.h2>
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="text-lg text-slate-500 font-medium max-w-2xl leading-relaxed"
+            >
+              Read our latest activities, success stories, and awareness articles from our NGO in Lucknow.
+            </motion.p>
           </div>
 
-          <div className="grid gap-10 md:grid-cols-2">
-            {isLoading ? Array.from({ length: 3 }).map((_, i) => <NewsSkeleton key={i} />)
-              : data.articles.slice(0, 3).map((article: any, index: number) => {
-                  const displayImage = parseImageField(article.images || article.image || article.imageUrl);
-                  const isHero = index === 0;
-
-                  return (
-                    <motion.div 
-                      key={article.id} 
-                      className={isHero ? "md:col-span-2" : ""}
-                      initial={{ opacity: 0, y: 30 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: index * 0.1 }}
-                    >
-                      <Link href={`/news/${article.id}`} className="group block h-full">
-                        <div className={cn(
-                          "relative bg-white rounded-[3rem] overflow-hidden border border-slate-100 shadow-premium transition-all duration-700 hover:-translate-y-3 hover:shadow-2xl flex flex-col",
-                          isHero ? "md:flex-row md:h-[450px]" : "h-full"
-                        )}>
-                          <div className={cn(
-                            "relative overflow-hidden bg-slate-100 flex items-center justify-center",
-                            isHero ? "md:w-1/2 h-64 md:h-full" : "aspect-video"
-                          )}>
-                            {displayImage ? (
-                              <img 
-                                src={getImageUrl(displayImage, 'news')} 
-                                className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" 
-                                alt="news" 
-                              />
-                            ) : (
-                              <Newspaper className="h-16 w-16 text-slate-200" />
-                            )}
-                            <div className="absolute top-6 left-6 bg-white/20 backdrop-blur-md border border-white/30 text-white px-4 py-1.5 rounded-full text-[9px] font-black uppercase shadow-lg">
-                              {article.publishDate || article.created_at 
-                                ? new Date(article.publishDate || article.created_at).toLocaleDateString() 
-                                : 'NEW'}
-                            </div>
-                          </div>
-                          <div className={cn(
-                            "p-8 md:p-12 flex flex-col justify-center",
-                            isHero ? "md:w-1/2" : "flex-1"
-                          )}>
-                            <div className="flex items-center gap-3 mb-4">
-                              <div className="h-[2px] w-8 bg-emerald-500 rounded-full" />
-                              <span className="text-[10px] font-black uppercase tracking-widest text-emerald-600">Field Story</span>
-                            </div>
-                            <h3 className={cn(
-                              "font-black text-slate-900 mb-4 tracking-tight leading-tight group-hover:text-emerald-600 transition-colors line-clamp-2",
-                              isHero ? "text-3xl md:text-4xl" : "text-2xl"
-                            )}>
-                              {language === 'hi' ? (article.titleHi || article.titleEn) : article.titleEn}
-                            </h3>
-                            <p className="text-slate-500 text-sm leading-relaxed mb-8 line-clamp-3 font-medium italic">
-                              {language === 'hi' ? (article.contentHi || article.contentEn) : article.contentEn}
-                            </p>
-                            <div className="mt-auto flex items-center gap-2 text-emerald-600 font-black uppercase text-[10px] tracking-widest group-hover:gap-4 transition-all">
-                              Read Detailed Report <Plus size={14} strokeWidth={3} />
-                            </div>
+          <div className="grid gap-8 lg:grid-cols-12">
+            {/* LEFT SIDE: Featured Card */}
+            <div className="lg:col-span-7">
+              {isLoading ? (
+                <div className="h-full bg-white rounded-[2rem] animate-pulse min-h-[400px]" />
+              ) : data.articles[0] ? (() => {
+                const article = data.articles[0] as any;
+                const displayImage = parseImageField(article.images || article.image || article.imageUrl);
+                return (
+                  <motion.div
+                    initial={{ opacity: 0, x: -30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    className="h-full"
+                  >
+                    <Link href={`/news/${article.id}`} className="group block h-full">
+                      <div className="h-full bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1 flex flex-col md:flex-row">
+                        <div className="md:w-1/2 h-64 md:h-auto relative overflow-hidden">
+                          <img 
+                            src={getImageUrl(displayImage, 'news')} 
+                            alt={article.titleEn} 
+                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+                          />
+                        </div>
+                        <div className="md:w-1/2 p-8 md:p-10 flex flex-col justify-center space-y-4">
+                          <Badge className="bg-emerald-100 text-emerald-700 border-none px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest w-fit">
+                            {article.category || 'Environment'}
+                          </Badge>
+                          <h3 className="text-2xl md:text-3xl font-black text-slate-900 leading-tight group-hover:text-emerald-600 transition-colors">
+                            {language === 'hi' ? article.titleHi : article.titleEn}
+                          </h3>
+                          <p className="text-slate-500 text-sm leading-relaxed line-clamp-3 font-medium">
+                            {language === 'hi' ? article.contentHi : article.contentEn}
+                          </p>
+                          <div className="flex items-center gap-2 text-emerald-600 font-black uppercase text-[10px] tracking-widest group-hover:gap-4 transition-all">
+                            Read More <ArrowRight className="h-4 w-4" />
                           </div>
                         </div>
-                      </Link>
-                    </motion.div>
-                  );
-                })
-            }
+                      </div>
+                    </Link>
+                  </motion.div>
+                );
+              })() : null}
+            </div>
+
+            {/* RIGHT SIDE: Small Cards */}
+            <div className="lg:col-span-5 flex flex-col gap-6">
+              {isLoading ? (
+                <>
+                  <div className="h-40 bg-white rounded-[2rem] animate-pulse" />
+                  <div className="h-40 bg-white rounded-[2rem] animate-pulse" />
+                </>
+              ) : data.articles.slice(1, 3).map((article: any, idx: number) => {
+                const displayImage = parseImageField(article.images || article.image || article.imageUrl);
+                return (
+                  <motion.div
+                    key={article.id}
+                    initial={{ opacity: 0, x: 30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.1 * (idx + 1) }}
+                  >
+                    <Link href={`/news/${article.id}`} className="group block">
+                      <div className="bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1 flex h-40">
+                        <div className="w-1/3 relative overflow-hidden">
+                          <img 
+                            src={getImageUrl(displayImage, 'news')} 
+                            alt={article.titleEn} 
+                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+                          />
+                        </div>
+                        <div className="w-2/3 p-6 flex flex-col justify-center space-y-2">
+                          <Badge className="bg-emerald-50 text-emerald-600 border-none px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest w-fit">
+                            {article.category || (idx === 0 ? 'Animal Welfare' : 'Social Welfare')}
+                          </Badge>
+                          <h3 className="text-lg font-black text-slate-900 leading-tight group-hover:text-emerald-600 transition-colors line-clamp-2">
+                            {language === 'hi' ? article.titleHi : article.titleEn}
+                          </h3>
+                          <div className="flex items-center gap-2 text-emerald-600 font-black uppercase text-[9px] tracking-widest group-hover:gap-3 transition-all pt-1">
+                            Read More <ArrowRight className="h-3.5 w-3.5" />
+                          </div>
+                        </div>
+                      </div>
+                    </Link>
+                  </motion.div>
+                );
+              })}
+            </div>
           </div>
+
+          {/* Bottom CTA */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mt-16 flex justify-center"
+          >
+            <Button asChild className="rounded-full h-14 px-10 bg-emerald-600 hover:bg-emerald-700 text-white shadow-xl shadow-emerald-200 transition-all duration-500 font-bold group">
+              <Link href="/news" className="flex items-center gap-3">
+                View All Insides
+                <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+              </Link>
+            </Button>
+          </motion.div>
         </div>
       </section>
 
