@@ -35,7 +35,7 @@ export default function AboutPage() {
     { label: { en: 'Marital Status', hi: 'वैवाहिक जीवन' }, value: 'विवाहित, दो बच्चों के पिता' },
     { label: { en: 'Personality', hi: 'व्यक्तित्व' }, value: 'मृदुभाषी, मुखर वक्ता, सिद्धांतप्रिय एवं क्रांतिकारी व्यक्तित्व' },
     { label: { en: 'Occupation', hi: 'व्यवसाय' }, value: 'कृषि एवं व्यापार', icon: <Briefcase className="h-4 w-4 text-accent" /> },
-    { label: { en: 'Current Positions', hi: 'वर्तमान पदभार' }, value: 'प्रदेश प्रभारी, भारतीय किसान यूनियन (भानु) | अध्यक्ष, सोन चिरैया संस्था' },
+    { label: { en: 'Current Positions', hi: 'वर्तमान पदभार' }, value: 'राष्ट्रीय अध्यक्ष / संस्थापक (भारतीय किसान क्रान्ति यूनियन) / (अधिवक्ता) | अध्यक्ष, सोन चिरैया संस्था' },
   ];
 
   const experienceData = [
