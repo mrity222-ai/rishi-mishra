@@ -9,7 +9,7 @@ import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from '@/com
 import { UpcomingEvents } from '@/components/upcoming-events';
 import { useTranslation } from '@/hooks/use-translation';
 import Autoplay from 'embla-carousel-autoplay';
-import { BookOpen, HeartHandshake, Users, ArrowRight, Plus, Newspaper, Heart, Leaf, GraduationCap, Droplets, Laptop, TreePine } from 'lucide-react';
+import { BookOpen, HeartHandshake, Users, ArrowRight, Plus, Newspaper, Heart, Leaf, GraduationCap, Droplets, Laptop, TreePine, Zap, Target, Fingerprint, BarChart3 } from 'lucide-react';
 import AnimatedText from '@/components/animated-text';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Badge } from '@/components/ui/badge';
@@ -100,8 +100,6 @@ export default function Home() {
   // Filtering Logic
   const filteredInitiatives = useMemo(() => {
     if (filter === 'All') return data.initiatives;
-    // Note: Assuming initiatives have a 'category' or 'type' field in the real DB. 
-    // For this MVP, we'll simulate by checking the slug or title for demo purposes.
     return data.initiatives.filter((item: any) => {
         if (filter === 'Education') return item.slug?.includes('youth') || item.titleEn?.toLowerCase().includes('education');
         if (filter === 'Social') return item.slug?.includes('ngo') || item.titleEn?.toLowerCase().includes('social');
@@ -155,13 +153,11 @@ export default function Home() {
       
       {/* --- INITIATIVES SECTION: REDESIGNED --- */}
       <section className="bg-[#F9FAFB] py-24 md:py-32 relative overflow-hidden font-sans">
-        {/* Subtle Background Elements */}
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-emerald-50 rounded-full blur-[120px] opacity-40 -z-10 translate-x-1/2 -translate-y-1/2" />
         <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-50 rounded-full blur-[120px] opacity-40 -z-10 -translate-x-1/2 translate-y-1/2" />
 
         <div className="container mx-auto px-4 relative z-10">
           
-          {/* 1. Header Section */}
           <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-16 gap-10">
             <div className="space-y-6 max-w-3xl">
               <motion.div 
@@ -170,23 +166,20 @@ export default function Home() {
                 viewport={{ once: true }}
                 className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-100/50 border border-emerald-200 text-emerald-700 text-[10px] font-black uppercase tracking-[0.2em]"
               >
-                <Leaf className="h-3 w-3" />
-                {language === 'hi' ? 'हमारे रणनीतिक स्तंभ' : 'Our Strategic Pillars'}
+                <Zap className="h-3 w-3" />
+                {language === 'hi' ? 'संचालन इकाइयाँ / लाइव' : 'Operational Units / Live'}
               </motion.div>
               
               <div className="space-y-2">
                 <h2 className="text-5xl md:text-7xl font-black tracking-tight text-slate-900 leading-[0.95]">
-                  {language === 'hi' ? 'जीवन को बदलना' : 'Transforming Lives'} <br />
-                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-emerald-600 to-teal-500 italic">
-                    {language === 'hi' ? 'कार्रवाई के माध्यम से' : 'Through Action'}
-                  </span>
+                  {language === 'hi' ? 'हमारी पहल' : 'Our Initiatives.'}
                 </h2>
               </div>
               
               <p className="text-xl text-slate-500 font-medium leading-relaxed max-w-2xl">
                 {language === 'hi' 
-                  ? 'हम अपने समुदाय में सबसे महत्वपूर्ण सामाजिक, शैक्षिक और आर्थिक चुनौतियों का समाधान करने के लिए डिजाइन की गई लक्षित पहल तैनात करते हैं।'
-                  : 'We deploy targeted initiatives designed to address the most pressing social, educational, and economic challenges in our community.'}
+                  ? 'वैश्विक प्रभाव और प्रणालीगत बुनियादी ढांचे के विकास के लिए डिज़ाइन किए गए उन्नत मॉड्यूलर सिस्टम तैनात करना।'
+                  : 'Deploying advanced modular systems designed for global impact and systemic infrastructure development.'}
               </p>
             </div>
 
@@ -204,7 +197,6 @@ export default function Home() {
             </motion.div>
           </div>
 
-          {/* 2. Statistics Bar */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-20">
             {stats.map((stat, idx) => (
               <motion.div 
@@ -226,7 +218,6 @@ export default function Home() {
             ))}
           </div>
 
-          {/* 3. Filter Tabs */}
           <div className="flex flex-wrap items-center gap-2 mb-12">
             {['All', 'Social', 'Education', 'Agriculture'].map((cat) => (
               <button
@@ -244,7 +235,6 @@ export default function Home() {
             ))}
           </div>
 
-          {/* 4. Initiative Grid */}
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {isLoading ? Array.from({ length: 3 }).map((_, i) => <NewsSkeleton key={i} />)
               : (
@@ -260,11 +250,7 @@ export default function Home() {
                       transition={{ duration: 0.5, delay: index * 0.05 }}
                     >
                       <div className="group relative bg-white rounded-[3rem] p-4 border border-white shadow-[0_20px_50px_rgba(0,0,0,0.04)] transition-all duration-700 hover:-translate-y-4 hover:shadow-[0_40px_80px_rgba(16,185,129,0.12)] flex flex-col h-full overflow-hidden">
-                        
-                        {/* Gradient Border on Hover effect */}
                         <div className="absolute inset-0 border-2 border-transparent group-hover:border-emerald-500/20 rounded-[3rem] transition-all duration-700 -z-10" />
-
-                        {/* Image Container with Zoom */}
                         <div className="relative aspect-[4/3] rounded-[2.5rem] overflow-hidden mb-8">
                           <img 
                             src={getImageUrl(item.image, 'initiatives')} 
@@ -272,41 +258,31 @@ export default function Home() {
                             className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" 
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500" />
-                          
-                          {/* Top Right Floating Badge */}
                           <div className="absolute top-6 right-6">
                             <Badge className="bg-white/20 backdrop-blur-xl border border-white/30 text-white px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest shadow-2xl">
                               {language === 'hi' ? 'सक्रिय' : 'Active Now'}
                             </Badge>
                           </div>
-
-                          {/* Glass Icon Overlay */}
                           <div className="absolute bottom-6 left-6 w-14 h-14 rounded-2xl bg-white/20 backdrop-blur-xl border border-white/30 flex items-center justify-center text-white shadow-2xl transition-all duration-500 group-hover:scale-110 group-hover:rotate-6">
                             {initiativeIcons[item.slug] || initiativeIcons.default}
                           </div>
-
-                          {/* Featured Badge for first item */}
                           {index === 0 && (
                             <div className="absolute top-6 left-6 bg-emerald-500 text-white px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest shadow-lg">
                               Featured
                             </div>
                           )}
                         </div>
-
                         <div className="px-4 pb-6 flex flex-col flex-grow">
                           <div className="flex items-center gap-3 mb-4">
                             <div className="h-[2px] w-8 bg-emerald-500 rounded-full" />
                             <span className="text-[10px] font-black uppercase tracking-widest text-emerald-600">Strategic Node</span>
                           </div>
-                          
                           <h3 className="text-2xl md:text-3xl font-black text-slate-900 mb-4 tracking-tight leading-tight group-hover:text-emerald-600 transition-colors duration-300">
                             {language === 'hi' ? item.titleHi : item.titleEn}
                           </h3>
-                          
                           <p className="text-slate-500 text-sm leading-relaxed mb-8 line-clamp-3 font-medium flex-grow">
                             {language === 'hi' ? (item.descriptionHi || item.descriptionEn) : item.descriptionEn}
                           </p>
-
                           <div className="pt-6 border-t border-slate-100">
                             <Link 
                               href={`/initiatives/${item.slug}`} 
@@ -363,7 +339,6 @@ export default function Home() {
                           "relative bg-white rounded-[3rem] overflow-hidden border border-slate-100 shadow-premium transition-all duration-700 hover:-translate-y-3 hover:shadow-2xl flex flex-col",
                           isHero ? "md:flex-row md:h-[450px]" : "h-full"
                         )}>
-                          {/* Image Container */}
                           <div className={cn(
                             "relative overflow-hidden bg-slate-100 flex items-center justify-center",
                             isHero ? "md:w-1/2 h-64 md:h-full" : "aspect-video"
@@ -377,16 +352,12 @@ export default function Home() {
                             ) : (
                               <Newspaper className="h-16 w-16 text-slate-200" />
                             )}
-                            
-                            {/* Modern Floating Date Badge */}
-                            <div className="absolute top-6 left-6 bg-white/20 backdrop-blur-md border border-white/30 text-white px-4 py-1.5 rounded-full text-[9px] font-black tracking-widest uppercase shadow-lg">
+                            <div className="absolute top-6 left-6 bg-white/20 backdrop-blur-md border border-white/30 text-white px-4 py-1.5 rounded-full text-[9px] font-black uppercase shadow-lg">
                               {article.publishDate || article.created_at 
                                 ? new Date(article.publishDate || article.created_at).toLocaleDateString() 
                                 : 'NEW'}
                             </div>
                           </div>
-
-                          {/* Content Container */}
                           <div className={cn(
                             "p-8 md:p-12 flex flex-col justify-center",
                             isHero ? "md:w-1/2" : "flex-1"
@@ -395,18 +366,15 @@ export default function Home() {
                               <div className="h-[2px] w-8 bg-emerald-500 rounded-full" />
                               <span className="text-[10px] font-black uppercase tracking-widest text-emerald-600">Field Story</span>
                             </div>
-                            
                             <h3 className={cn(
                               "font-black text-slate-900 mb-4 tracking-tight leading-tight group-hover:text-emerald-600 transition-colors line-clamp-2",
                               isHero ? "text-3xl md:text-4xl" : "text-2xl"
                             )}>
                               {language === 'hi' ? (article.titleHi || article.titleEn) : article.titleEn}
                             </h3>
-                            
                             <p className="text-slate-500 text-sm leading-relaxed mb-8 line-clamp-3 font-medium italic">
                               {language === 'hi' ? (article.contentHi || article.contentEn) : article.contentEn}
                             </p>
-
                             <div className="mt-auto flex items-center gap-2 text-emerald-600 font-black uppercase text-[10px] tracking-widest group-hover:gap-4 transition-all">
                               Read Detailed Report <Plus size={14} strokeWidth={3} />
                             </div>
