@@ -144,7 +144,7 @@ export default function Home() {
     <div className="flex flex-col bg-white">
       
       {/* --- HERO SECTION --- */}
-      <section className="relative w-full h-[85vh] md:h-[90vh] text-white overflow-hidden bg-slate-900">
+      <section className="relative w-full h-[70vh] md:h-[90vh] text-white overflow-hidden bg-slate-900">
         <Carousel setApi={setApi} opts={{ loop: true }} plugins={[autoplayPlugin.current]} className="absolute inset-0 w-full h-full">
           <CarouselContent className='h-full m-0'>
             {isLoading ? (
@@ -170,11 +170,11 @@ export default function Home() {
           </CarouselContent>
         </Carousel>
         
-        <div className="relative z-10 flex flex-col h-full items-center justify-center text-center px-6 max-w-5xl mx-auto">
-            <AnimatedText el="h1" text={t('hero_name')} className="font-headline text-5xl md:text-8xl font-black tracking-tighter" />
-            <AnimatedText el="p" text={t('hero_titles')} className="mt-6 text-lg md:text-xl text-gray-100 font-medium max-w-3xl" />
-            <StaggerWrap className="mt-12">
-                <Button asChild size="lg" className="bg-emerald-600 hover:bg-white hover:text-emerald-600 rounded-full px-10 h-14 font-bold shadow-2xl transition-all">
+        <div className="relative z-10 flex flex-col h-full items-center justify-center text-center px-4 md:px-6 max-w-5xl mx-auto">
+            <AnimatedText el="h1" text={t('hero_name')} className="font-headline text-4xl sm:text-5xl md:text-8xl font-black tracking-tighter" />
+            <AnimatedText el="p" text={t('hero_titles')} className="mt-4 md:mt-6 text-base md:text-xl text-gray-100 font-medium max-w-3xl" />
+            <StaggerWrap className="mt-8 md:mt-12 w-full sm:w-auto">
+                <Button asChild size="lg" className="w-full sm:w-auto bg-emerald-600 hover:bg-white hover:text-emerald-600 rounded-full px-10 h-14 font-bold shadow-2xl transition-all">
                   <Link href="/contact">{t('hero_cta_support')}</Link>
                 </Button>
             </StaggerWrap>
@@ -184,14 +184,14 @@ export default function Home() {
       <UpcomingEvents />
       
       {/* --- INITIATIVES SECTION --- */}
-      <section className="bg-[#F9FAFB] py-24 md:py-32 relative overflow-hidden font-sans">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-emerald-50 rounded-full blur-[120px] opacity-40 -z-10 translate-x-1/2 -translate-y-1/2" />
-        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-50 rounded-full blur-[120px] opacity-40 -z-10 -translate-x-1/2 translate-y-1/2" />
+      <section className="bg-[#F9FAFB] py-16 md:py-32 relative overflow-hidden font-sans">
+        <div className="absolute top-0 right-0 w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-emerald-50 rounded-full blur-[80px] md:blur-[120px] opacity-40 -z-10 translate-x-1/2 -translate-y-1/2" />
+        <div className="absolute bottom-0 left-0 w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-blue-50 rounded-full blur-[80px] md:blur-[120px] opacity-40 -z-10 -translate-x-1/2 translate-y-1/2" />
 
         <div className="container mx-auto px-4 relative z-10">
           
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-16 gap-10">
-            <div className="space-y-6 max-w-3xl">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-12 md:mb-16 gap-8 md:gap-10">
+            <div className="space-y-4 md:space-y-6 max-w-3xl">
               <motion.div 
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -208,7 +208,7 @@ export default function Home() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.1 }}
-                  className="text-5xl md:text-7xl font-black tracking-tight text-slate-900 leading-[0.95]"
+                  className="text-4xl sm:text-5xl md:text-7xl font-black tracking-tight text-slate-900 leading-[0.95]"
                 >
                   {language === 'hi' ? 'हमारी पहल' : 'Our Initiatives.'}
                 </motion.h2>
@@ -219,7 +219,7 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.2 }}
-                className="text-xl text-slate-500 font-medium leading-relaxed max-w-2xl"
+                className="text-lg md:text-xl text-slate-500 font-medium leading-relaxed max-w-2xl"
               >
                 {language === 'hi' 
                   ? 'वैश्विक प्रभाव और प्रणालीगत बुनियादी ढांचे के विकास के लिए डिज़ाइन किए गए उन्नत मॉड्यूलर सिस्टम तैनात करना।'
@@ -232,9 +232,10 @@ export default function Home() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.3 }}
+              className="w-full lg:w-auto"
             >
-              <Button asChild className="rounded-2xl h-16 px-10 bg-slate-900 hover:bg-emerald-600 text-white shadow-xl shadow-slate-200 hover:shadow-emerald-200 transition-all duration-500 font-bold group">
-                <Link href="/initiatives" className="flex items-center gap-3">
+              <Button asChild className="w-full lg:w-auto rounded-2xl h-16 px-10 bg-slate-900 hover:bg-emerald-600 text-white shadow-xl shadow-slate-200 hover:shadow-emerald-200 transition-all duration-500 font-bold group">
+                <Link href="/initiatives" className="flex items-center justify-center gap-3">
                   {language === 'hi' ? 'सभी मिशन देखें' : 'Explore All Missions'}
                   <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </Link>
@@ -242,7 +243,7 @@ export default function Home() {
             </motion.div>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-20">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-16 md:mb-20">
             {stats.map((stat, idx) => (
               <motion.div 
                 key={idx}
@@ -256,20 +257,20 @@ export default function Home() {
                   stiffness: 100,
                   damping: 15
                 }}
-                className="bg-white/60 backdrop-blur-md border border-white p-6 rounded-[2rem] shadow-sm flex items-center gap-4 group hover:bg-white transition-all duration-500 cursor-default"
+                className="bg-white/60 backdrop-blur-md border border-white p-4 md:p-6 rounded-2xl md:rounded-[2rem] shadow-sm flex flex-col sm:flex-row items-center gap-3 md:gap-4 group hover:bg-white transition-all duration-500 cursor-default text-center sm:text-left"
               >
-                <div className="h-12 w-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center group-hover:scale-110 group-hover:bg-emerald-600 group-hover:text-white transition-all duration-500">
+                <div className="h-10 w-10 md:h-12 md:w-12 rounded-xl md:rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center group-hover:scale-110 group-hover:bg-emerald-600 group-hover:text-white transition-all duration-500 shrink-0">
                   {stat.icon}
                 </div>
                 <div>
-                  <div className="text-3xl font-black text-slate-900 tracking-tight group-hover:text-emerald-600 transition-colors">{stat.value}</div>
-                  <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{stat.label}</div>
+                  <div className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight group-hover:text-emerald-600 transition-colors">{stat.value}</div>
+                  <div className="text-[9px] md:text-[10px] font-bold text-slate-400 uppercase tracking-widest">{stat.label}</div>
                 </div>
               </motion.div>
             ))}
           </div>
 
-          <div className="flex flex-wrap items-center gap-2 mb-12">
+          <div className="flex flex-wrap items-center gap-2 mb-10 md:mb-12">
             {['All', 'Social', 'Education', 'Agriculture'].map((cat, idx) => (
               <motion.button
                 key={cat}
@@ -279,7 +280,7 @@ export default function Home() {
                 transition={{ delay: 0.4 + (idx * 0.05) }}
                 onClick={() => setFilter(cat)}
                 className={cn(
-                  "px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300",
+                  "px-4 md:px-6 py-2 md:py-3 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-widest transition-all duration-300",
                   filter === cat 
                     ? "bg-emerald-600 text-white shadow-lg shadow-emerald-200" 
                     : "bg-white text-slate-500 hover:bg-slate-100 border border-slate-100"
@@ -290,7 +291,7 @@ export default function Home() {
             ))}
           </div>
 
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-6 md:gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
             {isLoading ? Array.from({ length: 3 }).map((_, i) => <NewsSkeleton key={i} />)
               : (
                 <AnimatePresence mode='popLayout'>
@@ -304,41 +305,41 @@ export default function Home() {
                       viewport={{ once: true }}
                       transition={{ duration: 0.5, delay: index * 0.05 }}
                     >
-                      <div className="group relative bg-white rounded-[3rem] p-4 border border-white shadow-[0_20px_50px_rgba(0,0,0,0.04)] transition-all duration-700 hover:-translate-y-4 hover:shadow-[0_40px_80px_rgba(16,185,129,0.12)] flex flex-col h-full overflow-hidden">
-                        <div className="absolute inset-0 border-2 border-transparent group-hover:border-emerald-500/20 rounded-[3rem] transition-all duration-700 -z-10" />
-                        <div className="relative aspect-[4/3] rounded-[2.5rem] overflow-hidden mb-8">
+                      <div className="group relative bg-white rounded-[2.5rem] md:rounded-[3rem] p-3 md:p-4 border border-white shadow-[0_20px_50px_rgba(0,0,0,0.04)] transition-all duration-700 hover:-translate-y-4 hover:shadow-[0_40px_80px_rgba(16,185,129,0.12)] flex flex-col h-full overflow-hidden">
+                        <div className="absolute inset-0 border-2 border-transparent group-hover:border-emerald-500/20 rounded-[2.5rem] md:rounded-[3rem] transition-all duration-700 -z-10" />
+                        <div className="relative aspect-[4/3] rounded-[2rem] md:rounded-[2.5rem] overflow-hidden mb-6 md:mb-8">
                           <img 
                             src={getImageUrl(item.image, 'initiatives')} 
                             alt={item.titleEn} 
                             className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" 
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500" />
-                          <div className="absolute top-6 right-6">
-                            <Badge className="bg-white/20 backdrop-blur-xl border border-white/30 text-white px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest shadow-2xl">
+                          <div className="absolute top-4 md:top-6 right-4 md:right-6">
+                            <Badge className="bg-white/20 backdrop-blur-xl border border-white/30 text-white px-3 md:px-4 py-1.5 rounded-full text-[8px] md:text-[9px] font-black uppercase tracking-widest shadow-2xl">
                               {language === 'hi' ? 'सक्रिय' : 'Active Now'}
                             </Badge>
                           </div>
-                          <div className="absolute bottom-6 left-6 w-14 h-14 rounded-2xl bg-white/20 backdrop-blur-xl border border-white/30 flex items-center justify-center text-white shadow-2xl transition-all duration-500 group-hover:scale-110 group-hover:rotate-6">
+                          <div className="absolute bottom-4 md:bottom-6 left-4 md:left-6 w-12 h-12 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-white/20 backdrop-blur-xl border border-white/30 flex items-center justify-center text-white shadow-2xl transition-all duration-500 group-hover:scale-110 group-hover:rotate-6">
                             {initiativeIcons[item.slug] || initiativeIcons.default}
                           </div>
                           {index === 0 && (
-                            <div className="absolute top-6 left-6 bg-emerald-500 text-white px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest shadow-lg">
+                            <div className="absolute top-4 md:top-6 left-4 md:left-6 bg-emerald-500 text-white px-3 md:px-4 py-1.5 rounded-full text-[8px] md:text-[9px] font-black uppercase tracking-widest shadow-lg">
                               Featured
                             </div>
                           )}
                         </div>
-                        <div className="px-4 pb-6 flex flex-col flex-grow">
-                          <div className="flex items-center gap-3 mb-4">
+                        <div className="px-2 md:px-4 pb-4 md:pb-6 flex flex-col flex-grow">
+                          <div className="flex items-center gap-3 mb-3 md:mb-4">
                             <div className="h-[2px] w-8 bg-emerald-500 rounded-full" />
-                            <span className="text-[10px] font-black uppercase tracking-widest text-emerald-600">Strategic Node</span>
+                            <span className="text-[9px] md:text-[10px] font-black uppercase tracking-widest text-emerald-600">Strategic Node</span>
                           </div>
-                          <h3 className="text-2xl md:text-3xl font-black text-slate-900 mb-4 tracking-tight leading-tight group-hover:text-emerald-600 transition-colors duration-300">
+                          <h3 className="text-xl md:text-3xl font-black text-slate-900 mb-3 md:mb-4 tracking-tight leading-tight group-hover:text-emerald-600 transition-colors duration-300">
                             {language === 'hi' ? item.titleHi : item.titleEn}
                           </h3>
-                          <p className="text-slate-500 text-sm leading-relaxed mb-8 line-clamp-3 font-medium flex-grow">
+                          <p className="text-slate-500 text-sm leading-relaxed mb-6 md:mb-8 line-clamp-3 font-medium flex-grow">
                             {language === 'hi' ? (item.descriptionHi || item.descriptionEn) : item.descriptionEn}
                           </p>
-                          <div className="pt-6 border-t border-slate-100">
+                          <div className="pt-4 md:pt-6 border-t border-slate-100">
                             <Link 
                               href={`/initiatives/${item.slug}`} 
                               className="inline-flex items-center gap-3 text-slate-900 font-black uppercase text-[10px] tracking-[0.2em] group/link"
@@ -360,16 +361,16 @@ export default function Home() {
       </section>
 
       {/* --- INSIGHTS SECTION (Our Insides) --- */}
-      <section className="bg-[#f0fdf4] py-24 md:py-32 overflow-hidden selection:bg-emerald-100 font-sans">
+      <section className="bg-[#f0fdf4] py-16 md:py-32 overflow-hidden selection:bg-emerald-100 font-sans">
         <div className="container mx-auto px-4 md:px-6">
           
           {/* Header */}
-          <div className="flex flex-col items-center text-center mb-16 space-y-4">
+          <div className="flex flex-col items-center text-center mb-12 md:mb-16 space-y-4">
             <motion.h2 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-5xl md:text-6xl font-black tracking-tight text-slate-900"
+              className="text-4xl md:text-6xl font-black tracking-tight text-slate-900"
             >
               Our Insides
             </motion.h2>
@@ -378,17 +379,17 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="text-lg text-slate-500 font-medium max-w-2xl leading-relaxed"
+              className="text-base md:text-lg text-slate-500 font-medium max-w-2xl leading-relaxed"
             >
               Read our latest activities, success stories, and awareness articles from our NGO in Lucknow.
             </motion.p>
           </div>
 
-          <div className="grid gap-8 lg:grid-cols-12">
+          <div className="grid gap-6 md:gap-8 lg:grid-cols-12">
             {/* LEFT SIDE: Featured Card */}
             <div className="lg:col-span-7">
               {isLoading ? (
-                <div className="h-full bg-white rounded-[2rem] animate-pulse min-h-[400px]" />
+                <div className="h-full bg-white rounded-[2rem] animate-pulse min-h-[300px] md:min-h-[400px]" />
               ) : data.articles[0] ? (() => {
                 const article = data.articles[0] as any;
                 const displayImage = parseImageField(article.images || article.image || article.imageUrl);
@@ -401,21 +402,21 @@ export default function Home() {
                   >
                     <Link href={`/news/${article.id}`} className="group block h-full">
                       <div className="h-full bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1 flex flex-col md:flex-row">
-                        <div className="md:w-1/2 h-64 md:h-auto relative overflow-hidden">
+                        <div className="md:w-1/2 h-56 md:h-auto relative overflow-hidden">
                           <img 
                             src={getImageUrl(displayImage, 'news')} 
                             alt={article.titleEn} 
                             className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
                           />
                         </div>
-                        <div className="md:w-1/2 p-8 md:p-10 flex flex-col justify-center space-y-4">
-                          <Badge className="bg-emerald-100 text-emerald-700 border-none px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest w-fit">
+                        <div className="md:w-1/2 p-6 md:p-10 flex flex-col justify-center space-y-4">
+                          <Badge className="bg-emerald-100 text-emerald-700 border-none px-4 py-1.5 rounded-full text-[9px] md:text-[10px] font-black uppercase tracking-widest w-fit">
                             {article.category || 'Environment'}
                           </Badge>
-                          <h3 className="text-2xl md:text-3xl font-black text-slate-900 leading-tight group-hover:text-emerald-600 transition-colors">
+                          <h3 className="text-xl md:text-3xl font-black text-slate-900 leading-tight group-hover:text-emerald-600 transition-colors">
                             {language === 'hi' ? article.titleHi : article.titleEn}
                           </h3>
-                          <p className="text-slate-500 text-sm leading-relaxed line-clamp-3 font-medium">
+                          <p className="text-slate-500 text-xs md:text-sm leading-relaxed line-clamp-3 font-medium">
                             {language === 'hi' ? article.contentHi : article.contentEn}
                           </p>
                           <div className="flex items-center gap-2 text-emerald-600 font-black uppercase text-[10px] tracking-widest group-hover:gap-4 transition-all">
@@ -430,11 +431,11 @@ export default function Home() {
             </div>
 
             {/* RIGHT SIDE: Small Cards */}
-            <div className="lg:col-span-5 flex flex-col gap-6">
+            <div className="lg:col-span-5 flex flex-col gap-4 md:gap-6">
               {isLoading ? (
                 <>
-                  <div className="h-40 bg-white rounded-[2rem] animate-pulse" />
-                  <div className="h-40 bg-white rounded-[2rem] animate-pulse" />
+                  <div className="h-32 md:h-40 bg-white rounded-[2rem] animate-pulse" />
+                  <div className="h-32 md:h-40 bg-white rounded-[2rem] animate-pulse" />
                 </>
               ) : data.articles.slice(1, 3).map((article: any, idx: number) => {
                 const displayImage = parseImageField(article.images || article.image || article.imageUrl);
@@ -447,7 +448,7 @@ export default function Home() {
                     transition={{ delay: 0.1 * (idx + 1) }}
                   >
                     <Link href={`/news/${article.id}`} className="group block">
-                      <div className="bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1 flex h-40">
+                      <div className="bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1 flex h-32 md:h-40">
                         <div className="w-1/3 relative overflow-hidden">
                           <img 
                             src={getImageUrl(displayImage, 'news')} 
@@ -455,14 +456,14 @@ export default function Home() {
                             className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
                           />
                         </div>
-                        <div className="w-2/3 p-6 flex flex-col justify-center space-y-2">
-                          <Badge className="bg-emerald-50 text-emerald-600 border-none px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest w-fit">
+                        <div className="w-2/3 p-4 md:p-6 flex flex-col justify-center space-y-2">
+                          <Badge className="bg-emerald-50 text-emerald-600 border-none px-3 py-1 rounded-full text-[8px] md:text-[9px] font-black uppercase tracking-widest w-fit">
                             {article.category || (idx === 0 ? 'Animal Welfare' : 'Social Welfare')}
                           </Badge>
-                          <h3 className="text-lg font-black text-slate-900 leading-tight group-hover:text-emerald-600 transition-colors line-clamp-2">
+                          <h3 className="text-sm md:text-lg font-black text-slate-900 leading-tight group-hover:text-emerald-600 transition-colors line-clamp-2">
                             {language === 'hi' ? article.titleHi : article.titleEn}
                           </h3>
-                          <div className="flex items-center gap-2 text-emerald-600 font-black uppercase text-[9px] tracking-widest group-hover:gap-3 transition-all pt-1">
+                          <div className="flex items-center gap-2 text-emerald-600 font-black uppercase text-[8px] md:text-[9px] tracking-widest group-hover:gap-3 transition-all pt-1">
                             Read More <ArrowRight className="h-3.5 w-3.5" />
                           </div>
                         </div>
@@ -479,10 +480,10 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mt-16 flex justify-center"
+            className="mt-12 md:mt-16 flex justify-center"
           >
-            <Button asChild className="rounded-full h-14 px-10 bg-emerald-600 hover:bg-emerald-700 text-white shadow-xl shadow-emerald-200 transition-all duration-500 font-bold group">
-              <Link href="/news" className="flex items-center gap-3">
+            <Button asChild className="w-full sm:w-auto rounded-full h-14 px-10 bg-emerald-600 hover:bg-emerald-700 text-white shadow-xl shadow-emerald-200 transition-all duration-500 font-bold group">
+              <Link href="/news" className="flex items-center justify-center gap-3">
                 View All Insides
                 <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Link>
@@ -492,10 +493,10 @@ export default function Home() {
       </section>
 
       {/* --- GALLERY SECTION (Moments That Matter) --- */}
-      <section className="bg-white py-24 md:py-32 relative overflow-hidden font-sans">
+      <section className="bg-white py-16 md:py-32 relative overflow-hidden font-sans">
         <div className="container mx-auto px-4 md:px-6 relative z-10">
           
-          <div className="flex flex-col items-center text-center mb-16 md:mb-20 space-y-6">
+          <div className="flex flex-col items-center text-center mb-12 md:mb-20 space-y-4 md:space-y-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -510,7 +511,7 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="text-5xl md:text-7xl font-black tracking-tight text-slate-900 leading-[0.95]"
+              className="text-4xl md:text-7xl font-black tracking-tight text-slate-900 leading-[0.95]"
             >
               {language === 'hi' ? 'महत्वपूर्ण क्षण' : 'Moments That Matter'}
             </motion.h2>
@@ -520,7 +521,7 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              className="text-xl text-slate-500 font-medium leading-relaxed max-w-2xl"
+              className="text-lg md:text-xl text-slate-500 font-medium leading-relaxed max-w-2xl"
             >
               {language === 'hi' 
                 ? 'वास्तविक प्रभाव, वास्तविक कहानियाँ और वास्तविक परिवर्तन को कैद करना।'
@@ -529,7 +530,7 @@ export default function Home() {
           </div>
 
           {isLoading ? <GallerySkeleton /> : (
-            <div className="columns-1 sm:columns-2 lg:columns-3 gap-8 space-y-8">
+            <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 md:gap-8 space-y-6 md:space-y-8">
               {data.gallery.slice(0, 6).map((item: any, i: number) => {
                 const displayImage = parseImageField(item.image);
                 const title = language === 'hi' ? (item.titleHi || item.title) : item.title;
@@ -541,16 +542,16 @@ export default function Home() {
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: i * 0.1 }}
                     onClick={() => setActiveImage(getImageUrl(displayImage, "gallery"))}
-                    className="group relative rounded-[2.5rem] overflow-hidden cursor-pointer break-inside-avoid border border-slate-100 bg-slate-50 shadow-sm hover:shadow-2xl transition-all duration-700"
+                    className="group relative rounded-[2rem] md:rounded-[2.5rem] overflow-hidden cursor-pointer break-inside-avoid border border-slate-100 bg-slate-50 shadow-sm hover:shadow-2xl transition-all duration-700"
                   >
                     <img 
                       src={getImageUrl(displayImage, "gallery")} 
                       alt={title}
                       className="w-full h-auto object-cover transition-transform duration-1000 group-hover:scale-110" 
                     />
-                    <div className="absolute inset-0 bg-emerald-600/20 opacity-0 group-hover:opacity-100 transition-all duration-500 backdrop-blur-[2px] flex flex-col justify-end p-8 md:p-10">
+                    <div className="absolute inset-0 bg-emerald-600/20 opacity-0 group-hover:opacity-100 transition-all duration-500 backdrop-blur-[2px] flex flex-col justify-end p-6 md:p-10">
                       <div className="translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                        <h4 className="text-white text-2xl font-black mb-4 leading-tight uppercase italic tracking-tighter">
+                        <h4 className="text-white text-xl md:text-2xl font-black mb-3 md:mb-4 leading-tight uppercase italic tracking-tighter">
                           {title}
                         </h4>
                         <div className="flex items-center gap-2 text-white font-black uppercase text-[10px] tracking-widest">
@@ -568,10 +569,10 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mt-20 flex justify-center"
+            className="mt-12 md:mt-20 flex justify-center"
           >
-            <Button asChild className="rounded-full h-16 px-12 bg-emerald-600 hover:bg-emerald-700 text-white shadow-xl shadow-emerald-200 transition-all duration-500 font-bold text-lg group">
-              <Link href="/gallery" className="flex items-center gap-3">
+            <Button asChild className="w-full sm:w-auto rounded-full h-16 px-12 bg-emerald-600 hover:bg-emerald-700 text-white shadow-xl shadow-emerald-200 transition-all duration-500 font-bold text-lg group">
+              <Link href="/gallery" className="flex items-center justify-center gap-3">
                 {language === 'hi' ? 'पूरी गैलरी देखें' : 'View Full Gallery'}
                 <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Link>
@@ -591,9 +592,9 @@ export default function Home() {
               />
               <button 
                 onClick={() => setActiveImage(null)} 
-                className="absolute top-6 right-6 h-12 w-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white backdrop-blur-md transition-all active:scale-90"
+                className="absolute top-4 md:top-6 right-4 md:right-6 h-10 w-10 md:h-12 md:w-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white backdrop-blur-md transition-all active:scale-90"
               >
-                <X className="h-6 w-6" />
+                <X className="h-5 w-5 md:h-6 md:w-6" />
               </button>
             </div>
           </DialogContent>

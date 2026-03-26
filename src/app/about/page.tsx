@@ -1,3 +1,4 @@
+
 'use client';
 import { useTranslation } from '@/hooks/use-translation';
 import Link from 'next/link';
@@ -78,73 +79,73 @@ export default function AboutPage() {
     <div className="bg-background">
       {bannerImage ? (
         <section
-          className="relative bg-cover bg-center bg-no-repeat py-32 md:py-48"
+          className="relative bg-cover bg-center bg-no-repeat py-24 md:py-48"
           style={{ backgroundImage: `url(${bannerImage.imageUrl})` }}
         >
           <div className="absolute inset-0 bg-primary/80 mix-blend-multiply" />
           <div className="relative container mx-auto px-4 md:px-6 text-center text-white">
             <StaggerWrap className="flex flex-col items-center">
               <StaggerItem>
-                <div className="inline-block rounded-full bg-accent px-4 py-1.5 text-xs font-bold uppercase tracking-widest mb-6">
+                <div className="inline-block rounded-full bg-accent px-4 py-1.5 text-[10px] md:text-xs font-bold uppercase tracking-widest mb-4 md:mb-6">
                   {t('about_section_title')}
                 </div>
               </StaggerItem>
               <AnimatedText
                 el="h1"
                 text={t('hero_name')}
-                className="font-headline text-5xl font-black tracking-tight text-white sm:text-7xl drop-shadow-2xl"
+                className="font-headline text-4xl sm:text-6xl md:text-7xl font-black tracking-tight text-white drop-shadow-2xl"
               />
               <AnimatedText
                 el="p"
                 text={t('hero_titles')}
-                className="mx-auto mt-6 max-w-3xl text-xl text-white/90 font-medium"
+                className="mx-auto mt-4 md:mt-6 max-w-3xl text-lg md:text-xl text-white/90 font-medium"
               />
             </StaggerWrap>
           </div>
         </section>
       ) : (
-        <section className="bg-secondary py-20">
+        <section className="bg-secondary py-16 md:py-20">
           <div className="container mx-auto px-4 md:px-6 text-center">
              <StaggerWrap className="flex flex-col items-center">
               <StaggerItem>
-                <div className="inline-block rounded-full bg-accent/10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-accent mb-6">
+                <div className="inline-block rounded-full bg-accent/10 px-4 py-1.5 text-[10px] md:text-xs font-bold uppercase tracking-widest text-accent mb-4 md:mb-6">
                   {t('about_section_title')}
                 </div>
               </StaggerItem>
               <AnimatedText
                 el="h1"
                 text={t('hero_name')}
-                className="font-headline text-5xl font-black tracking-tight text-primary sm:text-7xl"
+                className="font-headline text-4xl sm:text-6xl md:text-7xl font-black tracking-tight text-primary"
               />
               <AnimatedText
                 el="p"
                 text={t('hero_titles')}
-                className="mx-auto mt-6 max-w-3xl text-xl text-muted-foreground"
+                className="mx-auto mt-4 md:mt-6 max-w-3xl text-lg md:text-xl text-muted-foreground"
               />
             </StaggerWrap>
           </div>
         </section>
       )}
 
-      <section>
+      <section className="py-12 md:py-24">
         <div className="container mx-auto px-4 md:px-6">
-          <StaggerWrap className="grid gap-16 lg:grid-cols-5 lg:gap-24">
-            <div className="space-y-20 lg:col-span-3">
+          <StaggerWrap className="grid gap-12 lg:grid-cols-5 lg:gap-24">
+            <div className="space-y-12 md:space-y-20 lg:col-span-3">
                 {/* Intro Section */}
-                <div className="space-y-8">
+                <div className="space-y-6 md:space-y-8">
                     <div className="flex items-center gap-4">
-                        <div className="h-12 w-12 rounded-2xl bg-accent/10 flex items-center justify-center">
-                            <User className="h-6 w-6 text-accent" />
+                        <div className="h-10 w-10 md:h-12 md:w-12 rounded-xl md:rounded-2xl bg-accent/10 flex items-center justify-center shrink-0">
+                            <User className="h-5 w-5 md:h-6 md:w-6 text-accent" />
                         </div>
-                        <AnimatedText el="h2" text={t('About US')} className="font-headline text-4xl font-extrabold text-primary" />
+                        <AnimatedText el="h2" text={t('About US')} className="font-headline text-3xl md:text-4xl font-extrabold text-primary" />
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 lg:gap-x-12 gap-y-4 md:gap-y-6">
                         {introData.map((item, idx) => (
                             <div key={idx} className="flex flex-col space-y-1.5 border-b border-secondary pb-4 group hover:border-accent/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg rounded-xl p-2">
-                                <div className="flex items-center gap-2 text-muted-foreground text-[10px] font-bold uppercase tracking-widest">
+                                <div className="flex items-center gap-2 text-muted-foreground text-[9px] md:text-[10px] font-bold uppercase tracking-widest">
                                     <span>{language === 'hi' ? item.label.hi : item.label.en}</span>
                                 </div>
-                                <div className="text-primary font-bold text-lg leading-tight group-hover:text-accent transition-colors">
+                                <div className="text-primary font-bold text-base md:text-lg leading-tight group-hover:text-accent transition-colors">
                                     {item.value}
                                 </div>
                             </div>
@@ -153,68 +154,68 @@ export default function AboutPage() {
                 </div>
 
                 {/* Experience Section */}
-                <div className="space-y-8">
+                <div className="space-y-6 md:space-y-8">
                     <div className="flex items-center gap-4">
-                        <div className="h-12 w-12 rounded-2xl bg-accent/10 flex items-center justify-center">
-                            <Briefcase className="h-6 w-6 text-accent" />
+                        <div className="h-10 w-10 md:h-12 md:w-12 rounded-xl md:rounded-2xl bg-accent/10 flex items-center justify-center shrink-0">
+                            <Briefcase className="h-5 w-5 md:h-6 md:w-6 text-accent" />
                         </div>
-                        <AnimatedText el="h2" text={t('about Us')} className="font-headline text-4xl font-extrabold text-primary" />
+                        <AnimatedText el="h2" text={t('about Us')} className="font-headline text-3xl md:text-4xl font-extrabold text-primary" />
                     </div>
-                    <div className="space-y-6">
+                    <div className="space-y-4 md:space-y-6">
                         {experienceData.map((item, idx) => (
-                            <div key={idx} className="flex gap-6 items-start group p-4 rounded-2xl hover:bg-white hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                                <div className="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-secondary text-primary transition-all group-hover:bg-accent group-hover:text-white group-hover:-rotate-12 group-hover:scale-110">
-                                    <span className="font-bold text-sm">{idx + 1}</span>
+                            <div key={idx} className="flex gap-4 md:gap-6 items-start group p-3 md:p-4 rounded-2xl hover:bg-white hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                                <div className="mt-1 flex h-8 w-8 md:h-10 md:w-10 shrink-0 items-center justify-center rounded-xl md:rounded-2xl bg-secondary text-primary transition-all group-hover:bg-accent group-hover:text-white group-hover:-rotate-12 group-hover:scale-110">
+                                    <span className="font-bold text-xs md:text-sm">{idx + 1}</span>
                                 </div>
-                                <p className="text-lg text-muted-foreground group-hover:text-primary transition-colors font-medium leading-relaxed">{item}</p>
+                                <p className="text-base md:text-lg text-muted-foreground group-hover:text-primary transition-colors font-medium leading-relaxed">{item}</p>
                             </div>
                         ))}
                     </div>
                 </div>
 
                 {/* Social Work Section */}
-                <div className="space-y-8">
+                <div className="space-y-6 md:space-y-8">
                     <div className="flex items-center gap-4">
-                        <div className="h-12 w-12 rounded-2xl bg-accent/10 flex items-center justify-center">
-                            <HeartHandshake className="h-6 w-6 text-accent" />
+                        <div className="h-10 w-10 md:h-12 md:w-12 rounded-xl md:rounded-2xl bg-accent/10 flex items-center justify-center shrink-0">
+                            <HeartHandshake className="h-5 w-5 md:h-6 md:w-6 text-accent" />
                         </div>
-                        <AnimatedText el="h2" text={t('About Social Woorks')} className="font-headline text-4xl font-extrabold text-primary" />
+                        <AnimatedText el="h2" text={t('About Social Woorks')} className="font-headline text-3xl md:text-4xl font-extrabold text-primary" />
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                         {socialWorkData.map((item, idx) => (
-                            <div key={idx} className="flex gap-4 items-start p-6 rounded-3xl bg-secondary/30 border border-transparent hover:border-accent/30 hover:bg-white hover:shadow-2xl hover:-translate-y-2 hover:scale-[1.02] transition-all duration-500 group">
-                                <CheckCircle2 className="h-6 w-6 shrink-0 text-accent mt-0.5 transition-transform duration-500 group-hover:rotate-12 group-hover:scale-110" />
-                                <p className="text-sm text-primary font-medium leading-relaxed">{item}</p>
+                            <div key={idx} className="flex gap-3 md:gap-4 items-start p-4 md:p-6 rounded-[1.5rem] md:rounded-3xl bg-secondary/30 border border-transparent hover:border-accent/30 hover:bg-white hover:shadow-2xl hover:-translate-y-2 hover:scale-[1.02] transition-all duration-500 group">
+                                <CheckCircle2 className="h-5 w-5 md:h-6 md:w-6 shrink-0 text-accent mt-0.5 transition-transform duration-500 group-hover:rotate-12 group-hover:scale-110" />
+                                <p className="text-xs md:text-sm text-primary font-medium leading-relaxed">{item}</p>
                             </div>
                         ))}
                     </div>
                 </div>
 
                 {/* Achievements Section */}
-                <div className="space-y-8">
+                <div className="space-y-6 md:space-y-8">
                     <div className="flex items-center gap-4">
-                        <div className="h-12 w-12 rounded-2xl bg-accent/10 flex items-center justify-center">
-                            <Trophy className="h-6 w-6 text-accent" />
+                        <div className="h-10 w-10 md:h-12 md:w-12 rounded-xl md:rounded-2xl bg-accent/10 flex items-center justify-center shrink-0">
+                            <Trophy className="h-5 w-5 md:h-6 md:w-6 text-accent" />
                         </div>
-                        <AnimatedText el="h2" text={t('Achievements')} className="font-headline text-4xl font-extrabold text-primary" />
+                        <AnimatedText el="h2" text={t('Achievements')} className="font-headline text-3xl md:text-4xl font-extrabold text-primary" />
                     </div>
-                    <div className="space-y-8">
+                    <div className="space-y-6 md:space-y-8">
                         {achievementData.map((item, idx) => (
-                            <div key={idx} className="flex gap-6 items-start group p-4 rounded-2xl hover:bg-white hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                                <div className="mt-1 flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-accent/5 text-accent group-hover:bg-accent group-hover:text-white group-hover:scale-110 transition-all">
-                                    <Award className="h-6 w-6" />
+                            <div key={idx} className="flex gap-4 md:gap-6 items-start group p-3 md:p-4 rounded-2xl hover:bg-white hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                                <div className="mt-1 flex h-10 w-10 md:h-12 md:w-12 shrink-0 items-center justify-center rounded-xl md:rounded-2xl bg-accent/5 text-accent group-hover:bg-accent group-hover:text-white group-hover:scale-110 transition-all">
+                                    <Award className="h-5 w-5 md:h-6 md:w-6" />
                                 </div>
-                                <p className="text-xl text-primary font-bold leading-tight pt-2">{item}</p>
+                                <p className="text-lg md:text-xl text-primary font-bold leading-tight pt-2">{item}</p>
                             </div>
                         ))}
-                        <div className="ml-16 p-10 rounded-[3rem] border-2 border-dashed border-accent/20 bg-accent/5 relative overflow-hidden shadow-premium hover:shadow-2xl hover:-translate-y-1 transition-all duration-500">
+                        <div className="md:ml-16 p-6 md:p-10 rounded-[2rem] md:rounded-[3rem] border-2 border-dashed border-accent/20 bg-accent/5 relative overflow-hidden shadow-premium hover:shadow-2xl hover:-translate-y-1 transition-all duration-500">
                             <div className="absolute top-0 right-0 p-4 opacity-5">
-                                <Leaf className="h-24 w-24 text-accent rotate-12" />
+                                <Leaf className="h-16 w-16 md:h-24 md:w-24 text-accent rotate-12" />
                             </div>
-                            <h4 className="font-black text-2xl text-accent mb-6 uppercase tracking-tight">पदयात्रा का मुख्य उद्देश्य:</h4>
-                            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <h4 className="font-black text-xl md:text-2xl text-accent mb-4 md:mb-6 uppercase tracking-tight">पदयात्रा का मुख्य उद्देश्य:</h4>
+                            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
                                 {footMarchGoals.map((goal, idx) => (
-                                    <li key={idx} className="flex items-center gap-3 text-lg font-bold text-primary group">
+                                    <li key={idx} className="flex items-center gap-3 text-base md:text-lg font-bold text-primary group">
                                         <div className="h-2 w-2 rounded-full bg-accent transition-all group-hover:scale-150" />
                                         <span>{goal}</span>
                                     </li>
@@ -226,9 +227,9 @@ export default function AboutPage() {
             </div>
 
             <StaggerItem className="relative lg:col-span-2">
-              <div className="sticky top-32 space-y-10">
+              <div className="lg:sticky lg:top-32 space-y-8 md:space-y-10">
                 {aboutImage &&
-                    <div className="relative aspect-[3/4] w-full overflow-hidden rounded-[3rem] shadow-premium transition-all duration-700 hover:shadow-2xl group">
+                    <div className="relative aspect-[3/4] w-full overflow-hidden rounded-[2rem] md:rounded-[3rem] shadow-premium transition-all duration-700 hover:shadow-2xl group">
                         <img
                             src={aboutImage.imageUrl}
                             alt={aboutImage.description}
@@ -236,35 +237,35 @@ export default function AboutPage() {
                             data-ai-hint={aboutImage.imageHint}
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent"></div>
-                        <div className="absolute bottom-10 left-10 right-10">
-                            <p className="text-white font-headline text-3xl font-black mb-2">{t('hero_name')}</p>
-                            <div className="inline-block px-4 py-1.5 bg-accent text-white text-xs font-bold rounded-full uppercase tracking-widest">
+                        <div className="absolute bottom-6 md:bottom-10 left-6 md:left-10 right-6 md:right-10">
+                            <p className="text-white font-headline text-2xl md:text-3xl font-black mb-2">{t('hero_name')}</p>
+                            <div className="inline-block px-4 py-1.5 bg-accent text-white text-[10px] font-bold rounded-full uppercase tracking-widest">
                                 {language === 'hi' ? 'लोकसेवक एवं क्रांतिकारी' : 'Public Servant & Revolutionary'}
                             </div>
                         </div>
                     </div>
                 }
                 
-                <Card className="bg-white border-secondary shadow-premium p-10 rounded-[3rem] relative overflow-hidden transition-all duration-500 hover:shadow-2xl">
+                <Card className="bg-white border-secondary shadow-premium p-6 md:p-10 rounded-[2rem] md:rounded-[3rem] relative overflow-hidden transition-all duration-500 hover:shadow-2xl">
                     <div className="absolute top-0 left-0 w-full h-2 bg-accent" />
-                    <CardHeader className="p-0 mb-8">
-                        <CardTitle className="text-2xl font-black text-primary">Quick Contact</CardTitle>
+                    <CardHeader className="p-0 mb-6 md:mb-8">
+                        <CardTitle className="text-xl md:text-2xl font-black text-primary">Quick Contact</CardTitle>
                     </CardHeader>
-                    <CardContent className="p-0 space-y-6">
+                    <CardContent className="p-0 space-y-4 md:space-y-6">
                         <div className="flex items-center gap-4 group">
-                            <div className="h-10 w-10 rounded-xl bg-secondary flex items-center justify-center text-primary group-hover:bg-accent group-hover:text-white group-hover:scale-110 transition-all">
+                            <div className="h-10 w-10 rounded-xl bg-secondary flex items-center justify-center text-primary group-hover:bg-accent group-hover:text-white group-hover:scale-110 transition-all shrink-0">
                                 <MapPin className="h-5 w-5" />
                             </div>
-                            <span className="font-bold text-primary">Lucknow, Uttar Pradesh</span>
+                            <span className="font-bold text-primary text-sm md:text-base">Lucknow, Uttar Pradesh</span>
                         </div>
                         <div className="flex items-center gap-4 group">
-                            <div className="h-10 w-10 rounded-xl bg-secondary flex items-center justify-center text-primary group-hover:bg-accent group-hover:text-white group-hover:scale-110 transition-all">
+                            <div className="h-10 w-10 rounded-xl bg-secondary flex items-center justify-center text-primary group-hover:bg-accent group-hover:text-white group-hover:scale-110 transition-all shrink-0">
                                 <GraduationCap className="h-5 w-5" />
                             </div>
-                            <span className="font-bold text-primary">B.A., LL.B.</span>
+                            <span className="font-bold text-primary text-sm md:text-base">B.A., LL.B.</span>
                         </div>
                         <Separator className="bg-secondary" />
-                        <p className="text-xl italic font-medium text-accent leading-relaxed">"न्याय और सेवा ही मेरा संकल्प है।"</p>
+                        <p className="text-lg md:text-xl italic font-medium text-accent leading-relaxed">"न्याय और सेवा ही मेरा संकल्प है।"</p>
                         <Button className="w-full h-12 bg-primary text-white font-bold rounded-2xl hover:bg-accent transition-all shadow-premium" asChild>
                             <Link href="/contact">Get in Touch</Link>
                         </Button>
@@ -276,13 +277,13 @@ export default function AboutPage() {
         </div>
       </section>
 
-       <section className="bg-white">
+       <section className="bg-white py-12 md:py-24">
         <div className="container mx-auto space-y-12 px-4 md:px-6 text-center">
-           <div className="pt-12">
-                <StaggerWrap className="grid grid-cols-2 gap-6 md:grid-cols-4">
+           <div>
+                <StaggerWrap className="grid grid-cols-2 gap-4 md:gap-6 md:grid-cols-4">
                     {aboutGalleryImages.map((img) => (
                     <StaggerItem key={img.id}>
-                        <Link href="/gallery" className="group relative block h-72 w-full overflow-hidden rounded-[2rem] shadow-premium transition-all duration-500 hover:shadow-2xl">
+                        <Link href="/gallery" className="group relative block h-48 sm:h-64 md:h-72 w-full overflow-hidden rounded-[1.5rem] md:rounded-[2rem] shadow-premium transition-all duration-500 hover:shadow-2xl">
                         <img 
                             src={img.imageUrl} 
                             alt={img.description} 

@@ -1,3 +1,4 @@
+
 'use client';
 
 import * as React from 'react';
@@ -16,12 +17,12 @@ export function UpcomingEvents() {
     const { language } = useTranslation();
 
     return (
-        <section className="bg-gradient-to-b from-white to-emerald-50/30 py-24 md:py-32 overflow-hidden border-y border-slate-50 selection:bg-emerald-100 font-sans">
+        <section className="bg-gradient-to-b from-white to-emerald-50/30 py-16 md:py-32 overflow-hidden border-y border-slate-50 selection:bg-emerald-100 font-sans">
             <div className="container mx-auto px-4 md:px-6">
-                <div className="grid gap-16 lg:grid-cols-2 items-center">
+                <div className="grid gap-12 md:gap-16 lg:grid-cols-2 items-center">
                     
                     {/* LEFT SIDE: Image Collage */}
-                    <div className="relative order-2 lg:order-1 h-[500px] md:h-[650px] flex items-center justify-center">
+                    <div className="relative order-2 lg:order-1 h-[400px] sm:h-[500px] md:h-[650px] flex items-center justify-center">
                         <div className="relative w-full h-full max-w-lg">
                             {/* Top Left: Volunteers */}
                             <motion.div 
@@ -31,7 +32,7 @@ export function UpcomingEvents() {
                                 transition={{ duration: 0.8, ease: "easeOut" }}
                                 className="absolute top-0 left-0 w-[48%] aspect-square z-20"
                             >
-                                <div className="w-full h-full rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white transform -rotate-3 hover:rotate-0 transition-transform duration-500">
+                                <div className="w-full h-full rounded-[1.5rem] md:rounded-[2rem] overflow-hidden shadow-2xl border-2 md:border-4 border-white transform -rotate-3 hover:rotate-0 transition-transform duration-500">
                                     <img 
                                         src="https://images.unsplash.com/photo-1559027615-cd26735550b4?auto=format&fit=crop&q=80&w=800" 
                                         alt="Volunteers smiling" 
@@ -47,9 +48,9 @@ export function UpcomingEvents() {
                                 whileInView={{ opacity: 1, x: 0, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
-                                className="absolute top-12 right-0 w-[52%] aspect-[4/5] z-10"
+                                className="absolute top-8 md:top-12 right-0 w-[52%] aspect-[4/5] z-10"
                             >
-                                <div className="w-full h-full rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white transform rotate-3 hover:rotate-0 transition-transform duration-500">
+                                <div className="w-full h-full rounded-[1.5rem] md:rounded-[2rem] overflow-hidden shadow-2xl border-2 md:border-4 border-white transform rotate-3 hover:rotate-0 transition-transform duration-500">
                                     <img 
                                         src="https://images.unsplash.com/photo-1581578731522-aa0606660fb0?auto=format&fit=crop&q=80&w=800" 
                                         alt="Elderly care" 
@@ -65,9 +66,9 @@ export function UpcomingEvents() {
                                 whileInView={{ opacity: 1, x: 0, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-                                className="absolute bottom-12 left-0 w-[52%] aspect-[4/5] z-30"
+                                className="absolute bottom-8 md:bottom-12 left-0 w-[52%] aspect-[4/5] z-30"
                             >
-                                <div className="w-full h-full rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white transform rotate-2 hover:rotate-0 transition-transform duration-500">
+                                <div className="w-full h-full rounded-[1.5rem] md:rounded-[2rem] overflow-hidden shadow-2xl border-2 md:border-4 border-white transform rotate-2 hover:rotate-0 transition-transform duration-500">
                                     <img 
                                         src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=800" 
                                         alt="Tree planting" 
@@ -85,7 +86,7 @@ export function UpcomingEvents() {
                                 transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
                                 className="absolute bottom-0 right-4 w-[48%] aspect-square z-40"
                             >
-                                <div className="w-full h-full rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white transform -rotate-6 hover:rotate-0 transition-transform duration-500">
+                                <div className="w-full h-full rounded-[1.5rem] md:rounded-[2rem] overflow-hidden shadow-2xl border-2 md:border-4 border-white transform -rotate-6 hover:rotate-0 transition-transform duration-500">
                                     <img 
                                         src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&q=80&w=800" 
                                         alt="Animal care" 
@@ -97,21 +98,21 @@ export function UpcomingEvents() {
 
                             {/* Floating Glassmorphism Elements */}
                             <motion.div 
-                                animate={{ y: [0, -15, 0], rotate: [0, 5, 0] }}
+                                animate={{ y: [0, -10, 0], rotate: [0, 5, 0] }}
                                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                                className="absolute top-1/4 left-1/4 w-24 h-24 bg-white/20 backdrop-blur-md rounded-[2rem] border border-white/40 z-20 shadow-xl pointer-events-none" 
+                                className="absolute top-1/4 left-1/4 w-16 h-16 md:w-24 md:h-24 bg-white/20 backdrop-blur-md rounded-[1.5rem] md:rounded-[2rem] border border-white/40 z-20 shadow-xl pointer-events-none" 
                             />
                             <motion.div 
                                 animate={{ scale: [1, 1.1, 1] }}
                                 transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                                className="absolute bottom-1/4 right-1/4 w-16 h-16 bg-emerald-500/10 backdrop-blur-md rounded-2xl border border-emerald-500/20 z-50 shadow-lg pointer-events-none" 
+                                className="absolute bottom-1/4 right-1/4 w-12 h-12 md:w-16 md:h-16 bg-emerald-500/10 backdrop-blur-md rounded-xl md:rounded-2xl border border-emerald-500/20 z-50 shadow-lg pointer-events-none" 
                             />
                         </div>
                     </div>
 
                     {/* RIGHT SIDE: Content Section */}
-                    <StaggerWrap className="space-y-8 order-1 lg:order-2">
-                        <StaggerItem>
+                    <StaggerWrap className="space-y-6 md:space-y-8 order-1 lg:order-2 text-center lg:text-left">
+                        <StaggerItem className="flex justify-center lg:justify-start">
                             <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-emerald-600 text-white shadow-lg shadow-emerald-200">
                                 <span className="text-[10px] font-black uppercase tracking-[0.2em]">
                                     {language === 'hi' ? 'हमारे मिशन के बारे में' : 'ABOUT OUR MISSION'}
@@ -120,13 +121,13 @@ export function UpcomingEvents() {
                         </StaggerItem>
                         
                         <StaggerItem>
-                            <h2 className="text-5xl md:text-6xl lg:text-7xl font-black text-slate-900 leading-[1] tracking-tight">
+                            <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-slate-900 leading-[1] tracking-tight">
                                 {language === 'hi' ? 'जीवन को सशक्त बनाना, प्रभाव पैदा करना' : 'Empowering Lives, Creating Impact'}
                             </h2>
                         </StaggerItem>
 
                         <StaggerItem>
-                            <p className="text-lg text-slate-500 leading-relaxed max-w-xl font-medium">
+                            <p className="text-base md:text-lg text-slate-500 leading-relaxed max-w-xl font-medium mx-auto lg:mx-0">
                                 {language === 'hi' 
                                     ? 'हम सरोजनी नगर और लखनऊ में शिक्षा, सामाजिक न्याय और ग्रामीण सशक्तिकरण के माध्यम से जीवन को बेहतर बनाने के लिए समर्पित हैं।'
                                     : 'Dedicated to uplifting lives through education, social justice, and rural empowerment. Based in Sarojini Nagar, Lucknow, we strive to create a more equitable future for every citizen.'}
@@ -134,16 +135,16 @@ export function UpcomingEvents() {
                         </StaggerItem>
 
                         {/* Bullet Points with Icons */}
-                        <StaggerItem className="space-y-8 pt-4">
-                            <div className="flex gap-6 group">
-                                <div className="h-14 w-14 shrink-0 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center transition-all group-hover:bg-emerald-600 group-hover:text-white shadow-sm">
-                                    <HeartHandshake className="h-7 w-7" />
+                        <StaggerItem className="space-y-6 md:space-y-8 pt-4">
+                            <div className="flex flex-col sm:flex-row items-center lg:items-start gap-4 md:gap-6 group text-center sm:text-left">
+                                <div className="h-12 w-12 md:h-14 md:w-14 shrink-0 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center transition-all group-hover:bg-emerald-600 group-hover:text-white shadow-sm">
+                                    <HeartHandshake className="h-6 w-6 md:h-7 md:w-7" />
                                 </div>
                                 <div className="space-y-1">
-                                    <h4 className="font-bold text-slate-900 text-xl uppercase tracking-tight">
+                                    <h4 className="font-bold text-slate-900 text-lg md:text-xl uppercase tracking-tight">
                                         {language === 'hi' ? 'सामाजिक कल्याण' : 'Social Welfare'}
                                     </h4>
-                                    <p className="text-slate-500 leading-relaxed max-w-md">
+                                    <p className="text-slate-500 text-sm md:text-base leading-relaxed max-w-md">
                                         {language === 'hi'
                                             ? 'सामुदायिक सशक्तिकरण, शिक्षा को बढ़ावा देना और जरूरतमंदों के लिए आवश्यक संसाधन प्रदान करना।'
                                             : 'Fostering community empowerment, education, and providing essential resources for those in need.'}
@@ -151,15 +152,15 @@ export function UpcomingEvents() {
                                 </div>
                             </div>
 
-                            <div className="flex gap-6 group">
-                                <div className="h-14 w-14 shrink-0 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center transition-all group-hover:bg-emerald-600 group-hover:text-white shadow-sm">
-                                    <PawPrint className="h-7 w-7" />
+                            <div className="flex flex-col sm:flex-row items-center lg:items-start gap-4 md:gap-6 group text-center sm:text-left">
+                                <div className="h-12 w-12 md:h-14 md:w-14 shrink-0 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center transition-all group-hover:bg-emerald-600 group-hover:text-white shadow-sm">
+                                    <PawPrint className="h-6 w-6 md:h-7 md:w-7" />
                                 </div>
                                 <div className="space-y-1">
-                                    <h4 className="font-bold text-slate-900 text-xl uppercase tracking-tight">
+                                    <h4 className="font-bold text-slate-900 text-lg md:text-xl uppercase tracking-tight">
                                         {language === 'hi' ? 'पशु देखभाल' : 'Animal Care'}
                                     </h4>
-                                    <p className="text-slate-500 leading-relaxed max-w-md">
+                                    <p className="text-slate-500 text-sm md:text-base leading-relaxed max-w-md">
                                         {language === 'hi'
                                             ? 'पशु अधिकारों, बचाव कार्यों और स्वास्थ्य सेवाओं का समर्थन करना और दयालु उपचार की वकालत करना।'
                                             : 'Championing animal rights, rescue operations, healthcare services, and advocating for compassionate treatment.'}
@@ -167,15 +168,15 @@ export function UpcomingEvents() {
                                 </div>
                             </div>
 
-                            <div className="flex gap-6 group">
-                                <div className="h-14 w-14 shrink-0 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center transition-all group-hover:bg-emerald-600 group-hover:text-white shadow-sm">
-                                    <Trees className="h-7 w-7" />
+                            <div className="flex flex-col sm:flex-row items-center lg:items-start gap-4 md:gap-6 group text-center sm:text-left">
+                                <div className="h-12 w-12 md:h-14 md:w-14 shrink-0 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center transition-all group-hover:bg-emerald-600 group-hover:text-white shadow-sm">
+                                    <Trees className="h-6 w-6 md:h-7 md:w-7" />
                                 </div>
                                 <div className="space-y-1">
-                                    <h4 className="font-bold text-slate-900 text-xl uppercase tracking-tight">
+                                    <h4 className="font-bold text-slate-900 text-lg md:text-xl uppercase tracking-tight">
                                         {language === 'hi' ? 'वृक्षारोपण' : 'Tree Plantation'}
                                     </h4>
-                                    <p className="text-slate-500 leading-relaxed max-w-md">
+                                    <p className="text-slate-500 text-sm md:text-base leading-relaxed max-w-md">
                                         {language === 'hi'
                                             ? 'पर्यावरण पुनर्वनीकरण परियोजनाओं का नेतृत्व करना और एक स्वस्थ ग्रह का निर्माण करना।'
                                             : 'Leading environmental reforestation projects, promoting ecological balance, and building a greener, healthier planet.'}
@@ -186,8 +187,8 @@ export function UpcomingEvents() {
 
                         {/* CTA Button */}
                         <StaggerItem className="pt-6">
-                            <Button asChild size="lg" className="bg-emerald-600 hover:bg-emerald-700 text-white rounded-full h-16 px-12 text-lg font-bold shadow-xl shadow-emerald-200 transition-all hover:scale-105 active:scale-95 group border-none">
-                                <Link href="/contact" className="flex items-center gap-3">
+                            <Button asChild size="lg" className="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white rounded-full h-16 px-12 text-lg font-bold shadow-xl shadow-emerald-200 transition-all hover:scale-105 active:scale-95 group border-none">
+                                <Link href="/contact" className="flex items-center justify-center gap-3">
                                     {language === 'hi' ? 'हमारे मिशन से जुड़ें' : 'JOIN OUR MISSION'}
                                     <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
                                 </Link>
@@ -195,14 +196,14 @@ export function UpcomingEvents() {
                         </StaggerItem>
 
                         {/* Horizontal Stats Section */}
-                        <StaggerItem className="flex flex-wrap gap-12 pt-8 border-t border-slate-100">
+                        <StaggerItem className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-8 md:gap-12 pt-8 border-t border-slate-100">
                             <div className="flex items-center gap-4">
                                 <div className="h-12 w-12 rounded-2xl bg-emerald-50 flex items-center justify-center text-emerald-600">
                                     <Users className="h-6 w-6" />
                                 </div>
-                                <div>
-                                    <div className="text-3xl font-black text-slate-900 tracking-tighter">1000+</div>
-                                    <div className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">
+                                <div className="text-left">
+                                    <div className="text-2xl md:text-3xl font-black text-slate-900 tracking-tighter">1000+</div>
+                                    <div className="text-[9px] md:text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">
                                         {language === 'hi' ? 'स्वयंसेवक' : 'Volunteers'}
                                     </div>
                                 </div>
@@ -211,9 +212,9 @@ export function UpcomingEvents() {
                                 <div className="h-12 w-12 rounded-2xl bg-emerald-50 flex items-center justify-center text-emerald-600">
                                     <Heart className="h-6 w-6" />
                                 </div>
-                                <div>
-                                    <div className="text-3xl font-black text-slate-900 tracking-tighter">10K+</div>
-                                    <div className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">
+                                <div className="text-left">
+                                    <div className="text-2xl md:text-3xl font-black text-slate-900 tracking-tighter">10K+</div>
+                                    <div className="text-[9px] md:text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">
                                         {language === 'hi' ? 'प्रभावित जीवन' : 'Lives Impacted'}
                                     </div>
                                 </div>

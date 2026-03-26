@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -95,7 +96,7 @@ export default function ContactPage() {
       {/* Banner Section */}
       {bannerImage ? (
         <section
-          className="relative bg-cover bg-center bg-no-repeat py-20 md:py-28"
+          className="relative bg-cover bg-center bg-no-repeat py-16 md:py-28"
           style={{ backgroundImage: `url(${bannerImage.imageUrl})` }}
         >
           <div className="absolute inset-0 bg-primary/70 mix-blend-multiply" />
@@ -104,29 +105,29 @@ export default function ContactPage() {
               <AnimatedText
                 el="h1"
                 text={t('contact_page_title')}
-                className="font-headline text-4xl font-bold tracking-tight sm:text-5xl drop-shadow-md"
+                className="font-headline text-3xl md:text-5xl font-bold tracking-tight drop-shadow-md"
               />
               <AnimatedText
                 el="p"
                 text={t('contact_page_desc')}
-                className="mx-auto mt-4 max-w-3xl text-lg text-primary-foreground/90 drop-shadow-sm"
+                className="mx-auto mt-4 max-w-3xl text-base md:text-lg text-primary-foreground/90 drop-shadow-sm"
               />
             </StaggerItem>
           </div>
         </section>
       ) : (
-        <section className="bg-secondary py-10">
+        <section className="bg-secondary py-10 md:py-16">
           <div className="container mx-auto px-4 md:px-6 text-center">
             <StaggerItem>
               <AnimatedText
                 el="h1"
                 text={t('contact_page_title')}
-                className="font-headline text-4xl font-bold tracking-tight sm:text-5xl"
+                className="font-headline text-3xl md:text-5xl font-bold tracking-tight"
               />
               <AnimatedText
                 el="p"
                 text={t('contact_page_desc')}
-                className="mx-auto mt-4 max-w-3xl text-lg text-muted-foreground"
+                className="mx-auto mt-4 max-w-3xl text-base md:text-lg text-muted-foreground"
               />
             </StaggerItem>
           </div>
@@ -134,14 +135,14 @@ export default function ContactPage() {
       )}
 
       {/* Main Content */}
-      <section className="py-12">
+      <section className="py-8 md:py-12">
         <div className="container mx-auto px-4 md:px-6">
-          <StaggerWrap className="grid gap-12 lg:grid-cols-5">
+          <StaggerWrap className="grid gap-8 md:gap-12 lg:grid-cols-5">
             {/* Contact Form Card */}
             <StaggerItem className="lg:col-span-3">
-              <Card className="bg-card backdrop-blur-lg border border-accent/20 transition-all duration-300 hover:shadow-xl">
+              <Card className="bg-card backdrop-blur-lg border border-accent/20 transition-all duration-300 hover:shadow-xl rounded-2xl md:rounded-[2rem]">
                 <CardHeader>
-                    <CardTitle className="text-xl font-headline">{t('Contact') || "Hamse Sampark Karein"}</CardTitle>
+                    <CardTitle className="text-xl md:text-2xl font-headline">{t('Contact') || "Hamse Sampark Karein"}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <Form {...form}>
@@ -152,7 +153,7 @@ export default function ContactPage() {
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel>{t('contact_form_name')}</FormLabel>
-                            <FormControl><Input placeholder="Your Name" {...field} /></FormControl>
+                            <FormControl><Input className="h-12 rounded-xl" placeholder="Your Name" {...field} /></FormControl>
                             <FormMessage />
                           </FormItem>
                         )}
@@ -164,7 +165,7 @@ export default function ContactPage() {
                             render={({ field }) => (
                             <FormItem>
                                 <FormLabel>{t('contact_form_email')}</FormLabel>
-                                <FormControl><Input type="email" placeholder="your.email@example.com" {...field} /></FormControl>
+                                <FormControl><Input className="h-12 rounded-xl" type="email" placeholder="your.email@example.com" {...field} /></FormControl>
                                 <FormMessage />
                             </FormItem>
                             )}
@@ -175,7 +176,7 @@ export default function ContactPage() {
                             render={({ field }) => (
                             <FormItem>
                                 <FormLabel>{t('contact_form_phone')}</FormLabel>
-                                <FormControl><Input placeholder="+91 98765 43210" {...field} /></FormControl>
+                                <FormControl><Input className="h-12 rounded-xl" placeholder="+91 98765 43210" {...field} /></FormControl>
                                 <FormMessage />
                             </FormItem>
                             )}
@@ -187,7 +188,7 @@ export default function ContactPage() {
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel>{t('contact_form_message')}</FormLabel>
-                            <FormControl><Textarea placeholder="Tell us how we can help..." className="min-h-[120px]" {...field} /></FormControl>
+                            <FormControl><Textarea placeholder="Tell us how we can help..." className="min-h-[120px] rounded-xl" {...field} /></FormControl>
                             <FormMessage />
                           </FormItem>
                         )}
@@ -195,7 +196,7 @@ export default function ContactPage() {
                       <Button 
                         type="submit" 
                         size="lg" 
-                        className="w-full sm:w-auto font-bold"
+                        className="w-full sm:w-auto font-bold rounded-xl h-14"
                         disabled={isSubmitting}
                       >
                         {isSubmitting ? (
@@ -217,8 +218,8 @@ export default function ContactPage() {
             </StaggerItem>
 
             {/* Info Cards */}
-            <StaggerItem className="space-y-8 lg:col-span-2">
-              <Card className="bg-card border border-accent/20">
+            <StaggerItem className="space-y-6 md:space-y-8 lg:col-span-2">
+              <Card className="bg-card border border-accent/20 rounded-2xl md:rounded-[2rem]">
                 <CardHeader>
                     <CardTitle className="font-headline text-accent text-xl">
                         {t('contact_info_title')}
@@ -226,29 +227,29 @@ export default function ContactPage() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <a href="mailto:contact@rishimishra.com" className="flex items-center gap-4 text-muted-foreground hover:text-primary transition-colors group">
-                    <Mail className="h-6 w-6 text-accent group-hover:scale-110 transition-transform" />
-                    <span>contact@rishimishra.com</span>
+                    <Mail className="h-6 w-6 text-accent group-hover:scale-110 transition-transform shrink-0" />
+                    <span className="break-all">contact@rishimishra.com</span>
                   </a>
                   <a href="tel:+919876543210" className="flex items-center gap-4 text-muted-foreground hover:text-primary transition-colors group">
-                    <Phone className="h-6 w-6 text-accent group-hover:scale-110 transition-transform" />
+                    <Phone className="h-6 w-6 text-accent group-hover:scale-110 transition-transform shrink-0" />
                     <span>+91 9876543210</span>
                   </a>
                   <div className="flex items-center gap-4 text-muted-foreground group">
-                    <MapPin className="h-6 w-6 text-accent group-hover:scale-110 transition-transform" />
+                    <MapPin className="h-6 w-6 text-accent group-hover:scale-110 transition-transform shrink-0" />
                     <span>Sarojini Nagar, Lucknow, UP</span>
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="bg-card border border-accent/20">
+              <Card className="bg-card border border-accent/20 rounded-2xl md:rounded-[2rem]">
                 <CardHeader>
                     <CardTitle className="font-headline text-accent text-xl">
                         {t('contact_social_title')}
                     </CardTitle>
                 </CardHeader>
-                <CardContent className="flex space-x-4">
+                <CardContent className="flex flex-wrap gap-4">
                     {socialLinks.map((social) => (
-                        <Button key={social.label} variant="outline" size="icon" asChild className="hover:bg-accent hover:text-white transition-all">
+                        <Button key={social.label} variant="outline" size="icon" asChild className="h-12 w-12 rounded-xl hover:bg-accent hover:text-white transition-all">
                             <a href={social.href} target="_blank" rel="noopener noreferrer" aria-label={social.label}>
                                 {social.icon}
                             </a>
@@ -257,7 +258,7 @@ export default function ContactPage() {
                 </CardContent>
               </Card>
 
-              <Card className="bg-card border border-accent/20 overflow-hidden">
+              <Card className="bg-card border border-accent/20 overflow-hidden rounded-2xl md:rounded-[2rem]">
                 <CardHeader>
                     <CardTitle className="font-headline text-accent text-xl">
                         {t('contact_map_title')}
