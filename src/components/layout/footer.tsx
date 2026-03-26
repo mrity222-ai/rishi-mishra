@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useTranslation } from '@/hooks/use-translation';
@@ -68,7 +67,7 @@ export default function Footer() {
             <div className="flex justify-center lg:justify-start space-x-4">
               <SocialIcon href="https://www.facebook.com/rishi.mishra.5623/" icon={<Facebook className="h-5 w-5" />} />
               <SocialIcon href="#" icon={<Twitter className="h-5 w-5" />} />
-              <SocialIcon href="#" icon={<Instagram className="h-5 w-5" />} />
+              <SocialIcon href="https://www.instagram.com/rishimishralko" icon={<Instagram className="h-5 w-5" />} />
               <SocialIcon href="#" icon={<Youtube className="h-5 w-5" />} />
             </div>
           </div>
