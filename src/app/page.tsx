@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { StaggerWrap, StaggerItem } from '@/components/animations';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
@@ -9,11 +9,12 @@ import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from '@/com
 import { UpcomingEvents } from '@/components/upcoming-events';
 import { useTranslation } from '@/hooks/use-translation';
 import Autoplay from 'embla-carousel-autoplay';
-import { BookOpen, HeartHandshake, Users, ArrowRight, Plus, Newspaper } from 'lucide-react';
+import { BookOpen, HeartHandshake, Users, ArrowRight, Plus, Newspaper, Heart, Leaf, GraduationCap, Droplets, Laptop, TreePine } from 'lucide-react';
 import AnimatedText from '@/components/animated-text';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 
@@ -34,6 +35,7 @@ export default function Home() {
   const { t, language } = useTranslation();
   const autoplayPlugin = React.useRef(Autoplay({ delay: 5000, stopOnInteraction: true }));
   const [api, setApi] = React.useState<CarouselApi>();
+  const [filter, setFilter] = useState('All');
   
   const [data, setData] = useState({
     articles: [],
@@ -84,7 +86,29 @@ export default function Home() {
     ngo: <HeartHandshake className="h-8 w-8" />,
     kisan: <Users className="h-8 w-8" />,
     youth: <BookOpen className="h-8 w-8" />,
+    default: <Heart className="h-8 w-8" />
   };
+
+  // Stats Data
+  const stats = [
+    { label: language === 'hi' ? 'प्रभावित जीवन' : 'Lives Impacted', value: '10K+', icon: <Users className="h-5 w-5" /> },
+    { label: language === 'hi' ? 'सक्रिय परियोजनाएं' : 'Active Projects', value: '50+', icon: <Leaf className="h-5 w-5" /> },
+    { label: language === 'hi' ? 'स्वयंसेवक' : 'Volunteers', value: '500+', icon: <Heart className="h-5 w-5" /> },
+    { label: language === 'hi' ? 'अवार्ड्स' : 'Awards Won', value: '15+', icon: <Plus className="h-5 w-5" /> },
+  ];
+
+  // Filtering Logic
+  const filteredInitiatives = useMemo(() => {
+    if (filter === 'All') return data.initiatives;
+    // Note: Assuming initiatives have a 'category' or 'type' field in the real DB. 
+    // For this MVP, we'll simulate by checking the slug or title for demo purposes.
+    return data.initiatives.filter((item: any) => {
+        if (filter === 'Education') return item.slug?.includes('youth') || item.titleEn?.toLowerCase().includes('education');
+        if (filter === 'Social') return item.slug?.includes('ngo') || item.titleEn?.toLowerCase().includes('social');
+        if (filter === 'Agriculture') return item.slug?.includes('kisan') || item.titleEn?.toLowerCase().includes('farmer');
+        return true;
+    });
+  }, [filter, data.initiatives]);
 
   return (
     <div className="flex flex-col bg-white">
@@ -129,77 +153,177 @@ export default function Home() {
 
       <UpcomingEvents />
       
-      {/* --- INITIATIVES SECTION --- */}
-      <section className="bg-slate-50/50 py-24 md:py-32 relative overflow-hidden">
-        <div className="absolute -top-24 -right-24 w-96 h-96 bg-emerald-50 rounded-full blur-3xl opacity-50" />
-        <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-primary/5 rounded-full blur-3xl opacity-50" />
+      {/* --- INITIATIVES SECTION: REDESIGNED --- */}
+      <section className="bg-[#F9FAFB] py-24 md:py-32 relative overflow-hidden font-sans">
+        {/* Subtle Background Elements */}
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-emerald-50 rounded-full blur-[120px] opacity-40 -z-10 translate-x-1/2 -translate-y-1/2" />
+        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-50 rounded-full blur-[120px] opacity-40 -z-10 -translate-x-1/2 translate-y-1/2" />
 
         <div className="container mx-auto px-4 relative z-10">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 md:mb-20 gap-6">
-            <div className="space-y-4 max-w-2xl">
-              <Badge className="bg-emerald-100 text-emerald-700 hover:bg-emerald-100 border-none px-4 py-1.5 rounded-full text-[10px] font-black tracking-widest uppercase mb-2">
-                Our Strategic Pillars
-              </Badge>
-              <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-slate-900 leading-none">
-                Transforming Lives <br />
-                <span className="text-emerald-600 italic">Through Action</span>
-              </h2>
-              <p className="text-lg text-slate-500 font-medium leading-relaxed">
-                We deploy targeted initiatives designed to address the most pressing social, educational, and economic challenges in our community.
+          
+          {/* 1. Header Section */}
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-16 gap-10">
+            <div className="space-y-6 max-w-3xl">
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-100/50 border border-emerald-200 text-emerald-700 text-[10px] font-black uppercase tracking-[0.2em]"
+              >
+                <Leaf className="h-3 w-3" />
+                {language === 'hi' ? 'हमारे रणनीतिक स्तंभ' : 'Our Strategic Pillars'}
+              </motion.div>
+              
+              <div className="space-y-2">
+                <h2 className="text-5xl md:text-7xl font-black tracking-tight text-slate-900 leading-[0.95]">
+                  {language === 'hi' ? 'जीवन को बदलना' : 'Transforming Lives'} <br />
+                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-emerald-600 to-teal-500 italic">
+                    {language === 'hi' ? 'कार्रवाई के माध्यम से' : 'Through Action'}
+                  </span>
+                </h2>
+              </div>
+              
+              <p className="text-xl text-slate-500 font-medium leading-relaxed max-w-2xl">
+                {language === 'hi' 
+                  ? 'हम अपने समुदाय में सबसे महत्वपूर्ण सामाजिक, शैक्षिक और आर्थिक चुनौतियों का समाधान करने के लिए डिजाइन की गई लक्षित पहल तैनात करते हैं।'
+                  : 'We deploy targeted initiatives designed to address the most pressing social, educational, and economic challenges in our community.'}
               </p>
             </div>
-            <Button variant="outline" asChild className="rounded-2xl h-14 px-8 border-slate-200 hover:bg-white shadow-sm font-bold text-slate-600">
-              <Link href="/initiatives">
-                Explore All Missions <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+            >
+              <Button asChild className="rounded-2xl h-16 px-10 bg-slate-900 hover:bg-emerald-600 text-white shadow-xl shadow-slate-200 hover:shadow-emerald-200 transition-all duration-500 font-bold group">
+                <Link href="/initiatives" className="flex items-center gap-3">
+                  {language === 'hi' ? 'सभी मिशन देखें' : 'Explore All Missions'}
+                  <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+                </Link>
+              </Button>
+            </motion.div>
           </div>
 
+          {/* 2. Statistics Bar */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-20">
+            {stats.map((stat, idx) => (
+              <motion.div 
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1 }}
+                className="bg-white/60 backdrop-blur-md border border-white p-6 rounded-[2rem] shadow-sm flex items-center gap-4 group hover:bg-white transition-all duration-500"
+              >
+                <div className="h-12 w-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
+                  {stat.icon}
+                </div>
+                <div>
+                  <div className="text-3xl font-black text-slate-900 tracking-tight">{stat.value}</div>
+                  <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{stat.label}</div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* 3. Filter Tabs */}
+          <div className="flex flex-wrap items-center gap-2 mb-12">
+            {['All', 'Social', 'Education', 'Agriculture'].map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setFilter(cat)}
+                className={cn(
+                  "px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300",
+                  filter === cat 
+                    ? "bg-emerald-600 text-white shadow-lg shadow-emerald-200" 
+                    : "bg-white text-slate-500 hover:bg-slate-100 border border-slate-100"
+                )}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+
+          {/* 4. Initiative Grid */}
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {isLoading ? Array.from({ length: 3 }).map((_, i) => <NewsSkeleton key={i} />)
-              : data.initiatives.slice(0, 6).map((item: any, index: number) => (
-                  <StaggerItem key={item.id}>
-                    <div className="group relative bg-white rounded-[3rem] p-4 border border-slate-100 shadow-xl shadow-slate-200/40 transition-all duration-700 hover:-translate-y-3 hover:shadow-emerald-500/10">
-                      <div className="relative aspect-[4/3] rounded-[2.5rem] overflow-hidden mb-8">
-                        <img 
-                          src={getImageUrl(item.image, 'initiatives')} 
-                          alt={item.titleEn} 
-                          className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" 
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              : (
+                <AnimatePresence mode='popLayout'>
+                  {filteredInitiatives.slice(0, 6).map((item: any, index: number) => (
+                    <motion.div
+                      layout
+                      key={item.id}
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.9 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5, delay: index * 0.05 }}
+                    >
+                      <div className="group relative bg-white rounded-[3rem] p-4 border border-white shadow-[0_20px_50px_rgba(0,0,0,0.04)] transition-all duration-700 hover:-translate-y-4 hover:shadow-[0_40px_80px_rgba(16,185,129,0.12)] flex flex-col h-full overflow-hidden">
                         
-                        <div className="absolute top-6 right-6 w-14 h-14 rounded-2xl bg-white/20 backdrop-blur-xl border border-white/30 flex items-center justify-center text-white shadow-2xl transition-transform duration-500 group-hover:rotate-6 group-hover:scale-110">
-                          {initiativeIcons[item.slug] || <HeartHandshake className="h-7 w-7" />}
-                        </div>
-                      </div>
+                        {/* Gradient Border on Hover effect */}
+                        <div className="absolute inset-0 border-2 border-transparent group-hover:border-emerald-500/20 rounded-[3rem] transition-all duration-700 -z-10" />
 
-                      <div className="px-4 pb-6">
-                        <div className="flex items-center gap-3 mb-4">
-                          <div className="h-[2px] w-8 bg-emerald-500 rounded-full" />
-                          <span className="text-[10px] font-black uppercase tracking-widest text-emerald-600">Active Node</span>
-                        </div>
-                        
-                        <h3 className="text-2xl md:text-3xl font-black text-slate-900 mb-4 tracking-tight leading-tight">
-                          {language === 'hi' ? item.titleHi : item.titleEn}
-                        </h3>
-                        
-                        <p className="text-slate-500 text-sm leading-relaxed mb-8 line-clamp-3 font-medium">
-                          {language === 'hi' ? (item.descriptionHi || item.descriptionEn) : item.descriptionEn}
-                        </p>
-
-                        <Link 
-                          href={`/initiatives/${item.slug}`} 
-                          className="inline-flex items-center gap-2 text-emerald-600 font-black uppercase text-xs tracking-widest group/link"
-                        >
-                          Discover Impact
-                          <div className="w-8 h-8 rounded-full bg-emerald-50 flex items-center justify-center transition-all duration-300 group-hover/link:bg-emerald-600 group-hover/link:text-white">
-                            <ArrowRight className="h-4 w-4" />
+                        {/* Image Container with Zoom */}
+                        <div className="relative aspect-[4/3] rounded-[2.5rem] overflow-hidden mb-8">
+                          <img 
+                            src={getImageUrl(item.image, 'initiatives')} 
+                            alt={item.titleEn} 
+                            className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" 
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500" />
+                          
+                          {/* Top Right Floating Badge */}
+                          <div className="absolute top-6 right-6">
+                            <Badge className="bg-white/20 backdrop-blur-xl border border-white/30 text-white px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest shadow-2xl">
+                              {language === 'hi' ? 'सक्रिय' : 'Active Now'}
+                            </Badge>
                           </div>
-                        </Link>
+
+                          {/* Glass Icon Overlay */}
+                          <div className="absolute bottom-6 left-6 w-14 h-14 rounded-2xl bg-white/20 backdrop-blur-xl border border-white/30 flex items-center justify-center text-white shadow-2xl transition-all duration-500 group-hover:scale-110 group-hover:rotate-6">
+                            {initiativeIcons[item.slug] || initiativeIcons.default}
+                          </div>
+
+                          {/* Featured Badge for first item */}
+                          {index === 0 && (
+                            <div className="absolute top-6 left-6 bg-emerald-500 text-white px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest shadow-lg">
+                              Featured
+                            </div>
+                          )}
+                        </div>
+
+                        <div className="px-4 pb-6 flex flex-col flex-grow">
+                          <div className="flex items-center gap-3 mb-4">
+                            <div className="h-[2px] w-8 bg-emerald-500 rounded-full" />
+                            <span className="text-[10px] font-black uppercase tracking-widest text-emerald-600">Strategic Node</span>
+                          </div>
+                          
+                          <h3 className="text-2xl md:text-3xl font-black text-slate-900 mb-4 tracking-tight leading-tight group-hover:text-emerald-600 transition-colors duration-300">
+                            {language === 'hi' ? item.titleHi : item.titleEn}
+                          </h3>
+                          
+                          <p className="text-slate-500 text-sm leading-relaxed mb-8 line-clamp-3 font-medium flex-grow">
+                            {language === 'hi' ? (item.descriptionHi || item.descriptionEn) : item.descriptionEn}
+                          </p>
+
+                          <div className="pt-6 border-t border-slate-100">
+                            <Link 
+                              href={`/initiatives/${item.slug}`} 
+                              className="inline-flex items-center gap-3 text-slate-900 font-black uppercase text-[10px] tracking-[0.2em] group/link"
+                            >
+                              {language === 'hi' ? 'प्रभाव देखें' : 'Discover Impact'}
+                              <div className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center transition-all duration-300 group-hover/link:bg-emerald-600 group-hover/link:text-white">
+                                <ArrowRight className="h-4 w-4" />
+                              </div>
+                            </Link>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </StaggerItem>
-                ))}
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
+              )}
           </div>
         </div>
       </section>
