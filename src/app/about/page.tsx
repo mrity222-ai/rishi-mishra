@@ -1,4 +1,3 @@
-
 'use client';
 import { useTranslation } from '@/hooks/use-translation';
 import Link from 'next/link';
@@ -239,8 +238,8 @@ export default function AboutPage() {
                         <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent"></div>
                         <div className="absolute bottom-6 md:bottom-10 left-6 md:left-10 right-6 md:right-10">
                             <p className="text-white font-headline text-2xl md:text-3xl font-black mb-2">{t('hero_name')}</p>
-                            <div className="inline-block px-4 py-1.5 bg-accent text-white text-[10px] font-bold rounded-full uppercase tracking-widest">
-                                {language === 'hi' ? 'लोकसेवक एवं क्रांतिकारी' : 'Public Servant & Revolutionary'}
+                            <div className="inline-block px-4 py-1.5 bg-accent text-white text-[10px] font-bold rounded-full uppercase tracking-widest font-hindi">
+                                राष्ट्रीय अध्यक्ष / संस्थापक (भारतीय किसान क्रान्ति यूनियन) / (अधिवक्ता)
                             </div>
                         </div>
                     </div>

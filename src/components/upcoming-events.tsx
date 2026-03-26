@@ -67,7 +67,7 @@ export function UpcomingEvents() {
                             >
                                 <div className="w-full h-full rounded-[1.5rem] md:rounded-[2rem] overflow-hidden shadow-2xl border-2 md:border-4 border-white transform -rotate-3 hover:rotate-0 transition-transform duration-500">
                                     <img 
-                                        src="https://images.unsplash.com/photo-1559027615-cd26735550b4?auto=format&fit=crop&q=80&w=800" 
+                                        src="/h.jpeg" 
                                         alt="Volunteers smiling" 
                                         className="w-full h-full object-cover"
                                         data-ai-hint="volunteers smiling"
@@ -85,7 +85,7 @@ export function UpcomingEvents() {
                             >
                                 <div className="w-full h-full rounded-[1.5rem] md:rounded-[2rem] overflow-hidden shadow-2xl border-2 md:border-4 border-white transform rotate-3 hover:rotate-0 transition-transform duration-500">
                                     <img 
-                                        src="https://images.unsplash.com/photo-1581578731522-aa0606660fb0?auto=format&fit=crop&q=80&w=800" 
+                                        src="/i.jpeg" 
                                         alt="Elderly care" 
                                         className="w-full h-full object-cover"
                                         data-ai-hint="elderly care"
@@ -103,7 +103,7 @@ export function UpcomingEvents() {
                             >
                                 <div className="w-full h-full rounded-[1.5rem] md:rounded-[2rem] overflow-hidden shadow-2xl border-2 md:border-4 border-white transform rotate-2 hover:rotate-0 transition-transform duration-500">
                                     <img 
-                                        src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=800" 
+                                        src="/j.jpeg" 
                                         alt="Tree planting" 
                                         className="w-full h-full object-cover"
                                         data-ai-hint="tree planting"
@@ -121,7 +121,7 @@ export function UpcomingEvents() {
                             >
                                 <div className="w-full h-full rounded-[1.5rem] md:rounded-[2rem] overflow-hidden shadow-2xl border-2 md:border-4 border-white transform -rotate-6 hover:rotate-0 transition-transform duration-500">
                                     <img 
-                                        src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&q=80&w=800" 
+                                        src="/k.jpeg" 
                                         alt="Animal care" 
                                         className="w-full h-full object-cover"
                                         data-ai-hint="animal care"
