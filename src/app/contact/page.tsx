@@ -85,7 +85,7 @@ export default function ContactPage() {
   }
 
   const socialLinks = [
-    { href: '#', icon: <FacebookIcon className="h-6 w-6" />, label: 'Facebook' },
+    { href: 'https://www.facebook.com/rishi.mishra.5623/', icon: <FacebookIcon className="h-6 w-6" />, label: 'Facebook' },
     { href: '#', icon: <TwitterIcon className="h-6 w-6" />, label: 'Twitter' },
     { href: '#', icon: <InstagramIcon className="h-6 w-6" />, label: 'Instagram' },
     { href: '#', icon: <YouTubeIcon className="h-6 w-6" />, label: 'YouTube' },
