@@ -122,7 +122,7 @@ export function UpcomingEvents() {
                         
                         <StaggerItem>
                             <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-slate-900 leading-[1] tracking-tight">
-                                {language === 'hi' ? 'जीवन को सशक्त बनाना, प्रभाव पैदा करना' : 'Empowering Lives, Creating Impact'}
+                                {language === 'hi' ? 'भारतीय किसान क्रांति यूनियन' : 'Bhartiya Kisan Kranti Union'}
                             </h2>
                         </StaggerItem>
 
