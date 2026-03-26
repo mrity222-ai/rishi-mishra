@@ -107,7 +107,7 @@ export default function Footer() {
                 <ContactItem 
                   icon={<Phone className="h-5 w-5" />} 
                   label="Office Helpline" 
-                  value="+91 8874620222" 
+                  value="+91 8874620222 ,9453233400" 
                   href="tel:+918874620222" 
                 />
                 <ContactItem 
