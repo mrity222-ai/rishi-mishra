@@ -151,7 +151,7 @@ export default function Home() {
 
       <UpcomingEvents />
       
-      {/* --- INITIATIVES SECTION: REDESIGNED --- */}
+      {/* --- INITIATIVES SECTION --- */}
       <section className="bg-[#F9FAFB] py-24 md:py-32 relative overflow-hidden font-sans">
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-emerald-50 rounded-full blur-[120px] opacity-40 -z-10 translate-x-1/2 -translate-y-1/2" />
         <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-50 rounded-full blur-[120px] opacity-40 -z-10 -translate-x-1/2 translate-y-1/2" />
@@ -161,8 +161,8 @@ export default function Home() {
           <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-16 gap-10">
             <div className="space-y-6 max-w-3xl">
               <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-100/50 border border-emerald-200 text-emerald-700 text-[10px] font-black uppercase tracking-[0.2em]"
               >
@@ -171,22 +171,35 @@ export default function Home() {
               </motion.div>
               
               <div className="space-y-2">
-                <h2 className="text-5xl md:text-7xl font-black tracking-tight text-slate-900 leading-[0.95]">
+                <motion.h2 
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.1 }}
+                  className="text-5xl md:text-7xl font-black tracking-tight text-slate-900 leading-[0.95]"
+                >
                   {language === 'hi' ? 'हमारी पहल' : 'Our Initiatives.'}
-                </h2>
+                </motion.h2>
               </div>
               
-              <p className="text-xl text-slate-500 font-medium leading-relaxed max-w-2xl">
+              <motion.p 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 }}
+                className="text-xl text-slate-500 font-medium leading-relaxed max-w-2xl"
+              >
                 {language === 'hi' 
                   ? 'वैश्विक प्रभाव और प्रणालीगत बुनियादी ढांचे के विकास के लिए डिज़ाइन किए गए उन्नत मॉड्यूलर सिस्टम तैनात करना।'
                   : 'Deploying advanced modular systems designed for global impact and systemic infrastructure development.'}
-              </p>
+              </motion.p>
             </div>
 
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
             >
               <Button asChild className="rounded-2xl h-16 px-10 bg-slate-900 hover:bg-emerald-600 text-white shadow-xl shadow-slate-200 hover:shadow-emerald-200 transition-all duration-500 font-bold group">
                 <Link href="/initiatives" className="flex items-center gap-3">
@@ -201,17 +214,23 @@ export default function Home() {
             {stats.map((stat, idx) => (
               <motion.div 
                 key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                whileInView={{ opacity: 1, scale: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
-                className="bg-white/60 backdrop-blur-md border border-white p-6 rounded-[2rem] shadow-sm flex items-center gap-4 group hover:bg-white transition-all duration-500"
+                whileHover={{ y: -10, transition: { duration: 0.3 } }}
+                transition={{ 
+                  delay: idx * 0.1,
+                  type: "spring",
+                  stiffness: 100,
+                  damping: 15
+                }}
+                className="bg-white/60 backdrop-blur-md border border-white p-6 rounded-[2rem] shadow-sm flex items-center gap-4 group hover:bg-white transition-all duration-500 cursor-default"
               >
-                <div className="h-12 w-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
+                <div className="h-12 w-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center group-hover:scale-110 group-hover:bg-emerald-600 group-hover:text-white transition-all duration-500">
                   {stat.icon}
                 </div>
                 <div>
-                  <div className="text-3xl font-black text-slate-900 tracking-tight">{stat.value}</div>
+                  <div className="text-3xl font-black text-slate-900 tracking-tight group-hover:text-emerald-600 transition-colors">{stat.value}</div>
                   <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{stat.label}</div>
                 </div>
               </motion.div>
@@ -219,9 +238,13 @@ export default function Home() {
           </div>
 
           <div className="flex flex-wrap items-center gap-2 mb-12">
-            {['All', 'Social', 'Education', 'Agriculture'].map((cat) => (
-              <button
+            {['All', 'Social', 'Education', 'Agriculture'].map((cat, idx) => (
+              <motion.button
                 key={cat}
+                initial={{ opacity: 0, x: -10 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4 + (idx * 0.05) }}
                 onClick={() => setFilter(cat)}
                 className={cn(
                   "px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300",
@@ -231,7 +254,7 @@ export default function Home() {
                 )}
               >
                 {cat}
-              </button>
+              </motion.button>
             ))}
           </div>
 
@@ -243,9 +266,9 @@ export default function Home() {
                     <motion.div
                       layout
                       key={item.id}
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.9 }}
+                      initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                      animate={{ opacity: 1, scale: 1, y: 0 }}
+                      exit={{ opacity: 0, scale: 0.9, y: 20 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.5, delay: index * 0.05 }}
                     >
@@ -309,21 +332,46 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 md:mb-20 gap-6">
             <div className="space-y-4 max-w-2xl">
-              <Badge className="bg-emerald-50 text-emerald-700 hover:bg-emerald-50 border-none px-4 py-1.5 rounded-full text-[10px] font-black tracking-widest uppercase mb-2">
-                Field Reports & Updates
-              </Badge>
-              <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-slate-900 leading-none">
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+              >
+                <Badge className="bg-emerald-50 text-emerald-700 hover:bg-emerald-50 border-none px-4 py-1.5 rounded-full text-[10px] font-black tracking-widest uppercase mb-2">
+                  Field Reports & Updates
+                </Badge>
+              </motion.div>
+              <motion.h2 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 }}
+                className="text-4xl md:text-6xl font-black tracking-tighter text-slate-900 leading-none"
+              >
                 Latest <span className="text-emerald-600 italic">Insights</span>
-              </h2>
-              <p className="text-lg text-slate-500 font-medium leading-relaxed">
+              </motion.h2>
+              <motion.p 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 }}
+                className="text-lg text-slate-500 font-medium leading-relaxed"
+              >
                 Exploring the voices and stories behind our social missions.
-              </p>
+              </motion.p>
             </div>
-            <Button variant="ghost" asChild className="rounded-2xl h-14 px-8 text-slate-600 hover:bg-white shadow-sm font-bold border border-slate-100">
-              <Link href="/news">
-                Explore Full Archive <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+            >
+              <Button variant="ghost" asChild className="rounded-2xl h-14 px-8 text-slate-600 hover:bg-white shadow-sm font-bold border border-slate-100">
+                <Link href="/news">
+                  Explore Full Archive <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+            </motion.div>
           </div>
 
           <div className="grid gap-10 md:grid-cols-2">
@@ -333,7 +381,14 @@ export default function Home() {
                   const isHero = index === 0;
 
                   return (
-                    <StaggerItem key={article.id} className={isHero ? "md:col-span-2" : ""}>
+                    <motion.div 
+                      key={article.id} 
+                      className={isHero ? "md:col-span-2" : ""}
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: index * 0.1 }}
+                    >
                       <Link href={`/news/${article.id}`} className="group block h-full">
                         <div className={cn(
                           "relative bg-white rounded-[3rem] overflow-hidden border border-slate-100 shadow-premium transition-all duration-700 hover:-translate-y-3 hover:shadow-2xl flex flex-col",
@@ -381,7 +436,7 @@ export default function Home() {
                           </div>
                         </div>
                       </Link>
-                    </StaggerItem>
+                    </motion.div>
                   );
                 })
             }
@@ -393,17 +448,34 @@ export default function Home() {
       <section className="bg-white py-24">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16 space-y-4">
-            <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter text-emerald-600">
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-4xl md:text-6xl font-black uppercase tracking-tighter text-emerald-600"
+            >
               Gallery <span className="text-slate-900" style={{ WebkitTextStroke: '1px #059669', color: 'transparent' }}>Glimpse</span>
-            </h2>
-            <div className="w-16 h-1 bg-emerald-600 mx-auto rounded-full" />
+            </motion.h2>
+            <motion.div 
+              initial={{ width: 0 }}
+              whileInView={{ width: "4rem" }}
+              viewport={{ once: true }}
+              className="h-1 bg-emerald-600 mx-auto rounded-full" 
+            />
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 auto-rows-[200px] md:auto-rows-[300px]">
             {!isLoading && data.gallery.slice(0, 6).map((item, i) => {
               const displayImage = parseImageField(item.image);
               return (
-                <div key={item.id} className={`group relative overflow-hidden rounded-[2rem] md:rounded-[2.5rem] cursor-pointer shadow-lg hover:shadow-emerald-500/20 transition-all duration-700 ${i === 0 ? "md:col-span-2 md:row-span-2" : i === 3 ? "md:col-span-2" : ""}`}>
+                <motion.div 
+                  key={item.id} 
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.05 }}
+                  className={`group relative overflow-hidden rounded-[2rem] md:rounded-[2.5rem] cursor-pointer shadow-lg hover:shadow-emerald-500/20 transition-all duration-700 ${i === 0 ? "md:col-span-2 md:row-span-2" : i === 3 ? "md:col-span-2" : ""}`}
+                >
                   <img 
                     src={getImageUrl(displayImage, "gallery")} 
                     alt="Gallery" 
@@ -415,16 +487,27 @@ export default function Home() {
                       <Plus size={20} />
                     </div>
                   </div>
-                </div>
+                </motion.div>
               );
             })}
           </div>
 
           <div className="mt-16 md:mt-24 flex flex-col items-center">
-             <div className="w-px h-16 bg-slate-200 mb-8 hidden md:block" />
-             <Button asChild size="lg" className="rounded-full bg-emerald-600 hover:bg-slate-900 text-white px-10 md:px-14 py-6 md:py-8 text-xs md:text-sm font-black tracking-[0.2em] transition-all hover:scale-105 shadow-xl">
-               <Link href="/gallery">VIEW ALL COLLECTIONS</Link>
-             </Button>
+             <motion.div 
+               initial={{ height: 0 }}
+               whileInView={{ height: "4rem" }}
+               viewport={{ once: true }}
+               className="w-px bg-slate-200 mb-8 hidden md:block" 
+             />
+             <motion.div
+               initial={{ opacity: 0, y: 20 }}
+               whileInView={{ opacity: 1, y: 0 }}
+               viewport={{ once: true }}
+             >
+               <Button asChild size="lg" className="rounded-full bg-emerald-600 hover:bg-slate-900 text-white px-10 md:px-14 py-6 md:py-8 text-xs md:text-sm font-black tracking-[0.2em] transition-all hover:scale-105 shadow-xl">
+                 <Link href="/gallery">VIEW ALL COLLECTIONS</Link>
+               </Button>
+             </motion.div>
           </div>
         </div>
       </section>
