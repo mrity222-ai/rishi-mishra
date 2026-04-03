@@ -133,7 +133,7 @@ export default function Footer() {
                 &copy; {year} {t('footer_copyright')}
               </p>
               <p className="text-[9px] font-bold text-white/40 uppercase tracking-widest mt-1">
-                Website Design by <span className="text-saffron">ITLC INDIA PVT LTD</span>
+                Website Design by <a href="https://itlcindia.com/" target="_blank" rel="noopener noreferrer" className="text-saffron hover:underline">ITLC INDIA PVT LTD</a>
               </p>
             </div>
             
