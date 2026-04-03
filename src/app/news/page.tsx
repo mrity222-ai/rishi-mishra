@@ -32,7 +32,7 @@ export default function NewsListingPage() {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [loading, setLoading] = useState(true);
 
-  const categories = ['All', 'General', 'Event', 'Press Release', 'Alert'];
+  const categories = ['All', 'General', 'Upcoming Event', 'Press Release', 'Urgent Alert'];
   const locale = language === 'hi' ? hi : enUS;
 
   useEffect(() => {

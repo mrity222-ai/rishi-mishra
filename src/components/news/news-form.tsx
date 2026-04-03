@@ -160,8 +160,9 @@ export function NewsForm({ article, onSave, isSaving = false }: NewsFormProps) {
                             </FormControl>
                             <SelectContent className="rounded-xl border-none shadow-2xl">
                                 <SelectItem value="General" className="font-bold uppercase text-[10px]">General News</SelectItem>
-                                <SelectItem value="Event" className="font-bold uppercase text-[10px]">Upcoming Event</SelectItem>
-                                <SelectItem value="Alert" className="font-bold uppercase text-[10px]">Urgent Alert</SelectItem>
+                                <SelectItem value="Upcoming Event" className="font-bold uppercase text-[10px]">Upcoming Event</SelectItem>
+                                <SelectItem value="Press Release" className="font-bold uppercase text-[10px]">Press Release</SelectItem>
+                                <SelectItem value="Urgent Alert" className="font-bold uppercase text-[10px]">Urgent Alert</SelectItem>
                             </SelectContent>
                         </Select>
                     </FormItem>
