@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useTranslation } from '@/hooks/use-translation';
@@ -130,6 +131,9 @@ export default function Footer() {
               </div>
               <p className="text-[10px] md:text-[11px] font-bold text-white/20 uppercase tracking-widest">
                 &copy; {year} {t('footer_copyright')}
+              </p>
+              <p className="text-[9px] font-bold text-white/40 uppercase tracking-widest mt-1">
+                Website Design by <span className="text-saffron">ITLC INDIA PVT LTD</span>
               </p>
             </div>
             
