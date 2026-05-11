@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -231,7 +232,7 @@ export default function ContactPage() {
                   </a>
                   <a href="tel:+918874620222" className="flex items-center gap-4 text-muted-foreground hover:text-primary transition-colors group">
                     <Phone className="h-6 w-6 text-accent group-hover:scale-110 transition-transform shrink-0" />
-                    <span>Office Helpline +91 8874620222 ,+91 9453233400</span>
+                    <span>Office Helpline +91 8874620222</span>
                   </a>
                   <div className="flex items-center gap-4 text-muted-foreground group">
                     <MapPin className="h-6 w-6 text-accent group-hover:scale-110 transition-transform shrink-0" />

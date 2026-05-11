@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import { useTranslation } from '@/hooks/use-translation';
@@ -108,7 +109,7 @@ export default function Footer() {
                 <ContactItem 
                   icon={<Phone className="h-5 w-5" />} 
                   label="Office Helpline" 
-                  value="+91 8874620222 ,+91 9453233400" 
+                  value="+91 8874620222" 
                   href="tel:+918874620222" 
                 />
                 <ContactItem 
@@ -131,9 +132,6 @@ export default function Footer() {
               </div>
               <p className="text-[10px] md:text-[11px] font-bold text-white/20 uppercase tracking-widest">
                 &copy; {year} {t('footer_copyright')}
-              </p>
-              <p className="text-[9px] font-bold text-white/40 uppercase tracking-widest mt-1">
-                Website Design by <a href="https://itlcindia.com/" target="_blank" rel="noopener noreferrer" className="text-saffron hover:underline">ITLC INDIA PVT LTD</a>
               </p>
             </div>
             
