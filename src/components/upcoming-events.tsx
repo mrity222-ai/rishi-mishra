@@ -201,7 +201,7 @@ export function UpcomingEvents() {
                                     <Users className="h-6 w-6" />
                                 </div>
                                 <div className="text-left">
-                                    <div className="text-2xl md:text-3xl font-black text-slate-900 tracking-tighter">1000+</div>
+                                    <div className="text-2xl md:text-3xl font-black text-slate-900 tracking-tighter">5000</div>
                                     <div className="text-[9px] md:text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">
                                         {language === 'hi' ? 'स्वयंसेवक' : 'Volunteers'}
                                     </div>

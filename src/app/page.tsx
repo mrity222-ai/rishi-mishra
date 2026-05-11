@@ -125,7 +125,7 @@ export default function Home() {
   const stats = [
     { label: language === 'hi' ? 'प्रभावित जीवन' : 'Lives Impacted', value: '10K+', icon: <Users className="h-5 w-5" /> },
     { label: language === 'hi' ? 'सक्रिय परियोजनाएं' : 'Active Projects', value: '50+', icon: <Leaf className="h-5 w-5" /> },
-    { label: language === 'hi' ? 'स्वयंसेवक' : 'Volunteers', value: '500+', icon: <Heart className="h-5 w-5" /> },
+    { label: language === 'hi' ? 'स्वयंसेवक' : 'Volunteers', value: '5000', icon: <Heart className="h-5 w-5" /> },
     { label: language === 'hi' ? 'अवार्ड्स' : 'Awards Won', value: '15+', icon: <Plus className="h-5 w-5" /> },
   ];
 
@@ -180,6 +180,54 @@ export default function Home() {
             </StaggerWrap>
         </div>
       </section>
+
+      {/* --- IMAGE MARQUEE SECTION (LEFT TO RIGHT) --- */}
+      {!isLoading && data.gallery.length > 0 && (
+        <div className="py-12 bg-white overflow-hidden border-y border-slate-50">
+          <div className="flex items-center mb-8 px-6">
+             <div className="h-px flex-1 bg-slate-100" />
+             <span className="mx-4 text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">Captured Moments</span>
+             <div className="h-px flex-1 bg-slate-100" />
+          </div>
+          <div className="flex relative">
+            <motion.div
+              animate={{
+                x: ["-50%", "0%"],
+              }}
+              transition={{
+                x: {
+                  repeat: Infinity,
+                  repeatType: "loop",
+                  duration: 40,
+                  ease: "linear",
+                },
+              }}
+              className="flex gap-6 px-3"
+            >
+              {[...data.gallery, ...data.gallery, ...data.gallery, ...data.gallery].map((item: any, i) => {
+                const displayImage = parseImageField(item.image);
+                return (
+                  <div 
+                    key={i} 
+                    className="w-72 md:w-[450px] h-48 md:h-[300px] rounded-[2rem] overflow-hidden flex-shrink-0 shadow-lg hover:shadow-2xl transition-all duration-500 group relative cursor-pointer"
+                    onClick={() => setActiveImage(getImageUrl(displayImage, "gallery"))}
+                  >
+                    <img 
+                      src={getImageUrl(displayImage, "gallery")} 
+                      alt="Gallery" 
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+                    />
+                    <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors" />
+                    <div className="absolute bottom-6 left-6 right-6 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-4 group-hover:translate-y-0">
+                       <span className="text-white font-black uppercase text-xs tracking-widest">{item.title}</span>
+                    </div>
+                  </div>
+                )
+              })}
+            </motion.div>
+          </div>
+        </div>
+      )}
 
       <UpcomingEvents />
       
