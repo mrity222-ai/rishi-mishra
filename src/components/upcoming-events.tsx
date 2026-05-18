@@ -155,7 +155,7 @@ export function UpcomingEvents() {
                         
                         <StaggerItem>
                             <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-slate-900 leading-[1] tracking-tight font-hindi">
-                                भारतीय किसान क्रांति यूनियन
+                                भारतीय किसान क्रान्ति  यूनियन
                             </h2>
                         </StaggerItem>
 

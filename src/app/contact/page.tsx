@@ -20,22 +20,6 @@ import AnimatedText from '@/components/animated-text';
 // Env Variable fallback ke saath
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 
-// Social Icons Components
-const FacebookIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" /></svg>
-);
-const TwitterIcon = (props: React.SVGProps<SVGSVGElement>) => (
-    <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 1.4 3.3 4.4 3.3 4.4s-1.4 1-3.3 1.2c-.3 1.2-1 4.2-4.3 5.3s-5.3 1.2-6.3-1.2c-1.2-2.4-1.2-6.3 0-8.7s3.3-3.7 6.3-3.3c.3.3 1.2 1.2 1.2 1.2s-2.1-.3-4.3 1.2c-2.4 1.5-3.3 4.2-3.3 5.3s.7 2.1 2.3 3.3c1.5 1.2 4.3 2.3 6.3 1.2s3.3-3.3 3.3-4.3c0-1.2-1.2-2.3-1.2-2.3s1.2-.3 2.3-1.2c1.2-1 2.3-2.3 2.3-2.3s-1.2.3-2.3 0c-1.2-.3-2.3-1.2-2.3-1.2s2.1 1.2 3.3 0c1.2-.3 2.3-1.2 2.3-1.2s-1.2 1.2-2.3 1.2z" /></svg>
-);
-const InstagramIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" x2="17.51" y1="6.5" y2="6.5" /></svg>
-);
-const YouTubeIcon = (props: React.SVGProps<SVGSVGElement>) => (
-    <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M21.58 7.19c-.23-.86-.91-1.54-1.77-1.77C18.25 5 12 5 12 5s-6.25 0-7.81.42c-.86.23-1.54.91-1.77 1.77C2 8.75 2 12 2 12s0 3.25.42 4.81c.23.86.91 1.54 1.77 1.77C5.75 19 12 19 12 19s6.25 0 7.81-.42c.86-.23-1.54.91-1.77 1.77C22 15.25 22 12 22 12s0-3.25-.42-4.81zM9.5 15.5V8.5L16 12l-6.5 3.5z"/>
-    </svg>
-);
-
 const bannerImage = PlaceHolderImages.find(p => p.id === 'gallery-2');
 
 export default function ContactPage() {
@@ -83,13 +67,6 @@ export default function ContactPage() {
       setIsSubmitting(false);
     }
   }
-
-  const socialLinks = [
-    { href: 'https://www.facebook.com/rishi.mishra.5623/', icon: <FacebookIcon className="h-6 w-6" />, label: 'Facebook' },
-    { href: '#', icon: <TwitterIcon className="h-6 w-6" />, label: 'Twitter' },
-    { href: 'https://www.instagram.com/rishimishralko', icon: <InstagramIcon className="h-6 w-6" />, label: 'Instagram' },
-    { href: '#', icon: <YouTubeIcon className="h-6 w-6" />, label: 'YouTube' },
-  ];
 
   return (
     <div className="bg-background min-h-screen">
@@ -238,23 +215,6 @@ export default function ContactPage() {
                     <MapPin className="h-6 w-6 text-accent group-hover:scale-110 transition-transform shrink-0" />
                     <span>Sarojini Nagar, Lucknow, UP</span>
                   </div>
-                </CardContent>
-              </Card>
-
-              <Card className="bg-card border border-accent/20 rounded-2xl md:rounded-[2rem]">
-                <CardHeader>
-                    <CardTitle className="font-headline text-accent text-xl">
-                        {t('contact_social_title')}
-                    </CardTitle>
-                </CardHeader>
-                <CardContent className="flex flex-wrap gap-4">
-                    {socialLinks.map((social) => (
-                        <Button key={social.label} variant="outline" size="icon" asChild className="h-12 w-12 rounded-xl hover:bg-accent hover:text-white transition-all">
-                            <a href={social.href} target="_blank" rel="noopener noreferrer" aria-label={social.label}>
-                                {social.icon}
-                            </a>
-                        </Button>
-                    ))}
                 </CardContent>
               </Card>
 
